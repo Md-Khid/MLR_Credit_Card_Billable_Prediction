@@ -8,6 +8,29 @@ This project aims to analyse a credit facility dataset containing records of cus
 The dataset comprises comprehensive information about customers' credit facilities, including demographic details, outstanding amounts, and repayment history/status.
 [Link to Data.csv](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Data.csv)
 
+### Data Dictionary
+
+| Variable  | Description                                       |
+|-----------|---------------------------------------------------|
+| ID        | Customer unique identifier                         |
+| LIMIT     | Customer total limit                              |
+| BALANCE   | Customer current credit balance (snapshot in time)|
+| INCOME    | Customer current income                           |
+| GENDER    | Customer gender (0: Male, 1: Female)             |
+| EDUCATION | Customer highest education attained               |
+| MARITAL   | Customer marital status                           |
+| AGE       | Customer age in years                             |
+| S(n)      | Customer repayment reflected status in nth month  |
+| B(n)      | Customer billable amount in nth month             |
+| R(n)      | Customer previous repayment amount, paid in nth month|
+| RATING    | Customer rating (0: Good, 1: Bad)                |
+
+**Note**:
+
+n=1 signifies the most recent month, while n=5 signifies the previous 4th month. 
+
+If n=1 is the month of May 2022, then n=5 is the month of January 2024.
+
 ## Objectives
 1. **Data Pre-processing:**
    Prepare the dataset for analysis by handling missing values, encoding categorical variables, and scaling numerical features.
@@ -53,27 +76,5 @@ In the initial data preparation phase, we performed the following tasks:
 2. Handling missing values.
 3. Data cleaning and formating.
 
-### Data Dictionary
-
-| Variable  | Description                                       |
-|-----------|---------------------------------------------------|
-| ID        | Customer unique identifier                         |
-| LIMIT     | Customer total limit                              |
-| BALANCE   | Customer current credit balance (snapshot in time)|
-| INCOME    | Customer current income                           |
-| GENDER    | Customer gender (0: Male, 1: Female)             |
-| EDUCATION | Customer highest education attained               |
-| MARITAL   | Customer marital status                           |
-| AGE       | Customer age in years                             |
-| S(n)      | Customer repayment reflected status in nth month  |
-| B(n)      | Customer billable amount in nth month             |
-| R(n)      | Customer previous repayment amount, paid in nth month|
-| RATING    | Customer rating (0: Good, 1: Bad)                |
-
-**Note**:
-
-n=1 signifies the most recent month, while n=5 signifies the previous 4th month. 
-
-If n=1 is the month of May 2022, then n=5 is the month of January 2024.
 
 
