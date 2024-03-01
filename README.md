@@ -6,6 +6,7 @@ This project aims to analyse a credit facility dataset containing records of cus
 
 ## Dataset Description
 The dataset comprises comprehensive information about customers' credit facilities, including demographic details, outstanding amounts, and repayment history/status.
+[Link to Data.csv](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Data.csv)
 
 ## Objectives
 1. **Data Pre-processing:**
