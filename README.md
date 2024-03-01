@@ -1,14 +1,43 @@
-# E-Commerce Sales Analysis
 
-### Project Overview
+# Project Overview
 
-This data analysis project aim to provide insights into the sales perfromance of an e-commerce company over the past year. By analysing various aspects of the sales data, we seek to identify trends, make data-driven recommnendations, and gain a deeper understanding of the company performance.
+## Introduction
+This project aims to analyse a credit facility dataset containing records of customers' demographics, outstanding amounts, repayment history/status, and other relevant variables. The goal is to extract meaningful insights from the data through analysis and predictive modelling.
 
-### Data Sources
+## Dataset Description
+The dataset comprises comprehensive information about customers' credit facilities, including demographic details, outstanding amounts, and repayment history/status.
 
-Sales Data: The primary dataset used for this analysis is the "sales_data.csv" file, containing detailed information about each sales made by the company.
+## Objectives
+1. **Data Pre-processing:**
+   Prepare the dataset for analysis by handling missing values, encoding categorical variables, and scaling numerical features.
 
-### Tools
+2. **Exploratory Data Analysis (EDA):**
+   Explore the dataset to identify patterns, trends, and relationships within the data using descriptive statistics and visualisations.
+
+3. **Insight Articulation:**
+   Articulate relevant insights derived from the data analysis process, supported by visualisations.
+
+4. **Linear Regression Modelling:**
+   Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
+
+## Methodology
+1. **Data Pre-processing:**
+   - Handle missing data through appropriate imputation techniques.
+   - Encode categorical variables.
+   - Scale numerical features.
+
+2. **Exploratory Data Analysis:**
+   - Calculate descriptive statistics.
+   - Generate visualisations such as histograms and scatter plots.
+
+3. **Insight Articulation:**
+   - Summarise key findings from the data analysis process.
+
+4. **Linear Regression Modelling:**
+   - Split the dataset into training and testing sets.
+   - Apply linear regression algorithm to predict B1.
+   - Evaluate model performance.
+
 
 - Excel - Data Cleaning
   - [Download here](https://microsoft.com)
