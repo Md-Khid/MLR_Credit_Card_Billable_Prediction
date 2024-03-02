@@ -19,10 +19,10 @@ The dataset comprises details about customers' credit facilities, including demo
 | BALANCE   | Customer current credit balance (snapshot in time)|
 | INCOME    | Customer current income                           |
 | GENDER    | Customer gender (0: Male, 1: Female)             |
-| EDUCATION | Customer highest education attained               |
-| MARITAL   | Customer marital status                           |
+| EDUCATION | Customer highest education attained (0: Others, 1: Postgraduate, 2: Tertiary, 3: High School)|
+| MARITAL   | Customer marital status(0: Others, 1: Single, 2: Married)|
 | AGE       | Customer age in years                             |
-| S(n)      | Customer repayment reflected status in nth month  |
+| S(n)      | Customer repayment reflected status in nth month (-1; Prompt payment, 0: Minimum sum payment, x = Delayed payment for x month(s))|
 | B(n)      | Customer billable amount in nth month             |
 | R(n)      | Customer previous repayment amount, paid in nth month|
 | RATING    | Customer rating (0: Good, 1: Bad)                |
