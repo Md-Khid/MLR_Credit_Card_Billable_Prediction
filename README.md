@@ -2,7 +2,7 @@
 # Project Overview
 
 ## Introduction
-This project aims to analyse a credit facility dataset containing records of customers' demographics, outstanding amounts, repayment history/status, and other relevant variables. The goal is to extract meaningful insights from the data through exploratory analysis and predictive modelling based on a mock up credit facility dataset.
+This project aims to analyse a credit facility dataset containing records of customers' demographics, outstanding amounts, repayment history/status, and other relevant variables. The goal is to extract meaningful insights from the data through exploratory data analysis and predictive modelling based on a mock-up credit facility dataset.
 
 ## Dataset Description
 
@@ -27,11 +27,10 @@ The dataset comprises information about customers' credit facilities, including 
 | R(n)      | Customer previous repayment amount, paid in nth month|
 | RATING    | Customer rating (0: Good, 1: Bad)                |
 
-**Note**:
+##### **Note**:
+##### n=1 signifies the most recent month, while n=5 signifies the previous 4th month. 
+##### If n=1 is the month of May 2022, then n=5 is the month of January 2024.
 
-n=1 signifies the most recent month, while n=5 signifies the previous 4th month. 
-
-If n=1 is the month of May 2022, then n=5 is the month of January 2024.
 
 ## Objectives
 1. **Data Pre-processing:**
