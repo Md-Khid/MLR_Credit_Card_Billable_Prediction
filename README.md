@@ -58,10 +58,9 @@ print("Columns with missing values:\n", columns_with_missing_values)
 ```
 <img width="200" alt="1" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/6357003d-9bfc-4976-b8ae-392dafde20a1">
 
-
-#### Data Distribution
 Based on the output, the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To address this, we need to understand the distribution of each column so that we can appropriately replace the missing values, such as using the mean, median, or mode.
 
+#### Data Distribution
 ```
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -94,9 +93,10 @@ plt.show()
 ```
 <img width="1210" alt="2" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/05049ec6-73a5-4320-9dcd-9ab5cee032e8">
 
+Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode.
 
 #### Replace Appropriate Values 
-Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode.
+
 ```
 # Specify columns and their corresponding fill methods
 columns_to_fill = {
