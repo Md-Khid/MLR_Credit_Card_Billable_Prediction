@@ -164,6 +164,7 @@ Based on the output, it seems that the 'R3' column needs encoding. However, base
 df['R3'] = df['R3'].astype(df['R1'].dtype)
 ```
 
+### Scaling Numerical Features
 
 
 3. **Exploratory Data Analysis (EDA):**
