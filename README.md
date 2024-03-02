@@ -136,6 +136,11 @@ for column in df.columns:
 ```
 <img width="400" alt="4" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/e7266526-7830-4492-b36d-31d818e8f01e">
 
+Based on the output, it seems that the R3 column contains special characters. To address this, we replace these characters with an empty string.
+```
+# Remove special characters ('$' and ',') from column 'R3'
+df['R3'] = df['R3'].str.replace('[\$,]', '', regex=True)
+```
 
 #### Encoding of Variables
 
@@ -153,11 +158,7 @@ else:
 ```
 <img width="339" alt="3" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/78ed1e0e-91f6-45e0-a231-c85644bf466a">
 
-Based on the output, it seems that there are some special characters contained in the R3 column. To address this, we relace these characters with an empty string
-```
-# Remove special characters ('$' and ',') from column 'R3'
-df['R3'] = df['R3'].str.replace('[\$,]', '', regex=True)
-```
+Based on the output, it seems that the R3 column needs to be encoded. However, based on the [data dictionary](#data-dictionary), 'R3' is not expected to be categorical but should be numerical, just like 'R1', 'R2', 'R4', and 'R5'. To address this, 
 
 
 
