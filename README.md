@@ -134,6 +134,7 @@ for column in df.columns:
         if any(char in "!@#$%^&" for char in str(value)):
             print(f"Special characters found in column '{column}', row {index}: {value}")
 ```
+<img width="400" alt="4" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/e7266526-7830-4492-b36d-31d818e8f01e">
 
 
 #### Encoding of Variables
@@ -152,8 +153,11 @@ else:
 ```
 <img width="339" alt="3" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/78ed1e0e-91f6-45e0-a231-c85644bf466a">
 
-Based on the output, it seems that the variable 'R3' is being identified as a categorical variable that needs encoding. However, based on the data dictionary provided, 'R3' is not expected to be categorical; it should be numerical, just like 'R1', 'R2', 'R4', and 'R5'.
-
+Based on the output, it seems that there are some special characters contained in the R3 column. To address this, we relace these characters with an empty string
+```
+# Remove special characters ('$' and ',') from column 'R3'
+df['R3'] = df['R3'].str.replace('[\$,]', '', regex=True)
+```
 
 
 
