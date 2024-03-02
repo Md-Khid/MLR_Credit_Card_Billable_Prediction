@@ -39,14 +39,20 @@ In this part of data processing, we will prepare the dataset for analysis by han
 
 1.1 **Data Pre-processing:**
 
-#### Missing Values
-
+#### Import Data
 ```
 import pandas as pd
 
-# Read the CSV file 'Data.csv' into a Pandas DataFrame called df
-df = pd.read_csv('Data.csv')
+# Specify columns to convert to categorical variables
+columns_to_convert = ['RATING', 'GENDER', 'EDUCATION', 'MARITAL', 'S1', 'S2', 'S3', 'S4', 'S5']
 
+# Read the CSV file 'Data.csv' into a Pandas DataFrame called df
+df = pd.read_csv('Data.csv', usecols=lambda column: column != 'ID', dtype={col: 'category' for col in columns_to_convert})
+```
+
+#### Missing Values
+
+```
 # Calculate the number of missing values in each column of the DataFrame df
 missing_values = df.isnull().sum()
 
