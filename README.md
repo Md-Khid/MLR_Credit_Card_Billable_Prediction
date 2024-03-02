@@ -4,10 +4,10 @@
 ## Introduction
 This project aims to analyse a credit facility dataset containing records of customers' demographics, outstanding amounts, repayment history/status, and other relevant variables. The goal is to extract meaningful insights from the data through exploratory data analysis and predictive modelling based on a mock-up credit facility dataset.
 
-## Dataset Description
+## Dataset Information
 
 ### Data Variables
-The dataset comprises information about customers' credit facilities, including demographic details, outstanding amounts, and repayment history/status.
+The dataset comprises details about customers' credit facilities, including demographic information, outstanding amounts, and repayment history/status.
 [Data.csv](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Data.csv)
 
 ### Data Dictionary
@@ -32,17 +32,33 @@ The dataset comprises information about customers' credit facilities, including 
 ##### If n=1 is the month of May 2022, then n=5 is the month of January 2024.
 
 
-## Objectives
+## Data Preparation
 1. **Data Pre-processing:**
    Prepare the dataset for analysis by handling missing values, encoding categorical variables, and scaling numerical features.
+```
+# Import the Pandas library and assign it the alias pd
+import pandas as pd
 
-2. **Exploratory Data Analysis (EDA):**
+# Read the CSV file 'Data.csv' into a Pandas DataFrame called df
+df = pd.read_csv('Data.csv')
+
+# Calculate the number of missing values in each column of the DataFrame df
+missing_values = df.isnull().sum()
+
+# Filter the missing_values Series to include only columns with missing values
+columns_with_missing_values = missing_values[missing_values > 0]
+
+# Print the columns with missing values
+print("Columns with missing values:\n", columns_with_missing_values)
+```
+
+3. **Exploratory Data Analysis (EDA):**
    Explore the dataset to identify patterns, trends, and relationships within the data using descriptive statistics and visualisations.
 
-3. **Insight Articulation:**
+4. **Insight Articulation:**
    Articulate relevant insights derived from the data analysis process, supported by visualisations.
 
-4. **Linear Regression Modelling:**
+5. **Linear Regression Modelling:**
    Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
 
 ## Methodology
