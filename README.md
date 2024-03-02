@@ -93,6 +93,7 @@ for ax in axes.flatten():
 plt.tight_layout()
 plt.show()
 ```
+![2](https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/6b75ff6c-564a-4005-9bce-95bf120be48f)
 
 
 
