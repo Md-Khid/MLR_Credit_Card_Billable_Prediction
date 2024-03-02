@@ -51,6 +51,18 @@ columns_with_missing_values = missing_values[missing_values > 0]
 # Print the columns with missing values
 print("Columns with missing values:\n", columns_with_missing_values)
 ```
+<img width="200" alt="1" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/f7974594-bfe8-4191-891a-ebcb1dbbc951">
+
+
+
+
+
+
+
+
+
+
+
 
 3. **Exploratory Data Analysis (EDA):**
    Explore the dataset to identify patterns, trends, and relationships within the data using descriptive statistics and visualisations.
