@@ -56,7 +56,7 @@ columns_with_missing_values = missing_values[missing_values > 0]
 # Print the columns with missing values
 print("Columns with missing values:\n", columns_with_missing_values)
 ```
-<img width="200" alt="1" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/f7974594-bfe8-4191-891a-ebcb1dbbc951">
+<img width="1210" alt="2" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/05049ec6-73a5-4320-9dcd-9ab5cee032e8">
 
 
 #### Data Distribution
@@ -92,7 +92,7 @@ for ax in axes.flatten():
 plt.tight_layout()
 plt.show()
 ```
-![2](https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/6b75ff6c-564a-4005-9bce-95bf120be48f)
+<img width="1210" alt="2" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/05049ec6-73a5-4320-9dcd-9ab5cee032e8">
 
 
 #### Replace Appropriate Values 
