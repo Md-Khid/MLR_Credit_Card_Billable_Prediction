@@ -34,7 +34,7 @@ The dataset comprises details about customers' credit facilities, including demo
 
 ## Data Preparation
 
-In this part of data processing, we will prepare the dataset for analysis by handling missing values, encoding of variables, and scaling numerical features.
+In this part of data processing, we will prepare the dataset for analysis by handling missing values, special characters, encoding of variables, and scaling numerical features.
 
 
 1.1 **Data Pre-processing:**
@@ -123,6 +123,19 @@ count_missing_values = missing_values.sum()
 # Print the count of columns with missing values after filling
 print("Number of columns with missing values after filling:", count_missing_values)
 ```
+
+#### Removing Special Characters
+```
+# Iterate over each column in the DataFrame
+for column in df.columns:
+    # Iterate over each row in the current column
+    for index, value in df[column].items():
+        # Check if the value contains any special characters
+        if any(char in "!@#$%^&" for char in str(value)):
+            print(f"Special characters found in column '{column}', row {index}: {value}")
+```
+
+
 #### Encoding of Variables
 
 ```
@@ -137,6 +150,15 @@ if not categorical_variables.empty:
 else:
     print("No categorical variables need encoding.")
 ```
+<img width="339" alt="3" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/78ed1e0e-91f6-45e0-a231-c85644bf466a">
+
+Based on the output, it seems that the variable 'R3' is being identified as a categorical variable that needs encoding. However, based on the data dictionary provided, 'R3' is not expected to be categorical; it should be numerical, just like 'R1', 'R2', 'R4', and 'R5'.
+
+
+
+
+
+
 
 3. **Exploratory Data Analysis (EDA):**
    Explore the dataset to identify patterns, trends, and relationships within the data using descriptive statistics and visualisations.
