@@ -34,15 +34,14 @@ The dataset comprises details about customers' credit facilities, including demo
 
 ## Data Preparation
 
-In this part of data pipeline, we will prepare the dataset for analysis by handling missing values, encoding categorical variables, and scaling numerical features.
+In this part of data processing, we will prepare the dataset for analysis by handling missing values, encoding of variables, and scaling numerical features.
 
 
 1.1 **Data Pre-processing:**
 
-__Missing Values__<br>
+#### Missing Values
 
 ```
-# Import the Pandas library and assign it the alias pd
 import pandas as pd
 
 # Read the CSV file 'Data.csv' into a Pandas DataFrame called df
@@ -96,14 +95,48 @@ plt.show()
 ![2](https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/6b75ff6c-564a-4005-9bce-95bf120be48f)
 
 
+#### Replace Appropriate Values 
+Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode.
+```
+# Specify columns and their corresponding fill methods
+columns_to_fill = {
+    'LIMIT': 'median',
+    'BALANCE': 'median',
+    'AGE': 'median',
+    'MARITAL': 'mode',
+    'EDUCATION': 'mode'
+}
 
+# Iterate over columns and fill missing values
+for column, method in columns_to_fill.items():
+    if method == 'median':
+        df[column].fillna(df[column].median(), inplace=True)
+    elif method == 'mode':
+        df[column].fillna(df[column].mode()[0], inplace=True)
 
+# Check for missing values in columns after filling
+missing_values = df.isnull().any()
 
+# Calculate the total count of columns with missing values after filling
+count_missing_values = missing_values.sum()
 
+# Print the count of columns with missing values after filling
+print("Number of columns with missing values after filling:", count_missing_values)
+```
+#### Encoding of Variables
 
+```
+# Identify categorical variables
+categorical_variables = df.select_dtypes(include=['object', 'category'])
 
-
-
+# Check if there are categorical variables that need encoding
+if not categorical_variables.empty:
+    print("The following categorical variables need encoding:")
+    for column in categorical_variables.columns:
+        print(column)
+else:
+    print("No categorical variables need encoding.")
+```
 
 3. **Exploratory Data Analysis (EDA):**
    Explore the dataset to identify patterns, trends, and relationships within the data using descriptive statistics and visualisations.
