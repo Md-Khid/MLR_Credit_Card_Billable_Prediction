@@ -143,13 +143,23 @@ for column in df.columns:
 <img width="400" alt="4" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/e7266526-7830-4492-b36d-31d818e8f01e">
 
 Based on the output, it seems that the R3 column contains special characters. To address this, we replace these characters with an empty string.
+
 ```
 # Remove special characters ('$' and ',') from column 'R3'
 df['R3'] = df['R3'].str.replace('[\$,]', '', regex=True)
 ```
 
-#### Encoding of Variables
+#### Exploratary Data Analsysis
+Explore the dataset to identify patterns, trends, and relationships within the data using descriptive statistics and visualisations.
+Calculate descriptive statistics
 
+#### Insight Articulation
+   Articulate relevant insights derived from the data analysis process, supported by visualisations.
+
+### 2. Linear Regression Modelling
+Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
+
+#### Encoding of Variables
 ```
 # Identify categorical variables
 categorical_variables = df.select_dtypes(include=['object', 'category'])
@@ -172,33 +182,13 @@ df['R3'] = df['R3'].astype(df['R1'].dtype)
 
 #### Scaling Numerical Features
 
-
-3. **Exploratory Data Analysis (EDA):**
-   Explore the dataset to identify patterns, trends, and relationships within the data using descriptive statistics and visualisations.
-
-4. **Insight Articulation:**
-   Articulate relevant insights derived from the data analysis process, supported by visualisations.
-
-5. **Linear Regression Modelling:**
-   Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
-
-## Methodology
-1. **Data Pre-processing:**
-   - Handle missing data through appropriate imputation techniques.
-   - Encode categorical variables.
-   - Scale numerical features.
-
-2. **Exploratory Data Analysis:**
-   - Calculate descriptive statistics.
-   - Generate visualisations such as histograms and scatter plots.
-
-3. **Insight Articulation:**
-   - Summarise key findings from the data analysis process.
-
-4. **Linear Regression Modelling:**
    - Split the dataset into training and testing sets.
    - Apply linear regression algorithm to predict B1.
-   - Evaluate model performance.
+
+#### Evaluate Model Performance
+
+
+
 
 
 - Excel - Data Cleaning
@@ -207,12 +197,6 @@ df['R3'] = df['R3'].astype(df['R1'].dtype)
 - PowerBI - Creating reports
 
 
-### Data Cleaning/Preparation
-
-In the initial data preparation phase, we performed the following tasks:
-1. Data loading and inspection.
-2. Handling missing values.
-3. Data cleaning and formating.
 
 
 
