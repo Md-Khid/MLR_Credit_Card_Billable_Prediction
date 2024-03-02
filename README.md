@@ -5,6 +5,8 @@
 This project aims to analyse a credit facility dataset containing records of customers' demographics, outstanding amounts, repayment history/status, and other relevant variables. The goal is to extract meaningful insights from the data through exploratory analysis and predictive modelling based on a mock up credit facility dataset.
 
 ## Dataset Description
+
+### Data Variables
 The dataset comprises information about customers' credit facilities, including demographic details, outstanding amounts, and repayment history/status.
 [Data.csv](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Data.csv)
 
