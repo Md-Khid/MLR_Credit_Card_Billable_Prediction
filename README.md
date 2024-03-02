@@ -33,8 +33,14 @@ The dataset comprises details about customers' credit facilities, including demo
 
 
 ## Data Preparation
-1. **Data Pre-processing:**
-   Prepare the dataset for analysis by handling missing values, encoding categorical variables, and scaling numerical features.
+
+In this part of data pipeline, we will prepare the dataset for analysis by handling missing values, encoding categorical variables, and scaling numerical features.
+
+
+1.1 **Data Pre-processing:**
+
+__Missing Values__<br>
+
 ```
 # Import the Pandas library and assign it the alias pd
 import pandas as pd
@@ -53,6 +59,40 @@ print("Columns with missing values:\n", columns_with_missing_values)
 ```
 <img width="200" alt="1" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/f7974594-bfe8-4191-891a-ebcb1dbbc951">
 
+
+#### Data Distribution
+Based on the output, the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To address this, we need to understand the distribution of each column so that we can appropriately replace the missing values, such as using the mean, median, or mode.
+
+```
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Set the style of the plot
+sns.set_style("white")
+
+# Create subplots
+fig, axes = plt.subplots(2, 3, figsize=(18, 10))
+
+# Define the columns to plot
+columns = ['LIMIT', 'BALANCE', 'AGE', 'MARITAL', 'EDUCATION']
+
+# Iterate over the columns and plot them
+for i, column in enumerate(columns):
+    row = i // 3
+    col = i % 3
+    sns.histplot(df[column], kde=False, ax=axes[row, col])
+    axes[row, col].set_title(f'Distribution of {column}')
+    if column in ['LIMIT', 'BALANCE', 'AGE']:
+        axes[row, col].axvline(df[column].median(), color='red', linestyle='--', label='Median')
+        axes[row, col].legend()
+
+# Remove gridlines from all subplots
+for ax in axes.flatten():
+    ax.grid(False)
+
+plt.tight_layout()
+plt.show()
+```
 
 
 
