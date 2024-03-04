@@ -99,21 +99,23 @@ plt.show()
 ```
 <img width="910" alt="2" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/ed483cbc-7fe2-4798-b975-39dd52083ad0">
 
-Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode.
+Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, an anomalous age value is observed lying between -1 and 0. To address this anomaly, we will remove such values from the Age column, as they may represent system or human entry errors.
 
-#### Replace Missing Values 
+#### Replace Missing Values and Remove Data Errors 
 
 ```
+# Remove rows where 'Age' column has a value of 0 or -1
+df = df[df['AGE'] > 0]
+
 # Specify columns and their corresponding fill methods
 columns_to_fill = {
     'LIMIT': 'median',
     'BALANCE': 'median',
-    'AGE': 'median',
     'MARITAL': 'mode',
     'EDUCATION': 'mode'
 }
 
-# Iterate over columns and fill missing values
+# Fill missing values in specified columns
 for column, method in columns_to_fill.items():
     if method == 'median':
         df[column].fillna(df[column].median(), inplace=True)
@@ -161,23 +163,32 @@ if not categorical_variables.empty:
 else:
     print("No categorical variables need encoding.")
 ```
-<img width="339" alt="3" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/78ed1e0e-91f6-45e0-a231-c85644bf466a">
+<img width="318" alt="4" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/0514b001-4715-4c13-bf05-31612441be09">
 
 ```
 # Convert 'R3' column to the same data type as 'R1', 'R2', 'R4', and 'R5'
 df['R3'] = df['R3'].astype(df['R1'].dtype)
 ```
-Based on the output, it seems that the 'R3' column needs encoding. However, based on the [data dictionary](#data-dictionary), 'R3' is expected to be numerical, similar to 'R1', 'R2', 'R4', and 'R5'. To resolve this, we can change the data type of the 'R3' column to match that of the 'R1', 'R2', 'R4', and 'R5' columns.
+Based on the output, it seems that the 'R3' column needs encoding. However, based on the [data dictionary](#data-dictionary), 'R3' is expected to be numerical, similar to 'R1', 'R2', 'R4', and 'R5'. To resolve this, we can change the data type of the 'R3' column to match that of the 'R1', 'R2', 'R4', and 'R5' columns.  For now, we will refrain from encoding the remaining categorical variables as they are typically analysed using frequency tables, bar charts, or other graphical methods to understand their distribution and relationships with other variables.
 
 #### Scaling Numerical Features
+```
+from sklearn.preprocessing import MinMaxScaler
 
-   - Split the dataset into training and testing sets.
-   - Apply linear regression algorithm to predict B1.
+# Extract numerical columns (excluding S1 through S5)
+numeric_columns = ['LIMIT', 'BALANCE', 'INCOME', 'AGE', 'B1', 'B2', 'B3', 'B4', 'B5', 'R1', 'R2', 'R3', 'R4', 'R5']
+
+# Apply Min-Max scaling to numerical columns
+scaler = MinMaxScaler()
+df[numeric_columns] = scaler.fit_transform(df[numeric_columns])
+print (df)
+```
 
 
+Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
 
 
-## Exploratary Data Analysis
+## Exploratary Data Analysis 
 In this section, we will dive into understanding the dataset. This involves tasks like exploring data distributions, spotting outliers, visualising relationships between variables, and identifying any anomalies. 
 
 
