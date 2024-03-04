@@ -37,7 +37,7 @@ The dataset comprises details about customers' credit facilities, including demo
 In this part of data processing, we will prepare the dataset for analysis by handling missing values, special characters, encoding of variables, and scaling numerical features.
 
 
-1.1 **Data Pre-processing:**
+### Data Pre-processing:
 
 #### Import Data
 ```
@@ -50,7 +50,7 @@ columns_to_convert = ['RATING', 'GENDER', 'EDUCATION', 'MARITAL', 'S1', 'S2', 'S
 df = pd.read_csv('Data.csv', usecols=lambda column: column != 'ID', dtype={col: 'category' for col in columns_to_convert})
 ```
 
-#### Missing Values
+#### Check Missing Values
 
 ```
 # Calculate the number of missing values in each column of the DataFrame df
@@ -66,7 +66,7 @@ print("Columns with missing values:\n", columns_with_missing_values)
 
 Based on the output, the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To address this, we need to understand the distribution of each column so that we can appropriately replace the missing values, such as using the mean, median, or mode.
 
-#### Data Distribution
+#### View Data Distribution
 ```
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -101,7 +101,7 @@ plt.show()
 
 Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode.
 
-#### Replace Appropriate Values 
+#### Replace Missing Values 
 
 ```
 # Specify columns and their corresponding fill methods
@@ -142,22 +142,11 @@ for column in df.columns:
 ```
 <img width="400" alt="4" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/e7266526-7830-4492-b36d-31d818e8f01e">
 
-Based on the output, it seems that the R3 column contains special characters. To address this, we replace these characters with an empty string.
-
 ```
 # Remove special characters ('$' and ',') from column 'R3'
 df['R3'] = df['R3'].str.replace('[\$,]', '', regex=True)
 ```
-
-#### Exploratary Data Analsysis
-Explore the dataset to identify patterns, trends, and relationships within the data using descriptive statistics and visualisations.
-Calculate descriptive statistics
-
-#### Insight Articulation
-   Articulate relevant insights derived from the data analysis process, supported by visualisations.
-
-### 2. Linear Regression Modelling
-Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
+Based on the output, it seems that the R3 column contains special characters. To address this, we replace these characters with an empty string.
 
 #### Encoding of Variables
 ```
@@ -185,7 +174,20 @@ df['R3'] = df['R3'].astype(df['R1'].dtype)
    - Split the dataset into training and testing sets.
    - Apply linear regression algorithm to predict B1.
 
-#### Evaluate Model Performance
+
+
+
+## Exploratary Data Analysis
+In this section, we will dive into understanding the dataset. This involves tasks like exploring data distributions, spotting outliers, visualising relationships between variables, and identifying any anomalies. 
+
+
+## Insight Articulation
+   Articulate relevant insights derived from the data analysis process, supported by visualisations.
+
+## Linear Regression Modelling
+Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
+
+## Evaluate Model Performance
 
 
 
