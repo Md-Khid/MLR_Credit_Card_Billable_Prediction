@@ -184,6 +184,7 @@ df[numeric_columns] = scaler.fit_transform(df[numeric_columns])
 print (df)
 ```
 
+<img width="365" alt="5" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/c3cd9b90-682b-41b4-b1bf-eea5fbb99476">
 
 Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
 
