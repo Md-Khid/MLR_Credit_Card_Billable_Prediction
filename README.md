@@ -163,11 +163,11 @@ else:
 ```
 <img width="339" alt="3" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/78ed1e0e-91f6-45e0-a231-c85644bf466a">
 
-Based on the output, it seems that the 'R3' column needs encoding. However, based on the [data dictionary](#data-dictionary), 'R3' is expected to be numerical, similar to 'R1', 'R2', 'R4', and 'R5'. To resolve this, we can change the data type of the 'R3' column to match that of the 'R1', 'R2', 'R4', and 'R5' columns.
 ```
 # Convert 'R3' column to the same data type as 'R1', 'R2', 'R4', and 'R5'
 df['R3'] = df['R3'].astype(df['R1'].dtype)
 ```
+Based on the output, it seems that the 'R3' column needs encoding. However, based on the [data dictionary](#data-dictionary), 'R3' is expected to be numerical, similar to 'R1', 'R2', 'R4', and 'R5'. To resolve this, we can change the data type of the 'R3' column to match that of the 'R1', 'R2', 'R4', and 'R5' columns.
 
 #### Scaling Numerical Features
 
