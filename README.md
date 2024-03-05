@@ -42,44 +42,47 @@ In this part of data processing, we will prepare the dataset for analysis by han
 #### Import Data
 ```
 import pandas as pd
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
 
-# Specify columns to convert to categorical variables
+# Covert columns to categorical variables
 columns_to_convert = ['RATING', 'GENDER', 'EDUCATION', 'MARITAL', 'S1', 'S2', 'S3', 'S4', 'S5']
 
-# Read the CSV file 'Data.csv' into a Pandas DataFrame called df
+# Read data file and drop the 1st column
 df = pd.read_csv('Data.csv', usecols=lambda column: column != 'SERIAL NUMBER', dtype={col: 'category' for col in columns_to_convert})
 
-print (df)
+# Display data table
+df
 ```
 
 #### Check Missing Values
 
 ```
-# Calculate the number of missing values in each column of the DataFrame df
+# Calculate number of missing values in each column 
 missing_values = df.isnull().sum()
 
-# Filter the missing_values Series to include only columns with missing values
+# Filter the missing_values i.e. only columns with missing values
 columns_with_missing_values = missing_values[missing_values > 0]
-# Print the columns with missing values
 
-print("Columns with missing values:\n", columns_with_missing_values)
+# Display columns with missing values
+columns_with_missing_values
 ```
-<img width="200" alt="1" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/6357003d-9bfc-4976-b8ae-392dafde20a1">
+
 
 Based on the output, the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To address this, we need to understand the distribution of each column so that we can appropriately replace the missing values, such as using the mean, median, or mode.
 
 #### View Data Distribution
 ```
-import seaborn as sns
-import matplotlib.pyplot as plt
-
-# Set the style of the plot
+# Set the plot style
 sns.set_style("white")
 
 # Create subplots
 fig, axes = plt.subplots(2, 3, figsize=(18, 10))
 
-# Define the columns to plot
+# Define columns to plot
 columns = ['LIMIT', 'BALANCE', 'AGE', 'MARITAL', 'EDUCATION']
 
 # Iterate over the columns and plot them
@@ -124,14 +127,14 @@ for column, method in columns_to_fill.items():
     elif method == 'mode':
         df[column].fillna(df[column].mode()[0], inplace=True)
 
-# Check for missing values in columns after filling
+# Check for missing values in columns 
 missing_values = df.isnull().any()
 
-# Calculate the total count of columns with missing values after filling
+# Calculate the total count of columns with missing values 
 count_missing_values = missing_values.sum()
 
-# Print the count of columns with missing values after filling
-print("Number of columns with missing values after filling:", count_missing_values)
+# Display number of columns with missing values
+count_missing_values
 ```
 
 #### Removing Special Characters
@@ -157,7 +160,7 @@ Based on the output, it seems that the R3 column contains special characters. To
 # Identify categorical variables
 categorical_variables = df.select_dtypes(include=['object', 'category'])
 
-# Check if there are categorical variables that need encoding
+# Check for categorical variables that need encoding
 if not categorical_variables.empty:
     print("The following categorical variables need encoding:")
     for column in categorical_variables.columns:
@@ -183,20 +186,24 @@ numeric_columns = df.select_dtypes(include=['int64', 'float64']).columns
 
 # Create the statistical description table
 statistical_description = df[numeric_columns].describe()
+
+# Round the statistical description table to 2 decimal places and transpose it
+statistical_description = np.round(statistical_description, 2).T
+
+# Display statistical table
+statistical_description
 ```
-<img width="287" alt="5" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/34e7cf40-6609-4b01-bc77-b7b9862cd37d">
+
 
 #### Scaling Numerical Features
 ```
-from sklearn.preprocessing import MinMaxScaler
-
 # Apply Min-Max scaling to numerical columns
 scaler = MinMaxScaler()
 df[numeric_columns] = scaler.fit_transform(df[numeric_columns])
 
-print (df)
+# Display data table
+df
 ```
-<img width="332" alt="6" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/bee43b71-12c0-4c52-8d70-be535a686b8b">
 
 Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
 
