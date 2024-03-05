@@ -155,8 +155,6 @@ for column in df.columns:
 # Remove special characters ('$' and ',') from column 'R3'
 df['R3'] = df['R3'].str.replace('[\$,]', '', regex=True)
 ```
-<img width="339" alt="5" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/22328c2e-bd03-474c-95fc-7d466ef0b3c1">
-
 Based on the output, it seems that the R3 column contains special characters. To address this, we replace these characters with an empty string.
 
 
