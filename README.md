@@ -34,7 +34,7 @@ The dataset comprises details about customers' credit facilities, including demo
 
 ## Data Preparation
 
-In this part of data processing, we will prepare the dataset for analysis by handling missing values, special characters, encoding of variables, and scaling numerical features.
+In this part of data processing, we will prepare the dataset for analysis by handling missing values, special characters and encoding of variables.
 
 
 ### Data Pre-processing:
@@ -104,8 +104,8 @@ Given the positively skewed distribution of data in the "Limit," "Balance," and 
 #### Replace Missing Values and Remove Data Errors 
 
 ```
-# Remove rows where 'Age' column has a value of 0 or -1
-df = df[df['AGE'] > 0]
+# Remove rows where 'Age' column has a value of 0, -1, or 100 and above
+df = df[(df['AGE'] > 0) & (df['AGE'] < 100)]
 
 # Specify columns and their corresponding fill methods
 columns_to_fill = {
@@ -171,26 +171,30 @@ df['R3'] = df['R3'].astype(df['R1'].dtype)
 ```
 Based on the output, it seems that the 'R3' column needs encoding. However, based on the [data dictionary](#data-dictionary), 'R3' is expected to be numerical, similar to 'R1', 'R2', 'R4', and 'R5'. To resolve this, we can change the data type of the 'R3' column to match that of the 'R1', 'R2', 'R4', and 'R5' columns.  For now, we will refrain from encoding the remaining categorical variables as they are typically analysed using frequency tables, bar charts, or other graphical methods to understand their distribution and relationships with other variables.
 
+## Exploratary Data Analysis 
+In this section, we will dive into understanding the dataset. This involves tasks like exploring data distributions, spotting outliers, visualising relationships between variables, and identifying any anomalies. 
+
+#### Descriptive Statisitcs
+```
+# Select numeric columns
+numeric_columns = df.select_dtypes(include=['int64', 'float64']).columns
+
+# Create the statistical description table
+statistical_description = df[numeric_columns].describe()
+```
+
 #### Scaling Numerical Features
 ```
 from sklearn.preprocessing import MinMaxScaler
 
-# Extract numerical columns (excluding S1 through S5)
-numeric_columns = ['LIMIT', 'BALANCE', 'INCOME', 'AGE', 'B1', 'B2', 'B3', 'B4', 'B5', 'R1', 'R2', 'R3', 'R4', 'R5']
-
 # Apply Min-Max scaling to numerical columns
 scaler = MinMaxScaler()
 df[numeric_columns] = scaler.fit_transform(df[numeric_columns])
-print (df)
 ```
 
 <img width="365" alt="5" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/c3cd9b90-682b-41b4-b1bf-eea5fbb99476">
 
 Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
-
-
-## Exploratary Data Analysis 
-In this section, we will dive into understanding the dataset. This involves tasks like exploring data distributions, spotting outliers, visualising relationships between variables, and identifying any anomalies. 
 
 
 ## Insight Articulation
