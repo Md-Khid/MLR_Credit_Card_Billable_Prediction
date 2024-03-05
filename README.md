@@ -48,6 +48,7 @@ columns_to_convert = ['RATING', 'GENDER', 'EDUCATION', 'MARITAL', 'S1', 'S2', 'S
 
 # Read the CSV file 'Data.csv' into a Pandas DataFrame called df
 df = pd.read_csv('Data.csv', usecols=lambda column: column != 'ID', dtype={col: 'category' for col in columns_to_convert})
+
 print (df)
 ```
 
@@ -59,6 +60,9 @@ missing_values = df.isnull().sum()
 
 # Filter the missing_values Series to include only columns with missing values
 columns_with_missing_values = missing_values[missing_values > 0]
+# Print the columns with missing values
+
+print("Columns with missing values:\n", columns_with_missing_values)
 ```
 <img width="200" alt="1" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/6357003d-9bfc-4976-b8ae-392dafde20a1">
 
@@ -189,6 +193,7 @@ from sklearn.preprocessing import MinMaxScaler
 # Apply Min-Max scaling to numerical columns
 scaler = MinMaxScaler()
 df[numeric_columns] = scaler.fit_transform(df[numeric_columns])
+print (df)
 ```
 <img width="332" alt="6" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/bee43b71-12c0-4c52-8d70-be535a686b8b">
 
