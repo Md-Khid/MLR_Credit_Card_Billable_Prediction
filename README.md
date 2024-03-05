@@ -200,9 +200,19 @@ print (df)
 
 Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
 
-
 ## Insight Articulation
-   Articulate relevant insights derived from the data analysis process, supported by visualisations.
+```
+# Create a density plot for LIMIT by EDUCATION
+sns.kdeplot(data=df, x='LIMIT', hue='EDUCATION', fill=True)
+plt.title('Density Plot of LIMIT by Education Level')
+plt.xlabel('LIMIT')
+plt.ylabel('Density')
+plt.legend(title='Education', labels=['Others', 'Postgraduate', 'Tertiary', 'High School'])
+plt.show()
+
+```
+
+
 
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
