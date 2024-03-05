@@ -48,6 +48,7 @@ columns_to_convert = ['RATING', 'GENDER', 'EDUCATION', 'MARITAL', 'S1', 'S2', 'S
 
 # Read the CSV file 'Data.csv' into a Pandas DataFrame called df
 df = pd.read_csv('Data.csv', usecols=lambda column: column != 'ID', dtype={col: 'category' for col in columns_to_convert})
+print (df)
 ```
 
 #### Check Missing Values
