@@ -209,7 +209,6 @@ plt.xlabel('LIMIT')
 plt.ylabel('Density')
 plt.legend(title='Education', labels=['Others', 'Postgraduate', 'Tertiary', 'High School'])
 plt.show()
-
 ```
 
 
