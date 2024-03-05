@@ -71,6 +71,7 @@ columns_with_missing_values = missing_values[missing_values > 0]
 # Display columns with missing values
 columns_with_missing_values
 ```
+<img width="198" alt="2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/bef1ceb8-640c-46f3-a87e-568210ca0797">
 
 
 Based on the output, the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To address this, we need to understand the distribution of each column so that we can appropriately replace the missing values, such as using the mean, median, or mode.
