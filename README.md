@@ -193,6 +193,7 @@ from sklearn.preprocessing import MinMaxScaler
 # Apply Min-Max scaling to numerical columns
 scaler = MinMaxScaler()
 df[numeric_columns] = scaler.fit_transform(df[numeric_columns])
+
 print (df)
 ```
 <img width="332" alt="6" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/bee43b71-12c0-4c52-8d70-be535a686b8b">
