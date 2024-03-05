@@ -57,6 +57,7 @@ df = pd.read_csv('Data.csv', usecols=lambda column: column != 'SERIAL NUMBER', d
 # Display data table
 df
 ```
+<img width="748" alt="1" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/43cf29ab-7f6a-4e69-83cf-2540420cf8b6">
 
 #### Check Missing Values
 
