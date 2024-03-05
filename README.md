@@ -202,15 +202,25 @@ Scaling numerical variables in a dataset helps interpret relationships between v
 
 ## Insight Articulation
 ```
-# Create a density plot for LIMIT by EDUCATION
-sns.kdeplot(data=df, x='LIMIT', hue='EDUCATION', fill=True)
-plt.title('Density Plot of LIMIT by Education Level')
-plt.xlabel('LIMIT')
-plt.ylabel('Density')
-plt.legend(title='Education', labels=['Others', 'Postgraduate', 'Tertiary', 'High School'])
+# Create a figure with two subplots
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+
+# Define the variables for plotting
+plot_data = [('EDUCATION', 'Education Level', ['Others', 'Postgraduate', 'Tertiary', 'High School']),
+             ('GENDER', 'Gender', ['Male', 'Female'])]
+
+# Plot each density plot in a subplot
+for idx, (variable, title, labels) in enumerate(plot_data):
+    sns.kdeplot(data=df, x='LIMIT', hue=variable, fill=True, ax=axes[idx])
+    axes[idx].set_title(f'Density Plot of LIMIT by {title}')
+    axes[idx].set_xlabel('LIMIT')
+    axes[idx].set_ylabel('Density')
+    axes[idx].legend(title=variable, labels=labels)
+
+plt.tight_layout()
 plt.show()
 ```
-<img width="285" alt="7" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/6c12b57f-2d9c-4bb9-99ce-0a9110afa462">
+<img width="595" alt="7" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/c1232994-8770-4cc6-9535-eb2abe21349e">
 
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
