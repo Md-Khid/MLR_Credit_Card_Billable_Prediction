@@ -210,8 +210,7 @@ plt.ylabel('Density')
 plt.legend(title='Education', labels=['Others', 'Postgraduate', 'Tertiary', 'High School'])
 plt.show()
 ```
-
-
+<img width="285" alt="7" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/6c12b57f-2d9c-4bb9-99ce-0a9110afa462">
 
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
