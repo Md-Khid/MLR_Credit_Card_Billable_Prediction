@@ -202,12 +202,13 @@ Scaling numerical variables in a dataset helps interpret relationships between v
 
 ## Insight Articulation
 ```
-# Create a figure with two subplots
-fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+# Create a figure with three subplots
+fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
 # Define the variables for plotting
 plot_data = [('EDUCATION', 'Education Level', ['Others', 'Postgraduate', 'Tertiary', 'High School']),
-             ('GENDER', 'Gender', ['Male', 'Female'])]
+             ('GENDER', 'Gender', ['Male', 'Female']),
+             ('MARITAL', 'Marital Status', ['Others', 'Single', 'Married'])]
 
 # Plot each density plot in a subplot
 for idx, (variable, title, labels) in enumerate(plot_data):
@@ -220,7 +221,7 @@ for idx, (variable, title, labels) in enumerate(plot_data):
 plt.tight_layout()
 plt.show()
 ```
-<img width="595" alt="7" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/c1232994-8770-4cc6-9535-eb2abe21349e">
+<img width="895" alt="7" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/1329de34-22b6-4cf0-8aa3-0a475604dcb7">
 
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
