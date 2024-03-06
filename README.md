@@ -207,6 +207,9 @@ statistical_description
 ```
 <img width="374" alt="7" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/7fa312ca-11e9-4e39-b4b4-7b9f8efa2484">
 
+
+## Insight Articulation
+
 #### Scaling Numerical Features
 ```
 # Apply Min-Max scaling to numerical columns
@@ -219,8 +222,6 @@ df
 <img width="751" alt="8" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c4ae83ec-81cf-43c5-baa2-490be2674578">
 
 Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
-
-## Insight Articulation
 #### Density Plot
 ```
 # Create a figure with three subplots
@@ -268,6 +269,10 @@ plt.xticks(rotation=45)  # Rotate x-axis labels
 plt.grid(True)
 plt.show()
 ```
+
+<img width="453" alt="10" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/992c47df-5a74-472a-be31-ad7e1e495b7d">
+
+
 ```
 # Define new labels for marital status
 marital_labels = ['Others', 'Single', 'Married']
@@ -289,6 +294,10 @@ plt.grid(True)
 
 plt.show()
 ```
+
+<img width="435" alt="11" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/18facda9-5a96-4b3b-9dc8-a42f4fc47f03">
+
+
 
 
 ## Linear Regression Modelling
