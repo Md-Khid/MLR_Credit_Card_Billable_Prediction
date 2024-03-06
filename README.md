@@ -71,8 +71,7 @@ columns_with_missing_values = missing_values[missing_values > 0]
 # Display columns with missing values
 columns_with_missing_values
 ```
-<img width="198" alt="2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/bef1ceb8-640c-46f3-a87e-568210ca0797">
-
+<img width="180" alt="2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/092bf3cb-168d-46c3-8ab2-11a31310c5ef">
 
 Based on the output, the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To address this, we need to understand the distribution of each column so that we can appropriately replace the missing values, such as using the mean, median, or mode.
 
@@ -139,6 +138,9 @@ count_missing_values = missing_values.sum()
 count_missing_values
 ```
 
+<img width="97" alt="4" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/b2633744-6760-468c-ad9d-ecbb80867879">
+
+
 #### Removing Special Characters
 ```
 # Iterate over each column in the DataFrame
@@ -184,19 +186,26 @@ In this section, we will dive into understanding the dataset. This involves task
 
 #### Descriptive Statisitcs
 ```
-# Select numeric columns
-numeric_columns = df.select_dtypes(include=['int64', 'float64']).columns
+# Create statistical description table for all columns
+statistical_description = df.describe(include='all')
 
-# Create the statistical description table
-statistical_description = df[numeric_columns].describe()
+# Round statistical description table to 2 decimal places
+statistical_description = np.round(statistical_description, 2)
 
-# Round the statistical description table to 2 decimal places and transpose it
-statistical_description = np.round(statistical_description, 2).T
+# Separate columns into categorical and numerical groups
+categorical_columns = statistical_description.columns[statistical_description.dtypes == 'object']
+numeric_columns = [col for col in statistical_description.columns if col not in categorical_columns]
+
+# Concatenate columns in order (categorical followed by numerical)
+statistical_description = pd.concat([statistical_description[categorical_columns], statistical_description[numeric_columns]], axis=1)
+
+# Transpose statistical description table
+statistical_description = statistical_description.T
 
 # Display statistical table
 statistical_description
 ```
-
+<img width="374" alt="7" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/7fa312ca-11e9-4e39-b4b4-7b9f8efa2484">
 
 #### Scaling Numerical Features
 ```
@@ -207,6 +216,7 @@ df[numeric_columns] = scaler.fit_transform(df[numeric_columns])
 # Display data table
 df
 ```
+<img width="751" alt="8" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c4ae83ec-81cf-43c5-baa2-490be2674578">
 
 Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
 
@@ -231,7 +241,8 @@ for idx, (variable, title, labels) in enumerate(plot_data):
 plt.tight_layout()
 plt.show()
 ```
-<img width="895" alt="7" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/1329de34-22b6-4cf0-8aa3-0a475604dcb7">
+<img width="895" alt="9" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/00374fb3-fea8-4a5e-8f56-0b4b35b9952d">
+
 
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
