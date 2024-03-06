@@ -248,6 +248,49 @@ Based on the density plots, the credit card bank prefers to provide higher credi
 
 #### Scatter Plot
 
+```
+# Define new labels for education levels
+education_labels = ['Others', 'Postgraduate', 'Tertiary', 'High School']
+
+# Convert 'EDUCATION' column to categorical data 
+df['EDUCATION'] = df['EDUCATION'].astype('category')
+df['EDUCATION'] = df['EDUCATION'].cat.rename_categories(education_labels)
+
+# Calculate the mean income for each education level and sort accordingly
+mean_income_by_education = df.groupby('EDUCATION')['INCOME'].mean().sort_values(ascending=False).index
+
+# Create box plot of income by education level (transposed)
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='INCOME', y='EDUCATION', data=df, order=mean_income_by_education)
+plt.xlabel('Income')
+plt.ylabel('.')
+plt.xticks(rotation=45)  # Rotate x-axis labels
+plt.grid(True)
+plt.show()
+```
+```
+# Define new labels for marital status
+marital_labels = ['Others', 'Single', 'Married']
+
+# Convert 'MARITAL' column to categorical data
+df['MARITAL'] = df['MARITAL'].astype('category')
+df['MARITAL'] = df['MARITAL'].cat.rename_categories(marital_labels)
+
+# Calculate the mean income for each marital status and sort accordingly
+mean_income_by_marital = df.groupby('MARITAL')['INCOME'].mean().sort_values(ascending=False).index
+
+# Create box plot of income by marital status (transposed)
+plt.figure(figsize=(10, 6))
+sns.boxplot(x='INCOME', y='MARITAL', data=df, order=mean_income_by_marital)
+plt.xlabel('Income')
+plt.ylabel('.')
+plt.xticks(rotation=45)  # Rotate x-axis labels 
+plt.grid(True)
+
+plt.show()
+```
+
+
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
 
