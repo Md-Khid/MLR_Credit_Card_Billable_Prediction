@@ -243,6 +243,7 @@ plt.tight_layout()
 plt.show()
 ```
 <img width="895" alt="9" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/00374fb3-fea8-4a5e-8f56-0b4b35b9952d">
+
 Based on the density plots, the credit card bank prefers to provide higher credit limit to customers who are 1. Male 2. Others (Divoeced or Single) 3. HAs a Postgraduate education
 
 #### Scatter Plot
