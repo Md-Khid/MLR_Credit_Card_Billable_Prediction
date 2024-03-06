@@ -227,7 +227,7 @@ Scaling numerical variables in a dataset helps interpret relationships between v
 # Create a figure with three subplots
 fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
-# Define the variables for plotting
+# Define variables for plotting
 plot_data = [('EDUCATION', 'Education Level', ['Others', 'Postgraduate', 'Tertiary', 'High School']),
              ('GENDER', 'Gender', ['Male', 'Female']),
              ('MARITAL', 'Marital Status', ['Others', 'Single', 'Married'])]
@@ -235,7 +235,6 @@ plot_data = [('EDUCATION', 'Education Level', ['Others', 'Postgraduate', 'Tertia
 # Plot each density plot in a subplot
 for idx, (variable, title, labels) in enumerate(plot_data):
     sns.kdeplot(data=df, x='LIMIT', hue=variable, fill=True, ax=axes[idx])
-    axes[idx].set_title(f'Density Plot of LIMIT by {title}')
     axes[idx].set_xlabel('LIMIT')
     axes[idx].set_ylabel('Density')
     axes[idx].legend(title=variable, labels=labels)
@@ -262,11 +261,14 @@ mean_income_by_education = df.groupby('EDUCATION')['INCOME'].mean().sort_values(
 
 # Create box plot of income by education level (transposed)
 plt.figure(figsize=(10, 6))
-sns.boxplot(x='INCOME', y='EDUCATION', data=df, order=mean_income_by_education)
+box_plot = sns.boxplot(x='INCOME', y='EDUCATION', data=df, order=mean_income_by_education)
 plt.xlabel('Income')
 plt.ylabel('.')
 plt.xticks(rotation=45)  # Rotate x-axis labels
-plt.grid(True)
+
+# Removing gridlines
+box_plot.grid(False)
+
 plt.show()
 ```
 
@@ -286,11 +288,13 @@ mean_income_by_marital = df.groupby('MARITAL')['INCOME'].mean().sort_values(asce
 
 # Create box plot of income by marital status (transposed)
 plt.figure(figsize=(10, 6))
-sns.boxplot(x='INCOME', y='MARITAL', data=df, order=mean_income_by_marital)
+box_plot = sns.boxplot(x='INCOME', y='MARITAL', data=df, order=mean_income_by_marital)
 plt.xlabel('Income')
 plt.ylabel('.')
 plt.xticks(rotation=45)  # Rotate x-axis labels 
-plt.grid(True)
+
+# Removing gridlines
+box_plot.grid(False)
 
 plt.show()
 ```
