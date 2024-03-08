@@ -318,6 +318,41 @@ plt.show()
 
 Based on the Income box plot, it is clear that individuals with high incomes mainly belong to the Tertiary Education group. However, this group demonstrates lower credit balances in comparison to the Postgraduate and High School groups.
 
+#### Scatterplot
+```
+# Define colors for each education category
+colors = {'Postgraduate': 'blue', 'Tertiary': 'green', 'High School': 'orange', 'Others': 'purple'}
+
+# Define the variables to plot
+variables = ['B1', 'B2', 'B3', 'B4', 'B5']
+
+# Create subplots
+fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+axes = axes.flatten()
+
+# Plotting
+for i, variable in enumerate(variables):
+    ax = axes[i]
+    for education, color in colors.items():
+        ax.scatter(df[df['EDUCATION'] == education][variable], df[df['EDUCATION'] == education]['LIMIT'], color=color, label=education, alpha=0.6)
+    ax.set_xlabel(variable)
+    ax.set_ylabel('LIMIT')
+    ax.legend()
+
+# Hide empty subplots
+for j in range(len(variables), len(axes)):
+    fig.delaxes(axes[j])
+
+plt.tight_layout()
+plt.show()
+``
+![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/920dd4d9-52a8-4522-b445-9aa1878ff3c7)
+
+The bill amount owned by customers kept increasing as the month increasses. And most of the high sizeabbe bill amoout is concerntrated on the Postgraduates and Tertiary education group as they mosntly obtained a higer credit limit
+
+
+
+
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
 
