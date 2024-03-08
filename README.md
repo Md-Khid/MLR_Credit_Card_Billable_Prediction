@@ -281,6 +281,8 @@ plt.figure(figsize=(12, 8))
 sns.heatmap(numerical_columns.corr(), annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
 plt.show()
 ```
+![9](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/cbc3a167-f442-4c44-9bb2-5770654c0b53)
+
 Based on the correlation heatmap, it is clear that there is a strong correlation between variables such as 'INCOME' and 'LIMIT', as well as 'B(n)' and 'BALANCE'
 
 #### Boxplot
