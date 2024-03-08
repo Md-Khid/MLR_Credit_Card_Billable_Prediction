@@ -34,8 +34,7 @@ The dataset comprises details about customers' credit facilities, including demo
 
 ## Data Preparation
 
-In this part of data processing, we will prepare the dataset for analysis by handling missing values, special characters and encoding of variables.
-
+In this phase of data processing, we will refine the dataset for analysis by addressing missing values, handling special characters, and encoding variables. Additionally, we will import all necessary modules and libraries for the project and transform categorical variables into category columns for data visualization purposes.
 
 ### Data Pre-processing:
 
@@ -43,21 +42,42 @@ In this part of data processing, we will prepare the dataset for analysis by han
 ```
 import pandas as pd
 import pandas as pd
+import pandas as pd
 import numpy as np
 import seaborn as sns
+import statsmodels.api as sm
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error
 
-# Covert columns to categorical variables
-columns_to_convert = ['RATING', 'GENDER', 'EDUCATION', 'MARITAL', 'S1', 'S2', 'S3', 'S4', 'S5']
 
-# Read data file and drop the 1st column
-df = pd.read_csv('Data.csv', usecols=lambda column: column != 'SERIAL NUMBER', dtype={col: 'category' for col in columns_to_convert})
+# Load the data
+df = pd.read_csv('Data.csv')
 
-# Display data table
+# Drop the first column 
+df = df.iloc[:, 1:]
+
+# Define mapping dictionaries for categorical columns for visual plotting
+gender_map = {0: 'Male', 1: 'Female'}
+education_map = {0: 'Others', 1: 'Postgraduate', 2: 'Tertiary', 3: 'High School'}
+marital_map = {0: 'Others', 1: 'Single', 2: 'Married'}
+rating_map = {0: 'Good', 1: 'Bad'}
+s_map = {0: 'Prompt', -1: 'Min Sum', 0: 'One', 1: 'Two', 2: 'Three', 3: 'Four', 4: 'Five', 5: 'Six', 6: 'Seven', 7: 'Eight', 8: 'Nine'}
+
+# Convert columns to categorical and apply mappings
+df['GENDER'] = df['GENDER'].map(gender_map)
+df['EDUCATION'] = df['EDUCATION'].map(education_map)
+df['MARITAL'] = df['MARITAL'].map(marital_map)
+df['RATING'] = df['RATING'].map(rating_map)
+for col in ['S1', 'S2', 'S3', 'S4', 'S5']:
+   df[col] = df[col].map(s_map)
+
+# Display the modified dataframe
 df
 ```
-<img width="748" alt="1" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/43cf29ab-7f6a-4e69-83cf-2540420cf8b6">
+<img width="499" alt="1" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3f12cb0d-d601-4335-a7bc-6be4a5507d42">
 
 #### Check Missing Values
 
@@ -71,9 +91,9 @@ columns_with_missing_values = missing_values[missing_values > 0]
 # Display columns with missing values
 columns_with_missing_values
 ```
-<img width="180" alt="2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/092bf3cb-168d-46c3-8ab2-11a31310c5ef">
+<img width="199" alt="2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/6e0781b1-309b-450b-b42b-be82a56e32a6">
 
-Based on the output, the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To address this, we need to understand the distribution of each column so that we can appropriately replace the missing values, such as using the mean, median, or mode.
+Based on the output, it appears that the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To rectify this issue, we should first analyse the distribution of each column to determine the most suitable method for replacing the missing values, which could involve using the mean, median, or mode.
 
 #### View Data Distribution
 ```
@@ -99,11 +119,15 @@ for i, column in enumerate(columns):
 # Remove gridlines from all subplots
 for ax in axes.flatten():
     ax.grid(False)
+    
+# Hide empty subplots
+for i in range(len(columns), axes.size):
+    fig.delaxes(axes.flatten()[i])
 
 plt.tight_layout()
 plt.show()
 ```
-<img width="910" alt="2" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/ed483cbc-7fe2-4798-b975-39dd52083ad0">
+<img width="497" alt="3" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/49515e8a-f3e7-442a-bf33-513e5e10dd16">
 
 Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, an anomalous age value is observed lying between -1 to 0, as well as 200. To address this anomaly, we will remove such values from the Age column, as they may represent system or human entry errors.
 
@@ -111,12 +135,13 @@ Given the positively skewed distribution of data in the "Limit," "Balance," and 
 
 ```
 # Remove rows where 'Age' column has a value of 0, -1, or 100 and above
-df = df[(df['AGE'] > 0) & (df['AGE'] < 100)]
+df = df[(df['AGE'] > 0) & (df['AGE'] < 100)].copy()
 
 # Specify columns and their corresponding fill methods
 columns_to_fill = {
     'LIMIT': 'median',
     'BALANCE': 'median',
+    'AGE': 'median',
     'MARITAL': 'mode',
     'EDUCATION': 'mode'
 }
@@ -124,9 +149,9 @@ columns_to_fill = {
 # Fill missing values in specified columns
 for column, method in columns_to_fill.items():
     if method == 'median':
-        df[column].fillna(df[column].median(), inplace=True)
+        df[column] = df[column].fillna(df[column].median())
     elif method == 'mode':
-        df[column].fillna(df[column].mode()[0], inplace=True)
+        df[column] = df[column].fillna(df[column].mode()[0])
 
 # Check for missing values in columns 
 missing_values = df.isnull().any()
@@ -137,21 +162,19 @@ count_missing_values = missing_values.sum()
 # Display number of columns with missing values
 count_missing_values
 ```
-
-<img width="97" alt="4" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/b2633744-6760-468c-ad9d-ecbb80867879">
-
+<img width="45" alt="4" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/aaf41384-2017-466b-b592-bd9dc31e4638">
 
 #### Removing Special Characters
 ```
-# Iterate over each column in the DataFrame
+# Iterate over each column 
 for column in df.columns:
     # Iterate over each row in the current column
     for index, value in df[column].items():
-        # Check if the value contains any special characters
+        # Check if value contains any special characters
         if any(char in "!@#$%^&" for char in str(value)):
             print(f"Special characters found in column '{column}', row {index}: {value}")
 ```
-<img width="400" alt="4" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/e7266526-7830-4492-b36d-31d818e8f01e">
+<img width="243" alt="5" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4dc47bf2-f75e-4368-9f4d-23b146507ab2">
 
 ```
 # Remove special characters ('$' and ',') from column 'R3'
@@ -173,13 +196,13 @@ if not categorical_variables.empty:
 else:
     print("No categorical variables need encoding.")
 ```
-<img width="318" alt="4" src="https://github.com/Md-Khid/Linear-Regression-Modelling/assets/160820522/0514b001-4715-4c13-bf05-31612441be09">
+<img width="237" alt="6" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/22070eb7-cdce-40b0-b5b7-666ad7d8206f">
 
 ```
 # Convert 'R3' column to the same data type as 'R1', 'R2', 'R4', and 'R5'
 df['R3'] = df['R3'].astype(df['R1'].dtype)
 ```
-Based on the output, it seems that the 'R3' column needs encoding. However, based on the [data dictionary](#data-dictionary), 'R3' is expected to be numerical, similar to 'R1', 'R2', 'R4', and 'R5'. To resolve this, we can change the data type of the 'R3' column to match that of the 'R1', 'R2', 'R4', and 'R5' columns.  For now, we will refrain from encoding the remaining categorical variables as they are typically analysed using frequency tables, bar charts, or other graphical methods to understand their distribution and relationships with other variables.
+Based on the output, it appears that the 'R3' column may require encoding. However, according to the [data dictionary](#data-dictionary), 'R3' is expected to be numerical, akin to 'R1', 'R2', 'R4', and 'R5'. To address this, we can adjust the data type of the 'R3' column to align with that of the 'R1', 'R2', 'R4', and 'R5' columns. At present, we will refrain from encoding the remaining categorical variables, as they are typically examined using frequency tables, bar charts, or other graphical methods to comprehend their distribution and relationships with other variables.
 
 ## Exploratary Data Analysis 
 In this section, we will dive into understanding the dataset. This involves tasks like exploring data distributions, spotting outliers, visualising relationships between variables, and identifying any anomalies. 
