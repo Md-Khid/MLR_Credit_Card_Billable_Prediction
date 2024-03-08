@@ -289,8 +289,8 @@ Based on the correlation heatmap, it is clear that there is a strong correlation
 ```
 # Define the variables for iteration
 plot_data = [
-    {'column_x': 'INCOME', 'column_y': 'EDUCATION', 'data': 'INCOME', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title': 'Income by Education Level'},
-    {'column_x': 'BALANCE', 'column_y': 'EDUCATION', 'data': 'BALANCE', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title': 'Balance by Education Level'}
+    {'column_x': 'INCOME', 'column_y': 'EDUCATION', 'data': 'INCOME', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title':'.'},
+    {'column_x': 'BALANCE', 'column_y': 'EDUCATION', 'data': 'BALANCE', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title':'.'}
 ]
 
 # Define a fixed color dictionary for specific education levels
@@ -314,7 +314,7 @@ plt.tight_layout()
 plt.show()
 
 ```
-![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c5dc7e14-9ecc-48ce-9a0b-f73a907c3a30)
+![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/175eca19-66da-4dd2-9fe0-4e54d42165c3)
 
 Based on the Income box plot, it is clear that individuals with high incomes mainly belong to the Tertiary Education group. However, this group demonstrates lower credit balances in comparison to the Postgraduate and High School groups.
 
