@@ -205,7 +205,7 @@ df['R3'] = df['R3'].astype(df['R1'].dtype)
 Based on the output, it appears that the 'R3' column may require encoding. However, according to the [data dictionary](#data-dictionary), 'R3' is expected to be numerical. To address this, we can adjust the data type of the 'R3' column to align with that of the 'R1', 'R2', 'R4', and 'R5' columns. For now, we will refrain from encoding the remaining categorical variables, as we intend to utilise them for generating other frequency tables, bar charts, or graphical methods to comprehend their distribution and relationships with other variables.
 
 ## Exploratary Data Analysis 
-In this section, we will dive into understanding the dataset. This involves tasks like exploring data distributions, spotting outliers, visualising relationships between variables, and identifying any anomalies. 
+In this section, we will delve into comprehending the dataset. This encompasses activities such as examining data distributions, identifying outliers, visualising correlations between variables, and detecting any irregularities or trends, then transforming the insights obtained into valuable information.
 
 #### Descriptive Statisitcs
 ```
@@ -228,8 +228,7 @@ statistical_description = statistical_description.T
 # Display statistical table
 statistical_description
 ```
-<img width="374" alt="7" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/7fa312ca-11e9-4e39-b4b4-7b9f8efa2484">
-
+<img width="383" alt="7" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/74809df8-880f-4b92-9265-5d89bed6472d">
 
 ## Insight Articulation
 
@@ -245,6 +244,7 @@ df
 <img width="751" alt="8" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c4ae83ec-81cf-43c5-baa2-490be2674578">
 
 Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
+
 #### Density Plot
 ```
 # Create a figure with three subplots
@@ -265,11 +265,65 @@ for idx, (variable, title, labels) in enumerate(plot_data):
 plt.tight_layout()
 plt.show()
 ```
-<img width="895" alt="9" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/00374fb3-fea8-4a5e-8f56-0b4b35b9952d">
+<img width="493" alt="8" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3b10bb4e-7f10-4e04-ad84-9533fbe20ceb">
 
-Based on the density plots, the credit card bank prefers to provide higher credit limit to customers who are 1. Male 2. Others (Divoeced or Single) 3. HAs a Postgraduate education
+Based on the density plots, it is clear that the credit card bank tends to offer higher credit limits to customers who are 1. Male, 2. Married, and 3. Have a postgraduate education.
 
-#### Scatter Plot
+#### Heatmap
+```
+# Select numerical columns
+numerical_columns = df.select_dtypes(include='number')
+
+# Plotting heatmap
+plt.figure(figsize=(12, 8))
+sns.heatmap(numerical_columns.corr(), annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
+plt.show()
+```
+Based on the correlation heatmap, it is clear that there is a strong correlation between variables such as 'INCOME' and 'LIMIT', as well as 'B(n)' and 'BALANCE'
+
+#### Boxplot
+```
+# Define new labels for education levels
+education_labels = ['Others', 'Postgraduate', 'Tertiary', 'High School']
+
+# Convert 'EDUCATION' column to categorical data 
+df['EDUCATION'] = df['EDUCATION'].astype('category')
+df['EDUCATION'] = df['EDUCATION'].cat.rename_categories(education_labels)
+
+# Calculate the mean income for each education level and sort accordingly
+mean_income_by_education = df.groupby('EDUCATION')['INCOME'].mean().sort_values(ascending=False).index
+
+# Create box plot of income by education level (transposed)
+plt.figure(figsize=(10, 6))
+box_plot = sns.boxplot(x='INCOME', y='EDUCATION', data=df, order=mean_income_by_education)
+plt.xlabel('Income')
+plt.ylabel('.')
+plt.xticks(rotation=45)  # Rotate x-axis labels
+
+# Removing gridlines
+box_plot.grid(False)
+
+plt.show()
+
+```
+![10](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c413d4b5-cdab-4353-82fc-7aab13cc6d70)
+
+
+
+```
+# Select numerical columns
+numerical_columns = df.select_dtypes(include='number')
+
+# Plotting heatmap
+plt.figure(figsize=(12, 8))
+sns.heatmap(numerical_columns.corr(), annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
+plt.show()
+```
+![9](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/e582c888-488e-449e-8b19-140c1f5fd848)
+
+Based on the correlation heatmap, it is clear that there is a strong correlation between variables such as 'INCOME' and 'LIMIT', as well as 'B(n)' and 'BALANCE'.
+
+
 
 ```
 # Define new labels for education levels
