@@ -350,6 +350,37 @@ plt.show()
 The bill amount owned by customers kept increasing as the month increasses. And most of the high sizeabbe bill amoout is concerntrated on the Postgraduates and Tertiary education group as they mosntly obtained a higer credit limit
 
 
+#### Barplot
+```
+# Define colors for each rating category
+colors = {'Good': 'blue', 'Bad': 'red'}
+
+# Create a figure with subplots
+fig, axes = plt.subplots(1, 3, figsize=(20,5))
+
+# Calculate frequencies for each rating category for GENDER, MARITAL, and EDUCATION
+for i, category in enumerate(['GENDER', 'MARITAL', 'EDUCATION']):
+    education_counts = {}
+    for rating in colors.keys():
+        education_counts[rating] = df[df['RATING'] == rating][category].value_counts()
+
+    # Sort the frequencies in descending order
+    sorted_education_counts = {k: v.sort_values(ascending=False) for k, v in education_counts.items()}
+
+    # Plotting
+    for rating, color in colors.items():
+        axes[i].bar(sorted_education_counts[rating].index, sorted_education_counts[rating].values, color=color, label=rating, alpha=0.6)
+
+    axes[i].set_xlabel(category)
+    axes[i].set_ylabel('.')
+    axes[i].legend(title='RATING')
+
+plt.tight_layout()
+plt.show()
+```
+![12](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/b901a17f-6aba-40c2-98e1-e12095706a27)
+
+Based on the barplots, it is clear that the credit card bank tends to offer Good ratings to customers who are 1. Female, 2. Married, and 3. Have a Tertiary education.
 
 
 ## Linear Regression Modelling
