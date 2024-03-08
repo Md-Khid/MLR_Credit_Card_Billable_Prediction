@@ -287,32 +287,31 @@ Based on the correlation heatmap, it is clear that there is a strong correlation
 
 #### Boxplot
 ```
-# Define new labels for education levels
-education_labels = ['Others', 'Postgraduate', 'Tertiary', 'High School']
+# Define the variables for iteration
+plot_data = [
+    {'column_x': 'INCOME', 'column_y': 'EDUCATION', 'data': 'INCOME', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title': '.'},
+{'column_x': 'BALANCE', 'column_y': 'MARITAL', 'data': 'BALANCE', 'order': ['Others', 'Single', 'Married'], 'title': '.'}
+]
 
-# Convert 'EDUCATION' column to categorical data 
-df['EDUCATION'] = df['EDUCATION'].astype('category')
-df['EDUCATION'] = df['EDUCATION'].cat.rename_categories(education_labels)
+# Create a figure with subplots
+fig, axes = plt.subplots(1, len(plot_data), figsize=(15, 6))
 
-# Calculate the mean income for each education level and sort accordingly
-mean_income_by_education = df.groupby('EDUCATION')['INCOME'].mean().sort_values(ascending=False).index
+# Iterate through the plot_data and create subplots
+for i, plot_info in enumerate(plot_data):
+    # Calculate the mean for the current group and sort the order accordingly
+    mean_values = df.groupby(plot_info['column_y'])[plot_info['column_x']].mean().sort_values(ascending=False).index
+    sns.boxplot(ax=axes[i], x=plot_info['column_x'], y=plot_info['column_y'], data=df, order=mean_values)
+    axes[i].set_xlabel(plot_info['data'].capitalize())
+    axes[i].set_ylabel('.')
+    axes[i].set_title(plot_info['title'])
+    axes[i].set_xticklabels(axes[i].get_xticklabels(), rotation=45)  # Rotate x-axis labels
+    axes[i].grid(False)
 
-# Create box plot of income by education level (transposed)
-plt.figure(figsize=(10, 6))
-box_plot = sns.boxplot(x='INCOME', y='EDUCATION', data=df, order=mean_income_by_education)
-plt.xlabel('Income')
-plt.ylabel('.')
-plt.xticks(rotation=45)  # Rotate x-axis labels
-
-# Removing gridlines
-box_plot.grid(False)
-
+plt.tight_layout()
 plt.show()
 
 ```
-![10](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c413d4b5-cdab-4353-82fc-7aab13cc6d70)
-
-
+![10](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/a33b8ae0-8774-47c5-899d-060c7eebae46)
 
 ```
 # Select numerical columns
