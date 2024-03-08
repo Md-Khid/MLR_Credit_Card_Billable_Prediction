@@ -316,7 +316,7 @@ plt.show()
 ```
 ![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c5dc7e14-9ecc-48ce-9a0b-f73a907c3a30)
 
-Based on the Income box plot, it is evident that individuals with high incomes mainly belong to the Tertiary Education group among the customers. However, this group exhibits the lowest credit balances compared to the Postgraduate and High School groups.
+Based on the Income box plot, it is clear that individuals with high incomes mainly belong to the Tertiary Education group. However, this group demonstrates lower credit balances in comparison to the Postgraduate and High School groups.
 
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
