@@ -289,9 +289,12 @@ Based on the correlation heatmap, it is clear that there is a strong correlation
 ```
 # Define the variables for iteration
 plot_data = [
-    {'column_x': 'INCOME', 'column_y': 'EDUCATION', 'data': 'INCOME', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title': '.'},
-{'column_x': 'BALANCE', 'column_y': 'MARITAL', 'data': 'BALANCE', 'order': ['Others', 'Single', 'Married'], 'title': '.'}
+    {'column_x': 'INCOME', 'column_y': 'EDUCATION', 'data': 'INCOME', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title': 'Income by Education Level'},
+    {'column_x': 'BALANCE', 'column_y': 'EDUCATION', 'data': 'BALANCE', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title': 'Balance by Education Level'}
 ]
+
+# Define a fixed color dictionary for specific education levels
+education_colors = {'Tertiary': 'blue', 'Postgraduate': 'green', 'High School': 'orange', 'Others': 'red'}
 
 # Create a figure with subplots
 fig, axes = plt.subplots(1, len(plot_data), figsize=(15, 6))
@@ -300,7 +303,7 @@ fig, axes = plt.subplots(1, len(plot_data), figsize=(15, 6))
 for i, plot_info in enumerate(plot_data):
     # Calculate the mean for the current group and sort the order accordingly
     mean_values = df.groupby(plot_info['column_y'])[plot_info['column_x']].mean().sort_values(ascending=False).index
-    sns.boxplot(ax=axes[i], x=plot_info['column_x'], y=plot_info['column_y'], data=df, order=mean_values)
+    sns.boxplot(ax=axes[i], x=plot_info['column_x'], y=plot_info['column_y'], data=df, order=mean_values, palette=education_colors)
     axes[i].set_xlabel(plot_info['data'].capitalize())
     axes[i].set_ylabel('.')
     axes[i].set_title(plot_info['title'])
@@ -311,9 +314,9 @@ plt.tight_layout()
 plt.show()
 
 ```
-![10](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/a33b8ae0-8774-47c5-899d-060c7eebae46)
+![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c5dc7e14-9ecc-48ce-9a0b-f73a907c3a30)
 
-
+Based on the Income box plot, it is evident that individuals with high incomes mainly belong to the Tertiary Education group among the customers. However, this group exhibits the lowest credit balances compared to the Postgraduate and High School groups.
 
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
