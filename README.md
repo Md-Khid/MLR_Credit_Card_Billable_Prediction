@@ -230,6 +230,8 @@ statistical_description
 ```
 <img width="383" alt="7" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/74809df8-880f-4b92-9265-5d89bed6472d">
 
+Based on the statistical table, the credit card bank typically offers a uniform credit limit based on customers' income. However, a significant portion of its customers struggle to meet their credit card bill payments once they have utilised approximately 97% of their credit limit. They can only afford to make a small payment towards their monthly bills, around 10%. This serves as a clear signal for the credit card bank to issue reminder notices and make phone calls or impose late fees and additional interest charges on unpaid balances, leading to an increase in the outstanding amount over time.
+
 ## Insight Articulation
 
 #### Scaling Numerical Features
