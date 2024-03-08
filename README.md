@@ -202,7 +202,7 @@ else:
 # Convert 'R3' column to the same data type as 'R1', 'R2', 'R4', and 'R5'
 df['R3'] = df['R3'].astype(df['R1'].dtype)
 ```
-Based on the output, it appears that the 'R3' column may require encoding. However, according to the [data dictionary](#data-dictionary), 'R3' is expected to be numerical, akin to 'R1', 'R2', 'R4', and 'R5'. To address this, we can adjust the data type of the 'R3' column to align with that of the 'R1', 'R2', 'R4', and 'R5' columns. At present, we will refrain from encoding the remaining categorical variables, as they are typically examined using frequency tables, bar charts, or other graphical methods to comprehend their distribution and relationships with other variables.
+Based on the output, it appears that the 'R3' column may require encoding. However, according to the [data dictionary](#data-dictionary), 'R3' is expected to be numerical. To address this, we can adjust the data type of the 'R3' column to align with that of the 'R1', 'R2', 'R4', and 'R5' columns. For now, we will refrain from encoding the remaining categorical variables, as we intend to utilise them for generating other frequency tables, bar charts, or graphical methods to comprehend their distribution and relationships with other variables.
 
 ## Exploratary Data Analysis 
 In this section, we will dive into understanding the dataset. This involves tasks like exploring data distributions, spotting outliers, visualising relationships between variables, and identifying any anomalies. 
