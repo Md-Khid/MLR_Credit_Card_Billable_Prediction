@@ -345,9 +345,8 @@ for j in range(len(variables), len(axes)):
 
 plt.tight_layout()
 plt.show()
-``
+```
 ![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/920dd4d9-52a8-4522-b445-9aa1878ff3c7)
-
 The bill amount owned by customers kept increasing as the month increasses. And most of the high sizeabbe bill amoout is concerntrated on the Postgraduates and Tertiary education group as they mosntly obtained a higer credit limit
 
 
