@@ -407,7 +407,10 @@ for hue in ['GENDER', 'EDUCATION', 'MARITAL']:
     plt.show()
 ```
 
-![12](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/cfb062c7-38dd-400f-a11b-efd23e9e07dc)
+![12 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c8a1da81-9d10-4c82-854b-84f56e2fd70a)
+![12 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/90554bf0-05c7-4639-9e73-ce56de34717f)
+![12 3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/82a71efc-89bd-4625-94ed-f73b34dcd39e)
+
 
 ```
 
