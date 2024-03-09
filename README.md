@@ -464,6 +464,117 @@ Based on the barplots, it is clear that the credit card bank tends to provide Go
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
 
+```
+# Revert back to original scale
+df[numeric_columns] = scaler.inverse_transform(df[numeric_columns])
+df
+```
+<img width="661" alt="16" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/a217237e-8fcc-41c2-b68c-e27936aa5c35">
+
+
+```
+# Define the target variable 
+Y = df['B1']
+
+# Define the independent variables 
+X = df.drop(['B1'], axis=1)
+
+# Split data into training and testing sets
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
+
+# Add a constant column to the independent variables 
+X_train = sm.add_constant(X_train)
+X_test = sm.add_constant(X_test)
+
+# Fit the linear regression model
+model = sm.OLS(Y_train, X_train).fit()
+
+# Loop to remove variables with p-values greater than 0.05
+while True:
+    # Extract p-values from the model summary
+    p_values = model.pvalues
+    
+    # Identify variables with p-values greater than 0.05
+    variables_to_remove = p_values[p_values > 0.05].index.tolist()
+    
+    # Break out of the loop
+    if len(variables_to_remove) == 0:
+        break
+    
+    # Drop variables from both training and testing datasets
+    X_train = X_train.drop(columns=variables_to_remove)
+    X_test = X_test.drop(columns=variables_to_remove)
+    
+    # Add constant column again after dropping variables
+    X_train = sm.add_constant(X_train)
+    X_test = sm.add_constant(X_test)
+    
+    # Refit the linear regression model
+    model = sm.OLS(Y_train, X_train).fit()
+
+# Predict the target variable 
+Y_train_pred = model.predict(X_train)
+Y_test_pred = model.predict(X_test)
+
+# Calculate the root mean squared error (RMSE) 
+train_rmse = round(np.sqrt(mean_squared_error(Y_train, Y_train_pred)), 2)
+test_rmse = round(np.sqrt(mean_squared_error(Y_test, Y_test_pred)), 2)
+
+# Print the RMSE 
+print("Train RMSE:", train_rmse)
+print("Test RMSE:", test_rmse)
+
+# Print summary statistics 
+print(model.summary())
+```
+
+<img width="376" alt="17" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/18126040-31ac-4db6-b04c-9961d4d20a5f">
+
+```
+# Define the number of features you want to select
+num_features = 6
+
+# Create a linear regression model
+model = LinearRegression()
+
+# Initialize RFE 
+rfe = RFE(estimator=model, n_features_to_select=num_features)
+
+# Fit RFE to data
+rfe.fit(X_train, Y_train)
+
+# Get selected feature indices
+selected_indices = rfe.support_
+
+# Extract selected features from training and testing sets
+X_train_selected = X_train.iloc[:, selected_indices]
+X_test_selected = X_test.iloc[:, selected_indices]
+
+# Add a constant column 
+X_train_selected_with_const = sm.add_constant(X_train_selected)
+X_test_selected_with_const = sm.add_constant(X_test_selected)
+
+# Fit the linear regression model 
+model_selected_features = sm.OLS(Y_train, X_train_selected_with_const).fit()
+
+# Predict the target variable for training and testing sets 
+Y_train_pred_selected = model_selected_features.predict(X_train_selected_with_const)
+Y_test_pred_selected = model_selected_features.predict(X_test_selected_with_const)
+
+# Calculate RMSE for training set
+train_rmse = np.sqrt(mean_squared_error(Y_train, Y_train_pred_selected))
+test_rmse = np.sqrt(mean_squared_error(Y_test, Y_test_pred_selected))
+
+# Print the RMSE 
+print("Train RMSE:", round(train_rmse, 2))
+print("Test RMSE:", round(test_rmse, 2))
+
+# Print summary statistics
+print(model_selected_features.summary())
+```
+<img width="375" alt="18" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/fecb69f9-e0cb-430c-a082-0df180da4b5a">
+
+
 ## Evaluate Model Performance
 
 - Excel - Data Cleaning
