@@ -29,7 +29,7 @@ The dataset comprises details about customers' credit facilities, including demo
 
 ##### **Note**:
 ##### n=1 signifies the most recent month, while n=5 signifies the previous 4th month. 
-##### If n=1 is the month of May 2022, then n=5 is the month of January 2024.
+##### If n=1 is the month of May, then n=5 is the month of January.
 
 
 ## Data Preparation
@@ -38,8 +38,9 @@ In this phase of data processing, we will refine the dataset for analysis by add
 
 ### Data Pre-processing:
 
-#### Import Data
+#### Import Data / Libraries/ Modules
 ```
+# Import Libraries and Modules
 import pandas as pd
 import pandas as pd
 import pandas as pd
@@ -51,6 +52,9 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
+
+# Set a standard seaborn color palette
+sns.set_palette("colorblind")
 
 
 # Load the data
@@ -64,7 +68,7 @@ gender_map = {0: 'Male', 1: 'Female'}
 education_map = {0: 'Others', 1: 'Postgraduate', 2: 'Tertiary', 3: 'High School'}
 marital_map = {0: 'Others', 1: 'Single', 2: 'Married'}
 rating_map = {0: 'Good', 1: 'Bad'}
-s_map = {0: 'Prompt', -1: 'Min Sum', 0: 'One', 1: 'Two', 2: 'Three', 3: 'Four', 4: 'Five', 5: 'Six', 6: 'Seven', 7: 'Eight', 8: 'Nine'}
+s_map = {-1: 'Prompt', 0: 'Min Sum', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
 
 # Convert columns to categorical and apply mappings
 df['GENDER'] = df['GENDER'].map(gender_map)
@@ -209,7 +213,7 @@ In this section, we will delve into comprehending the dataset. This encompasses 
 
 #### Descriptive Statisitcs
 ```
-# Create statistical description table for all columns
+# Create statistical description table 
 statistical_description = df.describe(include='all')
 
 # Round statistical description table to 2 decimal places
@@ -247,6 +251,21 @@ df
 
 Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
 
+#### Heatmap
+```
+# Select numerical columns
+numerical_columns = df.select_dtypes(include='number')
+
+# Plotting heatmap
+plt.figure(figsize=(12, 8))
+sns.heatmap(numerical_columns.corr(), annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
+plt.show()
+```
+![9](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/cbc3a167-f442-4c44-9bb2-5770654c0b53)
+
+Based on the correlation heatmap, it is clear that there is a strong correlation between variables such as 'INCOME' and 'LIMIT', as well as 'B(n)' and 'BALANCE'.
+
+
 #### Density Plot
 ```
 # Create a figure with three subplots
@@ -271,19 +290,6 @@ plt.show()
 
 Based on the density plots, it is clear that the credit card bank tends to offer higher credit limits to customers who are 1. Male, 2. Married, and 3. Have a postgraduate education.
 
-#### Heatmap
-```
-# Select numerical columns
-numerical_columns = df.select_dtypes(include='number')
-
-# Plotting heatmap
-plt.figure(figsize=(12, 8))
-sns.heatmap(numerical_columns.corr(), annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
-plt.show()
-```
-![9](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/cbc3a167-f442-4c44-9bb2-5770654c0b53)
-
-Based on the correlation heatmap, it is clear that there is a strong correlation between variables such as 'INCOME' and 'LIMIT', as well as 'B(n)' and 'BALANCE'.
 
 #### Boxplot
 ```
@@ -346,39 +352,109 @@ for j in range(len(variables), len(axes)):
 plt.tight_layout()
 plt.show()
 ```
-![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/920dd4d9-52a8-4522-b445-9aa1878ff3c7)
-The bill amount owned by customers kept increasing as the month increasses. And most of the high sizeabbe bill amoout is concerntrated on the Postgraduates and Tertiary education group as they mosntly obtained a higer credit limit
+![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/471a66e0-584a-47f1-adbb-3c67f47133b6)
 
+Spell check: The bill amount owned by customers kept increasing as the month increasses. And most of the high sizeabbe bill amoout is concerntrated on the Postgraduates and Tertiary education group as they mosntly obtained a higer credit limit
 
-#### Barplot
 ```
-# Define colors for each rating category
-colors = {'Good': 'blue', 'Bad': 'red'}
+# Define the variables to plot
+variables = ['S1', 'S2', 'S3', 'S4', 'S5']
 
-# Create a figure with subplots
-fig, axes = plt.subplots(1, 3, figsize=(20,5))
+# Define the order of categories for each variable
+variable_order = {
+    'S1': ['Prompt', 'Min Sum', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'],
+    'S2': ['Prompt', 'Min Sum', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'],
+    'S3': ['Prompt', 'Min Sum', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'],
+    'S4': ['Prompt', 'Min Sum', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'],
+    'S5': ['Prompt', 'Min Sum', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']
+}
 
-# Calculate frequencies for each rating category for GENDER, MARITAL, and EDUCATION
-for i, category in enumerate(['GENDER', 'MARITAL', 'EDUCATION']):
-    education_counts = {}
-    for rating in colors.keys():
-        education_counts[rating] = df[df['RATING'] == rating][category].value_counts()
+# Iterate through each hue
+for hue in ['GENDER', 'EDUCATION', 'MARITAL']:
+    # Get the colorblind palette
+    hue_colors = sns.color_palette("colorblind", len(df[hue].unique()))
 
-    # Sort the frequencies in descending order
-    sorted_education_counts = {k: v.sort_values(ascending=False) for k, v in education_counts.items()}
+    # Create subplots for the current hue
+    fig, axes = plt.subplots(2, 3, figsize=(18, 12))
+    axes = axes.flatten()
 
     # Plotting
-    for rating, color in colors.items():
-        axes[i].bar(sorted_education_counts[rating].index, sorted_education_counts[rating].values, color=color, label=rating, alpha=0.6)
+    for i, variable in enumerate(variables):
+        ax = axes[i]
 
-    axes[i].set_xlabel(category)
-    axes[i].set_ylabel('.')
-    axes[i].legend(title='RATING')
+        # Ensure df contains the current hue column
+        if hue in df.columns:
+            sns.stripplot(x=df[variable], y=df['B1'], hue=df[hue], ax=ax, palette=hue_colors, order=variable_order[variable], jitter=True, dodge=True)
+            ax.set_xlabel(variable)
+            ax.set_ylabel('B1')
+            ax.grid(True)
+
+            # Create a legend for the current hue
+            handles = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color, markersize=10) for color in hue_colors]
+            ax.legend(handles, df[hue].unique(), loc='upper right')
+
+            if i >= 3:
+                ax.set_xlabel('')
+                ax.set_xticklabels([])
+        else:
+            print(f"Warning: DataFrame does not contain column '{hue.upper()}'")
+
+    # Hide empty subplots
+    for j in range(len(variables), len(axes)):
+        fig.delaxes(axes[j])
+
+    plt.tight_layout()
+    plt.show()
+```
+
+![12](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/cfb062c7-38dd-400f-a11b-efd23e9e07dc)
+
+```
+
+# Define the variables for the scatter plots
+variables = ['BALANCE', 'AGE']
+
+# Create a figure with subplots
+fig, axes = plt.subplots(1, 2, figsize=(15, 5))
+
+# Plotting
+for i, var in enumerate(variables):
+    ax = axes[i]
+    # Use colorblind palette for scatter plot
+    sns.scatterplot(data=df, x=var, y='INCOME', hue='RATING', palette={'Good': sns.color_palette()[0], 'Bad': sns.color_palette()[3]}, alpha=0.6, ax=ax)
+    ax.set_xlabel(var)
+    ax.set_ylabel('INCOME')
+    ax.legend(title='RATING')
 
 plt.tight_layout()
 plt.show()
 ```
-![12](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/b901a17f-6aba-40c2-98e1-e12095706a27)
+![13](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/60cab0e2-19b8-467b-b5c1-d4297e6f9a9b)
+
+
+```
+#### Barplot
+```
+# Create a figure with subplots
+fig, axes = plt.subplots(1, 3, figsize=(20, 5))
+
+# Calculate frequencies for each rating category for GENDER, MARITAL, and EDUCATION
+for i, category in enumerate(['GENDER', 'MARITAL', 'EDUCATION']):
+    # Count the occurrences of each category in the RATING column
+    education_counts = df[df['RATING'].isin(['Good', 'Bad'])].groupby([category, 'RATING']).size().unstack(fill_value=0)
+
+    # Plotting
+    # Plotting with sorted frequencies
+    education_counts.sort_values(by='Good', ascending=False).plot(kind='bar', stacked=True, ax=axes[i], color={'Good': sns.color_palette()[0], 'Bad': sns.color_palette()[3]}, alpha=0.6)
+    axes[i].set_xlabel(category)
+    axes[i].set_ylabel('Frequency')
+    axes[i].legend(title='RATING')
+    axes[i].set_xticklabels(axes[i].get_xticklabels(), rotation=45)  # Rotate x-axis labels
+
+plt.tight_layout()
+plt.show()
+```
+![14](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/924d50b9-a72e-48c9-8e0e-2b8045b6721d)
 
 Based on the barplots, it is clear that the credit card bank tends to provide Good ratings to customers who are 1. Female, 2. Married, and 3. Have a Tertiary education.
 
