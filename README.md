@@ -464,125 +464,138 @@ Based on the barplots, it is clear that the credit card bank tends to provide Go
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
 
+#### Revert back
 ```
 # Revert back to original scale
 df[numeric_columns] = scaler.inverse_transform(df[numeric_columns])
 df
 ```
-<img width="661" alt="16" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/a217237e-8fcc-41c2-b68c-e27936aa5c35">
+#### Create Dummy Varaibles
+```
+# Columns for Dummy
+df = pd.get_dummies(df, columns=['RATING','GENDER','EDUCATION','MARITAL','S1','S2','S3','S4','S5'])
 
+# Convert boolean columns to integers (1 and 0)
+boolean_columns = df.select_dtypes(include=bool).columns
+df[boolean_columns] = df[boolean_columns].astype(int)
+
+# Display the encoded DataFrame with boolean columns converted to integers
+df
 
 ```
-# Define the target variable 
-Y = df['B1']
+#### Remove Outliers
+```
+# Step 1: Identify numerical columns
+numeric_columns = df.select_dtypes(include=['float64', 'int64']).columns
 
-# Define the independent variables 
-X = df.drop(['B1'], axis=1)
+# Step 2: Define a function to identify outliers using IQR
+def identify_outliers_iqr(df, column):
+    Q1 = df[column].quantile(0.25)
+    Q3 = df[column].quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    outliers = (df[column] < lower_bound) | (df[column] > upper_bound)
+    return outliers
 
-# Split data into training and testing sets
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
+# Step 3: Initialize a variable to store the total number of outliers removed
+total_outliers_removed = 0
 
-# Add a constant column to the independent variables 
-X_train = sm.add_constant(X_train)
-X_test = sm.add_constant(X_test)
+# Step 4: Loop over each numeric column to identify outliers and remove them
+for column in numeric_columns:
+    outliers = identify_outliers_iqr(df, column)
+    total_outliers_removed += outliers.sum()
+    df = df[~outliers]
 
-# Fit the linear regression model
-model = sm.OLS(Y_train, X_train).fit()
+# Step 5: Print the total number of outliers removed
+print("Total number of outliers removed:", total_outliers_removed)
+```
 
-# Loop to remove variables with p-values greater than 0.05
-while True:
-    # Extract p-values from the model summary
-    p_values = model.pvalues
-    
-    # Identify variables with p-values greater than 0.05
-    variables_to_remove = p_values[p_values > 0.05].index.tolist()
-    
-    # Break out of the loop
-    if len(variables_to_remove) == 0:
-        break
-    
-    # Drop variables from both training and testing datasets
-    X_train = X_train.drop(columns=variables_to_remove)
-    X_test = X_test.drop(columns=variables_to_remove)
-    
-    # Add constant column again after dropping variables
-    X_train = sm.add_constant(X_train)
-    X_test = sm.add_constant(X_test)
-    
-    # Refit the linear regression model
-    model = sm.OLS(Y_train, X_train).fit()
+```
+# Assuming df is your DataFrame with the dependent variable B1 and independent variables in other columns
 
-# Predict the target variable 
-Y_train_pred = model.predict(X_train)
-Y_test_pred = model.predict(X_test)
+# Define the independent variables (X) and add a constant term for the intercept
+X = sm.add_constant(df.drop(columns=['B1']))
 
-# Calculate the root mean squared error (RMSE) 
-train_rmse = round(np.sqrt(mean_squared_error(Y_train, Y_train_pred)), 2)
-test_rmse = round(np.sqrt(mean_squared_error(Y_test, Y_test_pred)), 2)
+# Define the dependent variable (target)
+y = df['B1']
 
-# Print the RMSE 
-print("Train RMSE:", train_rmse)
-print("Test RMSE:", test_rmse)
+# Split the data into training and testing sets (80% training, 20% testing)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Print summary statistics 
+# Fit the OLS (Ordinary Least Squares) model on the training data
+model = sm.OLS(y_train, X_train).fit()
+
+# Iterate through the p-values and remove variables with p-value > 0.05, excluding the constant term
+while model.pvalues.drop('const').max() > 0.05:
+    # Find the variable with the highest p-value (excluding the constant term)
+    max_pvalue_index = model.pvalues.drop('const').idxmax()
+    # Remove the variable from X_train and X_test
+    X_train = X_train.drop(columns=[max_pvalue_index])
+    X_test = X_test.drop(columns=[max_pvalue_index])
+    # Fit the model again with the updated X_train
+    model = sm.OLS(y_train, X_train).fit()
+
+# Make predictions on both training and testing data
+y_train_pred = model.predict(X_train)
+y_test_pred = model.predict(X_test)
+
+# Calculate the Root Mean Squared Error (RMSE) for training and testing sets
+rmse_train = np.sqrt(np.mean((y_train - y_train_pred)**2))
+rmse_test = np.sqrt(np.mean((y_test - y_test_pred)**2))
+
+# Print the RMSE for training and testing sets
+print("RMSE for training set:", rmse_train)
+print("RMSE for testing set:", rmse_test)
+
+# Print the model summary
 print(model.summary())
-```
-
-<img width="376" alt="17" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/18126040-31ac-4db6-b04c-9961d4d20a5f">
 
 ```
-# Define the number of features you want to select
-num_features = 6
-
-# Create a linear regression model
-model = LinearRegression()
-
-# Initialize RFE 
-rfe = RFE(estimator=model, n_features_to_select=num_features)
-
-# Fit RFE to data
-rfe.fit(X_train, Y_train)
-
-# Get selected feature indices
-selected_indices = rfe.support_
-
-# Extract selected features from training and testing sets
-X_train_selected = X_train.iloc[:, selected_indices]
-X_test_selected = X_test.iloc[:, selected_indices]
-
-# Add a constant column 
-X_train_selected_with_const = sm.add_constant(X_train_selected)
-X_test_selected_with_const = sm.add_constant(X_test_selected)
-
-# Fit the linear regression model 
-model_selected_features = sm.OLS(Y_train, X_train_selected_with_const).fit()
-
-# Predict the target variable for training and testing sets 
-Y_train_pred_selected = model_selected_features.predict(X_train_selected_with_const)
-Y_test_pred_selected = model_selected_features.predict(X_test_selected_with_const)
-
-# Calculate RMSE for training set
-train_rmse = np.sqrt(mean_squared_error(Y_train, Y_train_pred_selected))
-test_rmse = np.sqrt(mean_squared_error(Y_test, Y_test_pred_selected))
-
-# Print the RMSE 
-print("Train RMSE:", round(train_rmse, 2))
-print("Test RMSE:", round(test_rmse, 2))
-
-# Print summary statistics
-print(model_selected_features.summary())
-```
-<img width="375" alt="18" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/fecb69f9-e0cb-430c-a082-0df180da4b5a">
-
+<img width="490" alt="20" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/897208b2-e1f5-4ea2-bd75-d8d58abd7521">
 
 ## Evaluate Model Performance
 
-- Excel - Data Cleaning
-  - [Download here](https://microsoft.com)
-- SQL Server - Data Analysis
-- PowerBI - Creating reports
+```
 
+# Define the independent variables (X) and add a constant term for the intercept
+X = sm.add_constant(df.drop(columns=['B1']))
 
+# Define the dependent variable (target)
+y = df['B1']
+
+# Split the data into training and testing sets (80% training, 20% testing)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Fit the OLS (Ordinary Least Squares) model on the training data
+model = sm.OLS(y_train, X_train).fit()
+
+# Iterate through the p-values and remove variables with p-value > 0.05, excluding the constant term
+while model.pvalues.drop('const').max() > 0.05:
+    # Find the variable with the highest p-value (excluding the constant term)
+    max_pvalue_index = model.pvalues.drop('const').idxmax()
+    # Remove the variable from X_train and X_test
+    X_train = X_train.drop(columns=[max_pvalue_index])
+    X_test = X_test.drop(columns=[max_pvalue_index])
+    # Fit the model again with the updated X_train
+    model = sm.OLS(y_train, X_train).fit()
+
+# Make predictions on both training and testing data
+y_train_pred = model.predict(X_train)
+y_test_pred = model.predict(X_test)
+
+# Calculate the Root Mean Squared Error (RMSE) for training and testing sets
+rmse_train = np.sqrt(np.mean((y_train - y_train_pred)**2))
+rmse_test = np.sqrt(np.mean((y_test - y_test_pred)**2))
+
+# Print the RMSE 
+print("Train RMSE:", round(rmse_train, 2))
+print("Test RMSE:", round(rmse_train, 2))
+
+# Print the model summary
+print(model.summary())
+```
+<img width="488" alt="21" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/6d78c9bb-3b36-41b0-99e6-1c88568f950e">
 
 
 
