@@ -413,7 +413,6 @@ for hue in ['GENDER', 'EDUCATION', 'MARITAL']:
 
 
 ```
-
 # Define the variables for the scatter plots
 variables = ['BALANCE', 'AGE']
 
@@ -434,7 +433,8 @@ plt.show()
 ```
 ![13](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/60cab0e2-19b8-467b-b5c1-d4297e6f9a9b)
 
-```
+
+
 #### Barplot
 ```
 # Create a figure with subplots
@@ -459,6 +459,8 @@ plt.show()
 
 ![14](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/df6f903b-2c0e-43fb-91bb-3ab3db24ddb
 
+
+
 Based on the barplots, it is clear that the credit card bank tends to provide Good ratings to customers who are 1. Female, 2. Married, and 3. Have a Tertiary education.
 
 
@@ -466,10 +468,6 @@ Based on the barplots, it is clear that the credit card bank tends to provide Go
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
 
 ## Evaluate Model Performance
-
-
-
-
 
 - Excel - Data Cleaning
   - [Download here](https://microsoft.com)
