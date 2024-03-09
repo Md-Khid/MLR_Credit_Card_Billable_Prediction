@@ -456,8 +456,7 @@ for i, category in enumerate(['GENDER', 'MARITAL', 'EDUCATION']):
 plt.tight_layout()
 plt.show()
 ```
-
-![14](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/df6f903b-2c0e-43fb-91bb-3ab3db24ddb
+![14](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/fbf4a1fb-dd9a-4923-882c-dbaa3834162b)
 
 Based on the barplots, it is clear that the credit card bank tends to provide Good ratings to customers who are 1. Female, 2. Married, and 3. Have a Tertiary education.
 
