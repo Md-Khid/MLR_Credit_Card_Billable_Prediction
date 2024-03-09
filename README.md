@@ -459,8 +459,6 @@ plt.show()
 
 ![14](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/df6f903b-2c0e-43fb-91bb-3ab3db24ddb
 
-
-
 Based on the barplots, it is clear that the credit card bank tends to provide Good ratings to customers who are 1. Female, 2. Married, and 3. Have a Tertiary education.
 
 
