@@ -270,7 +270,7 @@ def plot_corr_and_print_highly_correlated(df):
 # Call the function
 plot_corr_and_print_highly_correlated(df)
 ```
-![9 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0becee14-e7eb-4309-b3f9-5145d2343b28)
+![9 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/61434dc1-e690-4aee-a0e2-bd0896d082d4)
 ![9 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0bfaf7c1-8cd3-4152-9524-dbffb58f62b9)
 
 Based on the correlation heatmap, it is clear that there is a strong correlation between variables such as 'INCOME' and 'LIMIT', as well as 'B(n)' and 'BALANCE'.
@@ -278,20 +278,19 @@ Based on the correlation heatmap, it is clear that there is a strong correlation
 
 #### Density Plot
 ```
-# Create a figure with three subplots
+# Create figure with three subplots
 fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
-# Define variables for plotting
+# Define variables
 plot_data = [('EDUCATION', 'Education Level', ['Others', 'Postgraduate', 'Tertiary', 'High School']),
              ('GENDER', 'Gender', ['Male', 'Female']),
              ('MARITAL', 'Marital Status', ['Others', 'Single', 'Married'])]
 
 # Plot each density plot in a subplot
-for idx, (variable, title, labels) in enumerate(plot_data):
-    sns.kdeplot(data=df, x='LIMIT', hue=variable, fill=True, ax=axes[idx])
-    axes[idx].set_xlabel('LIMIT')
-    axes[idx].set_ylabel('Density')
-    axes[idx].legend(title=variable, labels=labels)
+for ax, (variable, title, labels) in zip(axes, plot_data):
+    sns.kdeplot(data=df, x='LIMIT', hue=variable, fill=True, ax=ax)
+    ax.set(xlabel='LIMIT', ylabel='Density')
+    ax.legend(title=variable, labels=labels)
 
 plt.tight_layout()
 plt.show()
