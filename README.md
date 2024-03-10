@@ -732,8 +732,6 @@ model.summary()
 ```
 ![21](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/6fdf40e3-a4bd-4d89-9282-e443639a21ae)
 
-Given the [descriptive statistics of B1](#descriptive-statistics), the mean is around 49985.76 and the standard deviation is approximately 71927.41. The Test RMSE is 7638.74 which is much smaller than both the mean and the standard deviation, which suggests that the model’s predictions are relatively close to the actual values. 
-
 The model underwent training and testing on sets divided into 70% for training and 30% for testing. Through iterations, variables with p-values greater than 0.05 were removed. It achieved an R-squared (R²) value of 0.949 and an F-statistic of 1.155e+04. The Root Mean Square Error (RMSE) for both the training and testing models is 7638.74. Considering the [descriptive statistics of B1](#descriptive-statistics), with a mean of approximately 49985.76 and a standard deviation of around 71927.41, the Test RMSE of 7638.74 is notably smaller than both the mean and the standard deviation. This suggests that the model's predictions are relatively close to the actual values.
 
 ## Evaluate Model Performance
