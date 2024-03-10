@@ -603,7 +603,7 @@ model.summary()
 ![21 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4a93c81f-4443-4464-a531-a9fd7b34c073)
 ![21 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/cfb5fad1-b314-48cd-b27b-a4d0e701c502)
 
-Given the [descriptive statistics of B1](#descriptive-statistics), the mean is around 49985.76 and the standard deviation is approximately 71927.41. The RMSE of 7638.74 is much smaller than both the mean and the standard deviation, which suggests that the model’s predictions are relatively close to the actual values.
+Given the [descriptive statistics of B1](####descriptive-statistics), the mean is around 49985.76 and the standard deviation is approximately 71927.41. The RMSE of 7638.74 is much smaller than both the mean and the standard deviation, which suggests that the model’s predictions are relatively close to the actual values.
 
 ## Evaluate Model Performance
 
