@@ -205,7 +205,7 @@ Based on the output, it appears that the 'R3' column may require encoding. Howev
 ## Exploratary Data Analysis 
 In this section, we will delve into comprehending the dataset. This encompasses tasks such as examining data distributions, identifying outliers, visualising correlations between variables, and detecting any irregularities or trends, then transforming the insights obtained into valuable information.
 
-#### Descriptive Statisitcs
+#### Descriptive Statistics
 ```
 # Create Descriptive Stats table 
 Descriptive_Stats = df.describe(include='all').round(2)
@@ -603,7 +603,7 @@ model.summary()
 ![21 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4a93c81f-4443-4464-a531-a9fd7b34c073)
 ![21 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/cfb5fad1-b314-48cd-b27b-a4d0e701c502)
 
-Given the [descriptive statistics of B1](####descriptive-statistics), the mean is around 49985.76 and the standard deviation is approximately 71927.41. The RMSE of 7638.74 is much smaller than both the mean and the standard deviation, which suggests that the model’s predictions are relatively close to the actual values. You can visualize the data distribution in the histogram below:
+Given the [descriptive statistics of B1](#descriptive-statistics), the mean is around 49985.76 and the standard deviation is approximately 71927.41. The RMSE of 7638.74 is much smaller than both the mean and the standard deviation, which suggests that the model’s predictions are relatively close to the actual values. You can visualize the data distribution in the histogram below:
 
 
 ## Evaluate Model Performance
