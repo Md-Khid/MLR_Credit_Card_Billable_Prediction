@@ -432,7 +432,7 @@ plt.show()
 ```
 ![12](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/d15f03a0-cd00-4180-bef6-a52bea8a3d64)
 
-Based on the scatter plots:
+Based on the scatter plots
 
 - **Concentration of Data Points:** There is a concentration of data points towards the lower end of the LIMIT axis across all plots. This suggests that a majority of customers have lower limits.
 
@@ -493,6 +493,33 @@ for hue in ['GENDER', 'EDUCATION', 'MARITAL']:
 ![13 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/ac878d31-38cf-4d0e-a0ed-8f1f5320c500)
 ![13 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/dba771d7-2382-48fc-81be-17b5e7f47d94)
 ![13 3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0f36a92f-02f1-4a24-847c-f557c97b13cc)
+
+Based on the GENDER scatter plots
+
+- **Prompt and Minimum Sum Payments:** For both genders across all five scatter plots (B1 vs. each of the five repayment statuses), there is a concentration of data points at the “Prompt Sum” and “Min Sum” categories. This suggests that most customers tend to make at least minimum payments promptly.
+
+- **Delayed Payments:** There are fewer data points in the delayed payment categories (“One” to “Eight”), indicating that most customers avoid delayed payments. This could be due to various reasons such as financial discipline, avoidance of penalties, or maintaining a good credit score.
+
+- **Gender Distribution:** The distribution of male and female customers is fairly similar across all categories of repayment status. This suggests that gender does not significantly influence the repayment status.
+
+
+Based on the EDUCATION scatter plots
+
+- **Prompt and Minimum Sum Payments:** Across all five scatter plots (B1 vs. each of the five repayment statuses), there is a concentration of data points at the “Prompt Sum” and “Min Sum” categories for all education levels. This suggests that most customers, regardless of their education level, tend to make at least minimum payments promptly.
+
+- **Delayed Payments:** There are fewer data points in the delayed payment categories (“One” to “Eight”), indicating that most customers avoid delayed payments. This pattern is consistent across all education levels.
+
+- **Education Level Distribution:** The distribution of customers across different education levels is fairly similar across all categories of repayment status. This suggests that the customer’s education level does not significantly influence the repayment status.
+
+Based on the MARITAL plots
+
+- **Prompt and Minimum Sum Payments:** Across all five scatter plots (B1 vs. each of the five repayment statuses), there is a concentration of data points at the “Prompt Sum” and “Min Sum” categories for all marital statuses. This suggests that most customers, regardless of their marital status, tend to make at least minimum payments promptly.
+
+- **Delayed Payments:** There are fewer data points in the delayed payment categories (“One” to “Eight”), indicating that most customers avoid delayed payments. This pattern is consistent across all marital statuses.
+
+- **Marital Status Distribution:** The distribution of customers across different marital statuses is fairly similar across all categories of repayment status. This suggests that the customer’s marital status does not significantly influence the repayment status.
+
+
 
 ```
 # Define variables 
