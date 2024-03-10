@@ -7,7 +7,7 @@ The objective of this project is to conduct an in-depth analysis of a credit fac
 ## Dataset Information
 
 ### Data Variables
-The dataset comprises various attributes pertaining to customers' credit facilities, including demographic details, outstanding balances, repayment histories, and socio-economic indicators. These variables serve as the cornerstone for our analysis and predictive modelling endeavours.
+The dataset comprises various attributes pertaining to customers' credit facilities, including demographic details, outstanding balances, repayment histories, and socio-economic indicators. These variables serve as the foundation for our analysis and predictive modelling process.
 [Data.csv](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Data.csv)
 
 ### Data Dictionary
@@ -54,7 +54,7 @@ from sklearn.preprocessing import StandardScaler
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 
-# Set a standard seaborn color palette
+# Set a standard seaborn colour palette
 sns.set_palette("colorblind")
 
 # Load data
@@ -131,7 +131,7 @@ plt.show()
 ```
 ![3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/07663d5d-b3d7-4f77-8d55-d495c6d82b05)
 
-Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, an anomalous age value is observed lying between -1 to 0, as well as 200. To address this anomaly, we will remove such values from the Age column.
+Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, we notice an anomalous age value present between -1 and 0, as well as in the range of 200. To address this anomaly, we will remove such values from the Age column.
 
 As for the overall data distribution plot
 
@@ -318,7 +318,7 @@ plot_corr_and_print_highly_correlated(df)
 ![9 (1)](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/d39dac92-ecf0-4df2-a5e3-e8cb1b2dadcb)
 ![9 (2)](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3e114827-515b-48cc-95e3-e480df0fd309)
 
-Based on the heatmap, the correlations between the variables suggest the following insights:
+Based on the heatmap, the correlations between the variables suggest
 
 - **('B1', 'B2'), ('B1', 'B3'), ('B1', 'B4'), ('B1', 'B5'), ('B1', 'BALANCE')**: These correlations may indicate how the billable amounts in the first month relate to each other and to the customer's balance, potentially reflecting consistent spending patterns or repayment behaviours.
 
@@ -438,7 +438,7 @@ Based on the scatter plots
 
 - **Education Levels:** Customers with “Others” as their highest education attained are less frequent in these datasets. This could indicate that most customers have at least completed high school education.
 
-- **No Clear Pattern Based on Education:** There isn’t a clear pattern or segregation based on education levels; data points for all education categories are mixed throughout. This suggests that the customer’s education level may not have a significant impact on their limit or billable amount.
+- **No Clear Pattern Based on Education:** There is not a clear pattern or segregation based on education levels; data points for all education categories are mixed throughout. This suggests that the customer’s education level may not have a significant impact on their limit or billable amount.
 
 - **Similar Distribution Across All Plots:** The distribution and concentration of data points are similar across all five scatter plots (B1 to B5). This could imply that the billable amount in each month (B1 to B5) has a similar relationship with the total limit.
 
