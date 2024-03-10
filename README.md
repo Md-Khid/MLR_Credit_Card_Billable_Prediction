@@ -390,17 +390,15 @@ plt.show()
 ```
 ![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4414a949-9d63-4ab9-920d-9d3956312a23)
 
-From the box plots, we observed that postgraduates, despite having a wider range of income, tend to have the lowest median balance among all education groups.*** This is an interesting observation as it could indicate a potential relationship between education level and financial behavior.
+From the box plots, we observed that postgraduates, despite having a wider range of income, tend to have the lowest median balance among all education groups. This could indicate a potential relationship between education level and financial behavior.
 
-***Several reasons could explain this pattern:***
+- **Financial Management Skills:** Postgraduates could be more adept at managing finances due to their higher level of education. This could lead to greater awareness of the implications of maintaining high credit balances, resulting in more diligent payment of balances.
 
-- ***Financial Management Skills:*** Postgraduates could be more adept at managing finances due to their higher level of education. This could lead to greater awareness of the implications of maintaining high credit balances, resulting in more diligent payment of balances.
+- **Income Stability:** Postgraduates might benefit from more stable incomes, allowing them to pay off their credit balances regularly, hence leading to lower balances.
 
-- ***Income Stability:*** Postgraduates might benefit from more stable incomes, allowing them to pay off their credit balances regularly, hence leading to lower balances.
+- **Credit Behavior:** Postgraduates may exhibit more cautious credit usage habits, preferring to reserve credit card usage for emergencies or specific purchases, which could result in lower balances.
 
-- ***Credit Behavior:*** Postgraduates may exhibit more cautious credit usage habits, preferring to reserve credit card usage for emergencies or specific purchases, which could result in lower balances.
-
-- ***Debt Aversion:*** Postgraduates might be more averse to accumulating debt. Given that higher education often incurs student loans, those who have completed postgraduate studies might be more cautious about further debt accumulation.
+- **Debt Aversion:** Postgraduates might be more averse to accumulating debt.
 
 
 #### Scatterplot
