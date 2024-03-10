@@ -492,7 +492,7 @@ for hue in ['GENDER', 'EDUCATION', 'MARITAL']:
 
 ![13 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/ac878d31-38cf-4d0e-a0ed-8f1f5320c500)
 
-Based on the GENDER scatter plots
+Based on the GENDER groups
 
 - **Prompt and Minimum Sum Payments:** For both genders across all five scatter plots (B1 vs. each of the five repayment statuses), there is a concentration of data points at the “Prompt Sum” and “Min Sum” categories. This suggests that most customers tend to make at least minimum payments promptly.
 
@@ -504,7 +504,7 @@ Based on the GENDER scatter plots
 
 ![13 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/dba771d7-2382-48fc-81be-17b5e7f47d94)
 
-Based on the EDUCATION scatter plots
+Based on the EDUCATION groups
 
 - **Prompt and Minimum Sum Payments:** Across all five scatter plots (B1 vs. each of the five repayment statuses), there is a concentration of data points at the “Prompt Sum” and “Min Sum” categories for all education levels. This suggests that most customers, regardless of their education level, tend to make at least minimum payments promptly.
 
@@ -516,7 +516,7 @@ Based on the EDUCATION scatter plots
 ![13 3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0f36a92f-02f1-4a24-847c-f557c97b13cc)
 
 
-Based on the MARITAL plots
+Based on the MARITAL groups
 
 - **Prompt and Minimum Sum Payments:** Across all five scatter plots (B1 vs. each of the five repayment statuses), there is a concentration of data points at the “Prompt Sum” and “Min Sum” categories for all marital statuses. This suggests that most customers, regardless of their marital status, tend to make at least minimum payments promptly.
 
