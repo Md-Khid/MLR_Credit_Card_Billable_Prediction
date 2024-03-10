@@ -764,4 +764,13 @@ df_compare
 
 Using the test dataset allows for further evaluation of the model's performance on unseen data. Based on the model's performance, the predictions are relatively close to the actual values, indicating that the model generalises well to new data.
 
+### Conclusion
+
+In conclusion, this project has effectively addressed the objective of conducting a comprehensive analysis of the credit facility dataset, with a specific focus on predicting the billable amount (B1) for credit card customers. By employing data analytics techniques such as exploratory data analysis (EDA) and predictive modelling, valuable insights have been derived to assist financial institutions in accurately forecasting future billable amounts.
+
+Through iterative processes, a linear regression model was developed and refined, achieving a commendable R-squared (R²) value of 0.949 and an F-statistic of 1.155e+04. The Root Mean Square Error (RMSE) for both the training and testing models was determined to be 7638.74, indicating the model's capability to make predictions with reasonable accuracy.
+
+Furthermore, evaluation using the test dataset revealed that the model's predictions closely aligned with the actual values, demonstrating its robustness in generalizing to new data. This underscores the significance of rigorous model evaluation and refinement in ensuring the reliability of predictive analytics in the financial domain.
+
+Overall, this project contributes valuable insights to financial institutions, empowering them with data-driven tools to enhance decision-making processes and optimize resource allocation in managing credit facilities effectively.
 
