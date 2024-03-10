@@ -273,7 +273,7 @@ Insights from Descriptive Statistics
   - This could indicate that customers are not fully utilising their credit or are making minimum payments.
 
 
-## Insight Articulation
+#### Data Visualisation
 
 #### Scaling Numerical Features
 ```
