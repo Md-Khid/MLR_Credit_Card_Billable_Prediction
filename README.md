@@ -741,7 +741,7 @@ The model underwent training and testing on sets divided into 70% for training a
 dummy_cols = ['RATING','GENDER','EDUCATION','MARITAL','S1','S2','S3','S4','S5']
 
 # Load and preprocess test data
-df_test = (pd.read_csv('Test Data.csv')
+df_test = (pd.read_csv('Test.Data.csv')
              .iloc[:, 1:]
              .pipe(pd.get_dummies, columns=dummy_cols)
              .assign(**{col: lambda df: df[col].astype(int) for col in df.select_dtypes(include=bool).columns})
