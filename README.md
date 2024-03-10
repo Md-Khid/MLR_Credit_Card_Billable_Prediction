@@ -413,16 +413,15 @@ for hue in ['GENDER', 'EDUCATION', 'MARITAL']:
 ![13 3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/63490a5c-de34-4503-a457-70381a6e17fe)
 
 ```
-# Define the variables for the scatter plots
+# Define variables 
 variables = ['BALANCE', 'AGE']
 
-# Create a figure with subplots
+# Create figure with subplots
 fig, axes = plt.subplots(1, 2, figsize=(15, 5))
 
 # Plotting
 for i, var in enumerate(variables):
     ax = axes[i]
-    # Use colorblind palette for scatter plot
     sns.scatterplot(data=df, x=var, y='INCOME', hue='RATING', palette={'Good': sns.color_palette()[0], 'Bad': sns.color_palette()[3]}, alpha=0.6, ax=ax)
     ax.set_xlabel(var)
     ax.set_ylabel('INCOME')
@@ -431,32 +430,41 @@ for i, var in enumerate(variables):
 plt.tight_layout()
 plt.show()
 ```
-![13](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/60cab0e2-19b8-467b-b5c1-d4297e6f9a9b)
-
+![14](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3d56b2c5-a95e-4940-8352-b259c6c5b896)
 
 
 #### Barplot
 ```
-# Create a figure with subplots
+# Calculate number of occurrences of each category in 'RATING' column
+rating_counts = df['RATING'].value_counts()
+
+# Display counts 
+print(f"Number of GOOD ratings: {rating_counts['Good']}")
+print(f"Number of BAD ratings: {rating_counts['Bad']}")
+```
+<img width="315" alt="15" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/fbedfff7-e497-47ef-8769-16a1f470cec0">
+
+
+```
+# Create figure with subplots
 fig, axes = plt.subplots(1, 3, figsize=(20, 5))
 
 # Calculate frequencies for each rating category for GENDER, MARITAL, and EDUCATION
-for i, category in enumerate(['GENDER', 'MARITAL', 'EDUCATION']):
+for ax, category in zip(axes, ['GENDER', 'MARITAL', 'EDUCATION']):
     # Count the occurrences of each category in the RATING column
     education_counts = df[df['RATING'].isin(['Good', 'Bad'])].groupby([category, 'RATING']).size().unstack(fill_value=0)
 
-    # Plotting
     # Plotting with sorted frequencies
-    education_counts.sort_values(by='Good', ascending=False).plot(kind='bar', stacked=True, ax=axes[i], color={'Good': sns.color_palette()[0], 'Bad': sns.color_palette()[3]}, alpha=0.6)
-    axes[i].set_xlabel(category)
-    axes[i].set_ylabel('Frequency')
-    axes[i].legend(title='RATING')
-    axes[i].set_xticklabels(axes[i].get_xticklabels(), rotation=45)  # Rotate x-axis labels
+    education_counts.sort_values(by='Good', ascending=False).plot(kind='bar', stacked=True, ax=ax, color={'Good': sns.color_palette()[0], 'Bad': sns.color_palette()[3]}, alpha=0.6)
+    ax.set_xlabel(category)
+    ax.set_ylabel('Frequency')
+    ax.legend(title='RATING')
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=45)  # Rotate x-axis labels
 
 plt.tight_layout()
 plt.show()
 ```
-![14](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/fbf4a1fb-dd9a-4923-882c-dbaa3834162b)
+![16](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/ae756b3b-b921-4c81-8b68-0e740a715b0f)
 
 Based on the barplots, it is clear that the credit card bank tends to provide Good ratings to customers who are 1. Female, 2. Married, and 3. Have a Tertiary education.
 
