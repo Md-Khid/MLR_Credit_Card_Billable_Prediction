@@ -233,8 +233,7 @@ Descriptive_Stats
 ```
 ![7](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/566c5a7f-fc1a-453d-bc91-67146d0f241a)
 
-## Insights from Descriptive Statistics
-
+Insights from Descriptive Statistics
 - **Gender and Marital Status:**
   - The majority of customers are female (62%) and married.
   - This might indicate that married individuals, particularly females, are more likely to have credit cards or engage in banking activities.
