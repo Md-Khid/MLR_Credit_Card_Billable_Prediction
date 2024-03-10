@@ -605,6 +605,32 @@ model.summary()
 
 ## Evaluate Model Performance
 
+```
+# Define columns for dummy encoding
+dummy_cols = ['RATING','GENDER','EDUCATION','MARITAL','S1','S2','S3','S4','S5']
+
+# Load and preprocess test data
+df_test = (pd.read_csv('Test Data.csv')
+             .iloc[:, 1:]
+             .pipe(pd.get_dummies, columns=dummy_cols)
+             .assign(**{col: lambda df: df[col].astype(int) for col in df.select_dtypes(include=bool).columns})
+             .pipe(lambda df: (sm.add_constant(df.drop(columns=['B1'])), df['B1']))
+          )
+
+# Align the test data with training data
+X_test, y_test = df_test
+X_test = X_test.reindex(columns = X_train.columns, fill_value = 0)
+
+# Make predictions 
+y_test_pred = model.predict(X_test).round(0)
+
+# Compare actual and predicted B1 values
+df_compare = pd.DataFrame({'Actual B1': y_test, 'Predicted B1': y_test_pred})
+df_compare
+```
+![22](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c479e0d5-0cba-4d72-ba62-352f92e4679d)
+
+
 
 
 
