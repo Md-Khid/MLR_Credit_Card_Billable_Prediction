@@ -10,6 +10,8 @@ The objective of this project is to conduct an in-depth analysis of a credit fac
 The dataset comprises various attributes pertaining to customers' credit facilities, including demographic details, outstanding balances, repayment histories, and socio-economic indicators. These variables serve as the cornerstone for our analysis and predictive modelling endeavours.
 [Data.csv](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Data.csv)
 
+Dummy variables are utilised to represent categorical data in a numerical format, primarily to meet the requirements of various machine learning algorithms and statistical models. These models typically necessitate numerical input for processing. By encoding categorical variables as dummy variables, we can effectively convert them into a format that can be directly inputted into these models. This ensures compatibility and seamless integration of categorical data into the modelling process, facilitating the analysis and prediction tasks performed by the algorithms.
+
 ### Data Dictionary
 
 | Variable  | Description                                       |
