@@ -472,66 +472,107 @@ Based on the barplots, it is clear that the credit card bank tends to provide Go
 ## Linear Regression Modelling
 Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
 
-#### Revert back
+#### Reverting
 ```
-# Revert back to original scale
+# Revert to original scale
 df[numeric_columns] = scaler.inverse_transform(df[numeric_columns])
 df
 ```
-#### Create Dummy Varaibles
+![17](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/fc1ab4c8-4ae0-49e4-a677-ae5932807504)
+
+
+#### Dummy Variables
 ```
-# Columns for Dummy
+# Dummy columns
 df = pd.get_dummies(df, columns=['RATING','GENDER','EDUCATION','MARITAL','S1','S2','S3','S4','S5'])
 
 # Convert boolean columns to integers (1 and 0)
-boolean_columns = df.select_dtypes(include=bool).columns
-df[boolean_columns] = df[boolean_columns].astype(int)
-
-# Display the encoded DataFrame with boolean columns converted to integers
+df[df.select_dtypes(include=bool).columns] = df.select_dtypes(include=bool).astype(int)
 df
-
 ```
+<img width="492" alt="18" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/e60f9263-472d-466f-9fb7-a14b6f221099">
+
 #### Remove Outliers
 ```
-# Step 1: Identify numerical columns
+# Identify numerical columns
 numeric_columns = df.select_dtypes(include=['float64', 'int64']).columns
 
-# Step 2: Define a function to identify outliers using IQR
-def identify_outliers_iqr(df, column):
-    Q1 = df[column].quantile(0.25)
-    Q3 = df[column].quantile(0.75)
+# IQR function to identify outliers
+def identify_outliers_iqr(series):
+    Q1 = series.quantile(0.25)
+    Q3 = series.quantile(0.75)
     IQR = Q3 - Q1
     lower_bound = Q1 - 1.5 * IQR
     upper_bound = Q3 + 1.5 * IQR
-    outliers = (df[column] < lower_bound) | (df[column] > upper_bound)
+    outliers = (series < lower_bound) | (series > upper_bound)
     return outliers
 
-# Step 3: Initialize a variable to store the total number of outliers removed
-total_outliers_removed = 0
+# Apply the function
+outliers = df[numeric_columns].apply(identify_outliers_iqr)
 
-# Step 4: Loop over each numeric column to identify outliers and remove them
-for column in numeric_columns:
-    outliers = identify_outliers_iqr(df, column)
-    total_outliers_removed += outliers.sum()
-    df = df[~outliers]
+# Keep a copy of original DataFrame
+df_with_outliers = df.copy()
 
-# Step 5: Print the total number of outliers removed
-print("Total number of outliers removed:", total_outliers_removed)
+# Remove outliers
+df = df[~outliers.any(axis=1)]
+
+# Get the rows of outliers that have been removed
+removed_outliers = df_with_outliers[outliers.any(axis=1)]
+
+# Print the number of rows of outliers that have been removed
+print(f"Number of rows of outliers removed: {len(removed_outliers)}")
+```
+<img width="351" alt="19" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/bea70915-381d-40a0-bfa5-022c6d4684cf">
+
+```
+# Get list of numerical predictor variables
+numeric_columns = df.select_dtypes(include=['float64', 'int64']).columns
+predictors = df[numeric_columns].drop(columns='B1')
+
+# Add a constant to predictor variables
+predictors = sm.add_constant(predictors)
+
+# Calculate VIF for each predictor variable
+vif = pd.DataFrame()
+vif["Variable"] = predictors.columns
+vif["VIF"] = [variance_inflation_factor(predictors.values, i) for i in range(predictors.shape[1])]
+
+# Remove variable with the highest VIF
+while vif['VIF'].max() > 5:
+    # Identify variable with the highest VIF
+    max_vif_variable = vif.loc[vif['VIF'].idxmax(), 'Variable']
+    
+    # If variable with the highest VIF is 'const', skip it
+    if max_vif_variable == 'const':
+        vif = vif.drop(vif['VIF'].idxmax())
+        continue
+    
+    # Drop variable with the highest VIF
+    predictors = predictors.drop(columns=max_vif_variable)
+    
+    # Recalculate VIF
+    vif = pd.DataFrame()
+    vif["Variable"] = predictors.columns
+    vif["VIF"] = [variance_inflation_factor(predictors.values, i) for i in range(predictors.shape[1])]
+
+# Print VIF values
+vif
+```
+![20](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0de6b1a4-40df-46f8-ad28-0f0048606340)
+
+### Modelling
 ```
 
-```
-# Assuming df is your DataFrame with the dependent variable B1 and independent variables in other columns
-
-# Define the independent variables (X) and add a constant term for the intercept
+# Define independent variables (X)
 X = sm.add_constant(df.drop(columns=['B1']))
 
-# Define the dependent variable (target)
+# Define dependent variable (Y)
 y = df['B1']
 
 # Split the data into training and testing sets (80% training, 20% testing)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Fit the OLS (Ordinary Least Squares) model on the training data
+# Fit the OLS (Ordinary Least Squares) model on training data
 model = sm.OLS(y_train, X_train).fit()
 
 # Iterate through the p-values and remove variables with p-value > 0.05, excluding the constant term
@@ -544,55 +585,11 @@ while model.pvalues.drop('const').max() > 0.05:
     # Fit the model again with the updated X_train
     model = sm.OLS(y_train, X_train).fit()
 
-# Make predictions on both training and testing data
+# Make predictions on training and testing data
 y_train_pred = model.predict(X_train)
 y_test_pred = model.predict(X_test)
 
-# Calculate the Root Mean Squared Error (RMSE) for training and testing sets
-rmse_train = np.sqrt(np.mean((y_train - y_train_pred)**2))
-rmse_test = np.sqrt(np.mean((y_test - y_test_pred)**2))
-
-# Print the RMSE for training and testing sets
-print("RMSE for training set:", rmse_train)
-print("RMSE for testing set:", rmse_test)
-
-# Print the model summary
-print(model.summary())
-
-```
-<img width="490" alt="20" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/897208b2-e1f5-4ea2-bd75-d8d58abd7521">
-
-## Evaluate Model Performance
-
-```
-
-# Define the independent variables (X) and add a constant term for the intercept
-X = sm.add_constant(df.drop(columns=['B1']))
-
-# Define the dependent variable (target)
-y = df['B1']
-
-# Split the data into training and testing sets (80% training, 20% testing)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Fit the OLS (Ordinary Least Squares) model on the training data
-model = sm.OLS(y_train, X_train).fit()
-
-# Iterate through the p-values and remove variables with p-value > 0.05, excluding the constant term
-while model.pvalues.drop('const').max() > 0.05:
-    # Find the variable with the highest p-value (excluding the constant term)
-    max_pvalue_index = model.pvalues.drop('const').idxmax()
-    # Remove the variable from X_train and X_test
-    X_train = X_train.drop(columns=[max_pvalue_index])
-    X_test = X_test.drop(columns=[max_pvalue_index])
-    # Fit the model again with the updated X_train
-    model = sm.OLS(y_train, X_train).fit()
-
-# Make predictions on both training and testing data
-y_train_pred = model.predict(X_train)
-y_test_pred = model.predict(X_test)
-
-# Calculate the Root Mean Squared Error (RMSE) for training and testing sets
+# Calculate Root Mean Squared Error (RMSE) for training and testing sets
 rmse_train = np.sqrt(np.mean((y_train - y_train_pred)**2))
 rmse_test = np.sqrt(np.mean((y_test - y_test_pred)**2))
 
@@ -600,10 +597,14 @@ rmse_test = np.sqrt(np.mean((y_test - y_test_pred)**2))
 print("Train RMSE:", round(rmse_train, 2))
 print("Test RMSE:", round(rmse_train, 2))
 
-# Print the model summary
-print(model.summary())
+# Print model summary
+model.summary()
 ```
-<img width="488" alt="21" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/6d78c9bb-3b36-41b0-99e6-1c88568f950e">
+![21 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4a93c81f-4443-4464-a531-a9fd7b34c073)
+![21 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/cfb5fad1-b314-48cd-b27b-a4d0e701c502)
+
+## Evaluate Model Performance
+
 
 
 
