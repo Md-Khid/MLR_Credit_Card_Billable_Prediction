@@ -302,23 +302,20 @@ Based on the density plots, it is clear that the credit card bank tends to offer
 
 #### Boxplot
 ```
-# Define the variables for iteration
+# Define variables for iteration
 plot_data = [
     {'column_x': 'INCOME', 'column_y': 'EDUCATION', 'data': 'INCOME', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title':'.'},
     {'column_x': 'BALANCE', 'column_y': 'EDUCATION', 'data': 'BALANCE', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title':'.'}
 ]
 
-# Define a fixed color dictionary for specific education levels
-education_colors = {'Tertiary': 'blue', 'Postgraduate': 'green', 'High School': 'orange', 'Others': 'red'}
-
-# Create a figure with subplots
+# Create figure with subplots
 fig, axes = plt.subplots(1, len(plot_data), figsize=(15, 6))
 
-# Iterate through the plot_data and create subplots
+# Iterate plot_data and create subplots
 for i, plot_info in enumerate(plot_data):
     # Calculate the mean for the current group and sort the order accordingly
     mean_values = df.groupby(plot_info['column_y'])[plot_info['column_x']].mean().sort_values(ascending=False).index
-    sns.boxplot(ax=axes[i], x=plot_info['column_x'], y=plot_info['column_y'], data=df, order=mean_values, palette=education_colors)
+    sns.boxplot(ax=axes[i], x=plot_info['column_x'], y=plot_info['column_y'], data=df, order=mean_values)
     axes[i].set_xlabel(plot_info['data'].capitalize())
     axes[i].set_ylabel('.')
     axes[i].set_title(plot_info['title'])
@@ -327,18 +324,18 @@ for i, plot_info in enumerate(plot_data):
 
 plt.tight_layout()
 plt.show()
-
 ```
-![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/175eca19-66da-4dd2-9fe0-4e54d42165c3)
+![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4a4bd9ad-9bed-4db3-becb-53a3d1246f55)
 
 Based on the Income box plot, it is clear that individuals with high incomes mainly belong to the Tertiary Education group. However, this group demonstrates lower credit balances in comparison to the Postgraduate and High School groups.
 
 #### Scatterplot
 ```
-# Define colors for each education category
-colors = {'Postgraduate': 'blue', 'Tertiary': 'green', 'High School': 'orange', 'Others': 'purple'}
+# Define education levels and corresponding colors
+unique_education = df['EDUCATION'].unique()
+colors = plt.cm.tab10.colors[:len(unique_education)]
 
-# Define the variables to plot
+# Define variables to plot
 variables = ['B1', 'B2', 'B3', 'B4', 'B5']
 
 # Create subplots
@@ -346,27 +343,27 @@ fig, axes = plt.subplots(2, 3, figsize=(18, 12))
 axes = axes.flatten()
 
 # Plotting
-for i, variable in enumerate(variables):
-    ax = axes[i]
-    for education, color in colors.items():
-        ax.scatter(df[df['EDUCATION'] == education][variable], df[df['EDUCATION'] == education]['LIMIT'], color=color, label=education, alpha=0.6)
+for ax, variable in zip(axes, variables):
+    for color, education in zip(colors, unique_education):
+        data = df[df['EDUCATION'] == education]
+        ax.scatter(data[variable], data['LIMIT'], color=color, label=education, alpha=0.6)
     ax.set_xlabel(variable)
     ax.set_ylabel('LIMIT')
     ax.legend()
 
 # Hide empty subplots
-for j in range(len(variables), len(axes)):
-    fig.delaxes(axes[j])
+for ax in axes[len(variables):]:
+    fig.delaxes(ax)
 
 plt.tight_layout()
 plt.show()
 ```
-![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/471a66e0-584a-47f1-adbb-3c67f47133b6)
+![12](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/b4335cd8-984c-45ae-96ca-123c737b08b8)
 
 Spell check: The bill amount owned by customers kept increasing as the month increasses. And most of the high sizeabbe bill amoout is concerntrated on the Postgraduates and Tertiary education group as they mosntly obtained a higer credit limit
 
 ```
-# Define the variables to plot
+# Define variables to plot
 variables = ['S1', 'S2', 'S3', 'S4', 'S5']
 
 # Define the order of categories for each variable
@@ -388,38 +385,32 @@ for hue in ['GENDER', 'EDUCATION', 'MARITAL']:
     axes = axes.flatten()
 
     # Plotting
-    for i, variable in enumerate(variables):
-        ax = axes[i]
-
+    for ax, variable in zip(axes, variables):
         # Ensure df contains the current hue column
         if hue in df.columns:
             sns.stripplot(x=df[variable], y=df['B1'], hue=df[hue], ax=ax, palette=hue_colors, order=variable_order[variable], jitter=True, dodge=True)
-            ax.set_xlabel(variable)
+            ax.set_xlabel(variable if variable not in variables[3:] else '')
             ax.set_ylabel('B1')
             ax.grid(True)
 
             # Create a legend for the current hue
             handles = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color, markersize=10) for color in hue_colors]
             ax.legend(handles, df[hue].unique(), loc='upper right')
-
-            if i >= 3:
-                ax.set_xlabel('')
-                ax.set_xticklabels([])
         else:
             print(f"Warning: DataFrame does not contain column '{hue.upper()}'")
 
     # Hide empty subplots
-    for j in range(len(variables), len(axes)):
-        fig.delaxes(axes[j])
+    for ax in axes[len(variables):]:
+        fig.delaxes(ax)
 
     plt.tight_layout()
     plt.show()
+
+
 ```
-
-![12 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c8a1da81-9d10-4c82-854b-84f56e2fd70a)
-![12 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/90554bf0-05c7-4639-9e73-ce56de34717f)
-![12 3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/82a71efc-89bd-4625-94ed-f73b34dcd39e)
-
+![13 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/e2dcf531-99a6-4ef9-a17d-4abc34f5a948)
+![13 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/618be632-4091-4c49-b7c4-bfe210ab4e05)
+![13 3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/63490a5c-de34-4503-a457-70381a6e17fe)
 
 ```
 # Define the variables for the scatter plots
