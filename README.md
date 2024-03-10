@@ -354,7 +354,13 @@ plt.show()
 ```
 ![10](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/237d246a-405f-4555-8d5d-3dcf66497e82)
 
-Based on the density plots, it is clear that the credit card bank tends to offer higher credit limits to customers who are 1. Male, 2. Married, and 3. Have a postgraduate education.
+Based on the density plots, they offer insights into how credit limits are distributed among different groups of customers, which can inform the bank's customer preferences.
+
+- **Education:** Customers with tertiary education tend to have similar credit limits, suggesting that the bank may prefer to offer similar credit options to individuals with higher education levels.
+
+- **Gender:** While both males and females exhibit similar credit limit distribution patterns, females tend to have slightly lower credit limits.
+
+- **Marital Status:** The density plot for marital status reveals that singles have a higher peak density at lower credit limits compared to married individuals. This suggests that single individuals tend to have lower credit limits.
 
 
 #### Boxplot
@@ -384,7 +390,7 @@ plt.show()
 ```
 ![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4414a949-9d63-4ab9-920d-9d3956312a23)
 
-Based on the Income box plot, it is clear that individuals with high incomes mainly belong to the Tertiary Education group. However, this group demonstrates lower credit balances in comparison to the Postgraduate and High School groups.
+
 
 #### Scatterplot
 ```
