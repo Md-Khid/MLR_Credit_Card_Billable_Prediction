@@ -569,7 +569,7 @@ X = sm.add_constant(df.drop(columns=['B1']))
 # Define dependent variable (Y)
 y = df['B1']
 
-# Split the data into training and testing sets (80% training, 20% testing)
+# Split the data into training and testing sets (70% training, 30% testing)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Fit the OLS (Ordinary Least Squares) model on training data
