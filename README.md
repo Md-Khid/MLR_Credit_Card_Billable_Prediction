@@ -42,43 +42,44 @@ In this phase of data processing, we will refine the dataset for analysis by add
 ```
 # Import Libraries and Modules
 import pandas as pd
-import pandas as pd
-import pandas as pd
 import numpy as np
 import seaborn as sns
-import statsmodels.api as sm
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import MinMaxScaler
+import statsmodels.api as sm
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
+from statsmodels.stats.outliers_influence import variance_inflation_factor
+
 
 # Set a standard seaborn color palette
 sns.set_palette("colorblind")
 
-
-# Load the data
+# Load data
 df = pd.read_csv('Data.csv')
 
-# Drop the first column 
+# Drop first column 
 df = df.iloc[:, 1:]
 
-# Define mapping dictionaries for categorical columns for visual plotting
-gender_map = {0: 'Male', 1: 'Female'}
-education_map = {0: 'Others', 1: 'Postgraduate', 2: 'Tertiary', 3: 'High School'}
-marital_map = {0: 'Others', 1: 'Single', 2: 'Married'}
-rating_map = {0: 'Good', 1: 'Bad'}
-s_map = {-1: 'Prompt', 0: 'Min Sum', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
+# Define mapping dictionaries for categorical columns
+mappings = {
+    'GENDER': {0: 'Male', 1: 'Female'},
+    'EDUCATION': {0: 'Others', 1: 'Postgraduate', 2: 'Tertiary', 3: 'High School'},
+    'MARITAL': {0: 'Others', 1: 'Single', 2: 'Married'},
+    'RATING': {0: 'Good', 1: 'Bad'},
+    'S': {-1: 'Prompt', 0: 'Min Sum', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
+}
 
 # Convert columns to categorical and apply mappings
-df['GENDER'] = df['GENDER'].map(gender_map)
-df['EDUCATION'] = df['EDUCATION'].map(education_map)
-df['MARITAL'] = df['MARITAL'].map(marital_map)
-df['RATING'] = df['RATING'].map(rating_map)
-for col in ['S1', 'S2', 'S3', 'S4', 'S5']:
-   df[col] = df[col].map(s_map)
-
-# Display the modified dataframe
+for col, mapping in mappings.items():
+    if col in df.columns:
+        df[col] = df[col].map(mapping)
+    else:
+        for s_col in df.columns[df.columns.str.startswith(col)]:
+            df[s_col] = df[s_col].map(mapping)
+            
 df
 ```
 ![Screenshot 2024-03-10 at 12-50-47 Github-Linear Regression Modelling-VIF - Jupyter Notebook](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/1e2930f2-d4d2-4e02-a153-e9ba80dde565)
@@ -86,10 +87,10 @@ df
 #### Check Missing Values
 
 ```
-# Calculate number of missing values in each column 
+# Calculate number of missing values 
 missing_values = df.isnull().sum()
 
-# Filter the missing_values i.e. only columns with missing values
+# Filter the missing_values
 columns_with_missing_values = missing_values[missing_values > 0]
 
 # Display columns with missing values
@@ -101,16 +102,13 @@ Based on the output, it appears that the columns "Limit," "Balance," "Education,
 
 #### View Data Distribution
 ```
-# Set the plot style
-sns.set_style("white")
-
 # Create subplots
 fig, axes = plt.subplots(2, 3, figsize=(18, 10))
 
 # Define columns to plot
 columns = ['LIMIT', 'BALANCE', 'AGE', 'MARITAL', 'EDUCATION']
 
-# Iterate over the columns and plot them
+# Iterate over columns and plot them
 for i, column in enumerate(columns):
     row = i // 3
     col = i % 3
@@ -120,7 +118,7 @@ for i, column in enumerate(columns):
         axes[row, col].axvline(df[column].median(), color='red', linestyle='--', label='Median')
         axes[row, col].legend()
 
-# Remove gridlines from all subplots
+# Remove gridlines from subplots
 for ax in axes.flatten():
     ax.grid(False)
     
@@ -141,7 +139,7 @@ Given the positively skewed distribution of data in the "Limit," "Balance," and 
 # Remove rows where 'Age' column has a value of 0, -1, or 100 and above
 df = df[(df['AGE'] > 0) & (df['AGE'] < 100)].copy()
 
-# Specify columns and their corresponding fill methods
+# Specify columns and corresponding fill methods
 columns_to_fill = {
     'LIMIT': 'median',
     'BALANCE': 'median',
@@ -150,39 +148,37 @@ columns_to_fill = {
     'EDUCATION': 'mode'
 }
 
-# Fill missing values in specified columns
+# Fill missing values in columns
 for column, method in columns_to_fill.items():
     if method == 'median':
-        df[column] = df[column].fillna(df[column].median())
+        df[column].fillna(df[column].median(), inplace=True)
     elif method == 'mode':
-        df[column] = df[column].fillna(df[column].mode()[0])
-
-# Check for missing values in columns 
-missing_values = df.isnull().any()
-
-# Calculate the total count of columns with missing values 
-count_missing_values = missing_values.sum()
+        df[column].fillna(df[column].mode()[0], inplace=True)
 
 # Display number of columns with missing values
+count_missing_values = df.isnull().sum().sum()
 count_missing_values
 ```
 <img width="60" alt="4" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c5a78a38-3298-46d3-8e58-eafc9bf212b0">
 
 #### Removing Special Characters
 ```
+# Define special characters
+special_chars = "!@#$%^&"
+
 # Iterate over each column 
 for column in df.columns:
-    # Iterate over each row in the current column
+    # Iterate over each row in current column
     for index, value in df[column].items():
         # Check if value contains any special characters
-        if any(char in "!@#$%^&" for char in str(value)):
+        if any(char in special_chars for char in str(value)):
             print(f"Special characters found in column '{column}', row {index}: {value}")
 ```
-<img width="243" alt="5" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4dc47bf2-f75e-4368-9f4d-23b146507ab2">
+<img width="510" alt="5" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/2ff5d9eb-552f-40e7-8a6c-53f43d732871">
 
 ```
-# Remove special characters ('$' and ',') from column 'R3'
-df['R3'] = df['R3'].str.replace('[\$,]', '', regex=True)
+# Remove special characters ('$' and ',') and spaces from column 'R3'
+df['R3'] = df['R3'].str.replace("$", "").str.replace(",", "").str.replace(" ", "")
 ```
 Based on the output, it seems that the R3 column contains special characters. To address this, we replace these characters with an empty string.
 
