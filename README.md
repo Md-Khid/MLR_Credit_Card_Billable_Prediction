@@ -525,7 +525,6 @@ Based on the MARITAL groups
 - **Marital Status Distribution:** The distribution of customers across different marital statuses is fairly similar across all categories of repayment status. This suggests that the customer’s marital status does not significantly influence the repayment status.
 
 
-
 ```
 # Define variables 
 variables = ['BALANCE', 'AGE']
@@ -546,16 +545,17 @@ plt.show()
 ```
 ![14](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/f72ce5e9-ecf3-4422-b3c2-12337e724e70)
 
-#### Barplot
-```
-# Calculate number of occurrences of each category in 'RATING' column
-rating_counts = df['RATING'].value_counts()
 
-# Display counts 
-print(f"Number of GOOD ratings: {rating_counts['Good']}")
-print(f"Number of BAD ratings: {rating_counts['Bad']}")
-```
-<img width="257" alt="15" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/68a9a1d3-43c1-4a5c-aedd-39fed3899659">
+Based on the INCOME scatterplots
+
+**Balance vs Income:** The left plot shows a correlation between BALANCE and INCOME. Data points are densely populated towards the lower INCOME range and spread out as BALANCE increases. This could suggest that customers with lower incomes tend to have lower balances, while those with higher balances have a wider range of incomes.
+
+**Age vs Income:** The right plot illustrates the distribution of AGE against INCOME. Data points are densely packed across all ages but slightly more concentrated at lower incomes. This could indicate that income does not significantly increase with age in this customer dataset.
+
+**Customer Rating:** In both plots, blue dots (GOOD RATING) are more prevalent. This suggests that there are more customers with a good rating in these datasets, regardless of their balance, income, or age.
+
+
+#### Barplot
 
 ```
 # Create figure with subplots
@@ -578,6 +578,14 @@ plt.show()
 ```
 ![16](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/fcf95cd9-9a60-457b-8f28-943c88d2ce8d)
 
+
+Based on the bar graphs
+
+**Gender:** The graph shows that there are more female customers than male customers. Both genders predominantly have a good rating, but the proportion of good ratings is slightly higher for females.
+
+**Marital Status:** The graph shows that the number of married and single customers is almost equal, and both are significantly higher than the number of customers in the ‘Others’ category. All marital statuses predominantly consist of customers with good ratings.
+
+**Education:** The graph shows that the majority of customers have a tertiary education, followed by postgraduate, high school, and others. All education levels predominantly consist of customers with good ratings, but the proportion of good ratings is slightly higher for postgraduate and high school customers.
 
 
 ## Linear Regression Modelling
