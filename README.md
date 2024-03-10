@@ -133,13 +133,27 @@ plt.show()
 
 Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, an anomalous age value is observed lying between -1 to 0, as well as 200. To address this anomaly, we will remove such values from the Age column.
 
-As for the overall data distribution:
+As for the overall data distribution plot
 
-LIMIT: Most customers have a credit limit below 200,000, with a significant number having limits around 50,000. This suggests that the bank is cautious in extending high credit limits.
-BALANCE: A large number of customers have low balances, indicating they are not utilising their full credit limit. This could suggest that most customers are financially responsible and avoid maxing out their credit.
-AGE: The majority of customers are between 25 and 40 years old. This could be the bank’s target demographic for credit card products.
-MARITAL STATUS: There are more married customers than single or others. This could suggest that married couples are more likely to apply for credit cards, reflecting the demographic profile of the bank’s customer base.
-EDUCATION: Most customers have attained tertiary education followed by high school. This could indicate that individuals with higher education levels are more likely to have credit cards.
+- **Credit Limits:**
+  - Most customers have a credit limit below 200,000, with a significant number having limits around 50,000.
+  - This suggests that the bank is cautious in extending high credit limits.
+
+- **Balance:**
+  - A large number of customers have low balances, indicating they are not utilising their full credit limit.
+  - This could suggest that most customers are financially responsible and avoid maxing out their credit.
+
+- **Age Distribution:**
+  - The majority of customers are between 25 and 40 years old.
+  - This could be the bank’s target demographic for credit card products.
+
+- **Marital Status:**
+  - There are more married customers than single or others.
+  - This could suggest that married couples are more likely to apply for credit cards, reflecting the demographic profile of the bank’s customer base.
+
+- **Education:**
+  - Most customers have attained tertiary education followed by high school.
+  - This could indicate that individuals with higher education levels are more likely to have credit cards.
 
 #### Replace Missing Values and Remove Data Errors 
 
