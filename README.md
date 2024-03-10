@@ -81,7 +81,7 @@ for col in ['S1', 'S2', 'S3', 'S4', 'S5']:
 # Display the modified dataframe
 df
 ```
-<img width="499" alt="1" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3f12cb0d-d601-4335-a7bc-6be4a5507d42">
+![Screenshot 2024-03-10 at 12-50-47 Github-Linear Regression Modelling-VIF - Jupyter Notebook](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/1e2930f2-d4d2-4e02-a153-e9ba80dde565)
 
 #### Check Missing Values
 
@@ -95,7 +95,7 @@ columns_with_missing_values = missing_values[missing_values > 0]
 # Display columns with missing values
 columns_with_missing_values
 ```
-<img width="199" alt="2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/6e0781b1-309b-450b-b42b-be82a56e32a6">
+<img width="107" alt="2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/6633cead-7e53-43ff-a68a-a45b82f854a9">
 
 Based on the output, it appears that the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To rectify this issue, we should first analyse the distribution of each column to determine the most suitable method for replacing the missing values, which could involve using the mean, median, or mode.
 
@@ -131,7 +131,7 @@ for i in range(len(columns), axes.size):
 plt.tight_layout()
 plt.show()
 ```
-<img width="497" alt="3" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/49515e8a-f3e7-442a-bf33-513e5e10dd16">
+![3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/e929e873-44bc-4c8b-b729-d1022b2e1624)
 
 Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, an anomalous age value is observed lying between -1 to 0, as well as 200. To address this anomaly, we will remove such values from the Age column.
 
@@ -166,7 +166,7 @@ count_missing_values = missing_values.sum()
 # Display number of columns with missing values
 count_missing_values
 ```
-<img width="45" alt="4" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/aaf41384-2017-466b-b592-bd9dc31e4638">
+<img width="60" alt="4" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c5a78a38-3298-46d3-8e58-eafc9bf212b0">
 
 #### Removing Special Characters
 ```
