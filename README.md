@@ -233,33 +233,32 @@ Descriptive_Stats
 ```
 ![7](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/566c5a7f-fc1a-453d-bc91-67146d0f241a)
 
-From the descriptive statistics table, we can derive several insights:
+## Insights from Descriptive Statistics
 
-    Gender and Marital Status:
-        The majority of customers are female (with a mean of 0.62, indicating that 62% of the customers are female) and married (with a mean of 1.11).
-        This might indicate that married individuals, particularly females, are more likely to have credit cards or engage in banking activities.
+- **Gender and Marital Status:**
+  - The majority of customers are female (62%) and married.
+  - This might indicate that married individuals, particularly females, are more likely to have credit cards or engage in banking activities.
 
-    Education Level:
-        The most common education level among customers is tertiary education, with a mean of 1.74.
-        This suggests that individuals with higher education levels are more prevalent in the dataset.
+- **Education Level:**
+  - The most common education level among customers is tertiary education.
+  - This suggests that individuals with higher education levels are more prevalent in the dataset.
 
-    Age Distribution:
-        The average age of customers is approximately 35.55 years, with a standard deviation of 9.16.
-        This indicates that the customer base is relatively young, with a considerable spread in ages.
+- **Age Distribution:**
+  - The average age of customers is approximately 35.55 years, with a standard deviation of 9.16.
+  - This indicates that the customer base is relatively young, with a considerable spread in ages.
 
-    Credit Limits and Balances:
-        The mean credit limit is $168,359.54, while the mean balance is $9,110.24.
-        This suggests that, on average, customers have significant credit limits compared to their current balances.
+- **Credit Limits and Balances:**
+  - The mean credit limit is $168,359.54, while the mean balance is $9,110.24.
+  - On average, customers have significant credit limits compared to their current balances.
 
-    Income:
-        The mean income of customers is $177,858.19, with a wide standard deviation of $143,137.41.
-        This indicates a diverse range of income levels among customers.
+- **Income:**
+  - The mean income of customers is $177,858.19, with a wide standard deviation of $143,137.41.
+  - This indicates a diverse range of income levels among customers.
 
-    Repayment Amounts:
-        The mean repayment amounts (R1, R2, R3, R4, R5) are relatively low compared to the credit limits and balances.
-        This could indicate that customers are not fully utilising their credit or are making minimum payments.
+- **Repayment Amounts:**
+  - The mean repayment amounts (R1, R2, R3, R4, R5) are relatively low compared to the credit limits and balances.
+  - This could indicate that customers are not fully utilising their credit or are making minimum payments.
 
-In terms of banking, these insights suggest that the bank's customer base consists mainly of relatively young, educated, and financially stable individuals, with a significant proportion being married females. Additionally, while customers have substantial credit limits, they tend to maintain relatively low balances and repayment amounts, possibly indicating responsible financial behaviour or conservative credit usage.
 
 ## Insight Articulation
 
