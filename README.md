@@ -585,7 +585,8 @@ Based on the bar graphs
 
 **Marital Status:** The graph shows that the number of married and single customers is almost equal, and both are significantly higher than the number of customers in the ‘Others’ category. All marital statuses predominantly consist of customers with good ratings.
 
-**Education:** The graph shows that the majority of customers have a tertiary education, followed by postgraduate, high school, and others. All education levels predominantly consist of customers with good ratings, but the proportion of good ratings is slightly higher for postgraduate and high school customers.
+**Education:** The graph shows that the majority of customers have a tertiary education, followed by postgraduate, high school, and others. Across all education levels, the majority of customers have good ratings, with slightly higher proportions observed among tertiary and postgraduate customers.
+
 
 
 ## Linear Regression Modelling
