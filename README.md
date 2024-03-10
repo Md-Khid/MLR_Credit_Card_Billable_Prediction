@@ -2,12 +2,12 @@
 # Project Overview
 
 ## Introduction
-This project aims to analyse a credit facility dataset containing records of customers' demographics, outstanding amounts, repayment history/status, and other relevant variables. The goal is to extract meaningful insights from the data through exploratory data analysis and predictive modelling so that the bank can to predict the billable amount (B1) for each of its credit card customers. Having such foresight can help the bank to build a predictive model that can accurately forecast the billable amount for each customer in the next month.
+The objective of this project is to conduct an in-depth analysis of a credit facility dataset, primarily focusing on predicting the billable amount (B1) for credit card customers. Through the utilisation of data analytics techniques such as exploratory data analysis (EDA) and predictive modelling, the aim is to derive valuable insights that can assist financial institutions in accurately forecasting future billable amounts.
 
 ## Dataset Information
 
 ### Data Variables
-The dataset comprises details about customers' credit facilities, including demographic information, outstanding amounts, and repayment history/status.
+The dataset comprises various attributes pertaining to customers' credit facilities, including demographic details, outstanding balances, repayment histories, and socio-economic indicators. These variables serve as the cornerstone for our analysis and predictive modelling endeavours.
 [Data.csv](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Data.csv)
 
 ### Data Dictionary
@@ -34,7 +34,7 @@ The dataset comprises details about customers' credit facilities, including demo
 
 ## Data Preparation
 
-In this phase of data processing, we will refine the dataset for analysis by addressing missing values, handling special characters, and encoding variables. Additionally, we will import all necessary modules and libraries for the project and transform categorical variables into category columns for data visualization purposes.
+In this phase of data processing, we will refine the dataset for analysis by addressing missing values, handling special characters, and encoding variables. Additionally, we will import all necessary modules and libraries for the project and transform categorical variables into category columns for data visualisation purposes.
 
 ### Data Pre-processing:
 
@@ -98,7 +98,7 @@ columns_with_missing_values
 ```
 <img width="204" alt="2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/50421406-5b9c-4957-8a2d-31fd37c091e2">
 
-Based on the output, it appears that the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To rectify this issue, we should first analyse the distribution of each column to determine the most suitable method for replacing the missing values, which could involve using the mean, median, or mode.
+Based on the output, it seems that the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To address this issue, we need to analyse the distribution of each column to decide on the most appropriate method for replacing the missing values. Possible approaches include using the mean, median, or mode depending on the data distribution.
 
 #### View Data Distribution
 ```
@@ -132,6 +132,14 @@ plt.show()
 ![3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/07663d5d-b3d7-4f77-8d55-d495c6d82b05)
 
 Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, an anomalous age value is observed lying between -1 to 0, as well as 200. To address this anomaly, we will remove such values from the Age column.
+
+As for the overall data distribution:
+
+LIMIT: Most customers have a credit limit below 200,000, with a significant number having limits around 50,000. This suggests that the bank is cautious in extending high credit limits.
+BALANCE: A large number of customers have low balances, indicating they are not utilising their full credit limit. This could suggest that most customers are financially responsible and avoid maxing out their credit.
+AGE: The majority of customers are between 25 and 40 years old. This could be the bank’s target demographic for credit card products.
+MARITAL STATUS: There are more married customers than single or others. This could suggest that married couples are more likely to apply for credit cards, reflecting the demographic profile of the bank’s customer base.
+EDUCATION: Most customers have attained tertiary education followed by high school. This could indicate that individuals with higher education levels are more likely to have credit cards.
 
 #### Replace Missing Values and Remove Data Errors 
 
@@ -225,7 +233,33 @@ Descriptive_Stats
 ```
 ![7](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/566c5a7f-fc1a-453d-bc91-67146d0f241a)
 
-Based on the statistical table, the credit card bank typically offers a uniform credit limit based on customers' income. However, a significant portion of its customers struggle to meet their credit card bill payments once they have utilised approximately 97% of their credit limit. They can only afford to make a small payment towards their monthly bills, around 10%. This serves as a clear signal for the credit card bank to issue reminder notices and make phone calls or impose late fees and additional interest charges on unpaid balances, leading to an increase in the outstanding amount over time.
+From the descriptive statistics table, we can derive several insights:
+
+    Gender and Marital Status:
+        The majority of customers are female (with a mean of 0.62, indicating that 62% of the customers are female) and married (with a mean of 1.11).
+        This might indicate that married individuals, particularly females, are more likely to have credit cards or engage in banking activities.
+
+    Education Level:
+        The most common education level among customers is tertiary education, with a mean of 1.74.
+        This suggests that individuals with higher education levels are more prevalent in the dataset.
+
+    Age Distribution:
+        The average age of customers is approximately 35.55 years, with a standard deviation of 9.16.
+        This indicates that the customer base is relatively young, with a considerable spread in ages.
+
+    Credit Limits and Balances:
+        The mean credit limit is $168,359.54, while the mean balance is $9,110.24.
+        This suggests that, on average, customers have significant credit limits compared to their current balances.
+
+    Income:
+        The mean income of customers is $177,858.19, with a wide standard deviation of $143,137.41.
+        This indicates a diverse range of income levels among customers.
+
+    Repayment Amounts:
+        The mean repayment amounts (R1, R2, R3, R4, R5) are relatively low compared to the credit limits and balances.
+        This could indicate that customers are not fully utilising their credit or are making minimum payments.
+
+In terms of banking, these insights suggest that the bank's customer base consists mainly of relatively young, educated, and financially stable individuals, with a significant proportion being married females. Additionally, while customers have substantial credit limits, they tend to maintain relatively low balances and repayment amounts, possibly indicating responsible financial behaviour or conservative credit usage.
 
 ## Insight Articulation
 
