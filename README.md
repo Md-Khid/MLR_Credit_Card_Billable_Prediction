@@ -432,7 +432,16 @@ plt.show()
 ```
 ![12](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/d15f03a0-cd00-4180-bef6-a52bea8a3d64)
 
-Spell check: The bill amount owned by customers kept increasing as the month increasses. And most of the high sizeabbe bill amoout is concerntrated on the Postgraduates and Tertiary education group as they mosntly obtained a higer credit limit
+Based on the scatter plots:
+
+- **Concentration of Data Points:** There is a concentration of data points towards the lower end of the LIMIT axis across all plots. This suggests that a majority of customers have lower limits.
+
+- **Education Levels:** Customers with “Others” as their highest education attained are less frequent in these datasets. This could indicate that most customers have at least completed high school education.
+
+- **No Clear Pattern Based on Education:** There isn’t a clear pattern or segregation based on education levels; data points for all education categories are mixed throughout. This suggests that the customer’s education level may not have a significant impact on their limit or billable amount.
+
+- **Similar Distribution Across All Plots:** The distribution and concentration of data points are similar across all five scatter plots (B1 to B5). This could imply that the billable amount in each month (B1 to B5) has a similar relationship with the total limit.
+
 
 ```
 # Define variables to plot
