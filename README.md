@@ -82,7 +82,7 @@ for col, mapping in mappings.items():
             
 df
 ```
-![Screenshot 2024-03-10 at 12-50-47 Github-Linear Regression Modelling-VIF - Jupyter Notebook](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/1e2930f2-d4d2-4e02-a153-e9ba80dde565)
+<img width="498" alt="1" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/f11a32b9-4a8f-4951-ab65-eb580a723ae2">
 
 #### Check Missing Values
 
@@ -96,7 +96,7 @@ columns_with_missing_values = missing_values[missing_values > 0]
 # Display columns with missing values
 columns_with_missing_values
 ```
-<img width="214" alt="2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/6c429f57-1fb6-48f1-a972-d052a93920b6">
+<img width="204" alt="2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/50421406-5b9c-4957-8a2d-31fd37c091e2">
 
 Based on the output, it appears that the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To rectify this issue, we should first analyse the distribution of each column to determine the most suitable method for replacing the missing values, which could involve using the mean, median, or mode.
 
@@ -129,7 +129,7 @@ for i in range(len(columns), axes.size):
 plt.tight_layout()
 plt.show()
 ```
-![3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/e929e873-44bc-4c8b-b729-d1022b2e1624)
+![3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/07663d5d-b3d7-4f77-8d55-d495c6d82b05)
 
 Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, an anomalous age value is observed lying between -1 to 0, as well as 200. To address this anomaly, we will remove such values from the Age column.
 
@@ -174,7 +174,7 @@ for column in df.columns:
         if any(char in special_chars for char in str(value)):
             print(f"Special characters found in column '{column}', row {index}: {value}")
 ```
-<img width="510" alt="5" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/2ff5d9eb-552f-40e7-8a6c-53f43d732871">
+![5](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4d33be7e-10a6-45f9-a8ca-c3815c337f72)
 
 ```
 # Remove special characters ('$' and ',') and spaces from column 'R3'
@@ -194,7 +194,7 @@ if categorical_variables.empty:
 else:
     print("The following categorical variables need encoding:\n" + "\n".join(categorical_variables))
 ```
-<img width="414" alt="6" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/ab7f71fa-72a8-4ee9-95e5-e8ddbcbaf455">
+![6](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c2304d19-e302-472e-9d7d-5a803abce688)
 
 ```
 # Convert 'R3' column to the same data type as 'R1', 'R2', 'R4', and 'R5'
@@ -223,7 +223,7 @@ Descriptive_Stats = Descriptive_Stats.transpose()
 
 Descriptive_Stats
 ```
-![7](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/a06672c1-24c8-4f24-805b-3913474e7df1)
+![7](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/566c5a7f-fc1a-453d-bc91-67146d0f241a)
 
 Based on the statistical table, the credit card bank typically offers a uniform credit limit based on customers' income. However, a significant portion of its customers struggle to meet their credit card bill payments once they have utilised approximately 97% of their credit limit. They can only afford to make a small payment towards their monthly bills, around 10%. This serves as a clear signal for the credit card bank to issue reminder notices and make phone calls or impose late fees and additional interest charges on unpaid balances, leading to an increase in the outstanding amount over time.
 
@@ -236,7 +236,7 @@ scaler = MinMaxScaler()
 df[numeric_columns] = scaler.fit_transform(df[numeric_columns])
 df
 ```
-![8](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/1b10cd65-f4f9-497e-ba94-0595147f0a67)
+<img width="500" alt="8" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/532ad846-952a-437c-aeaa-313499149aeb">
 
 Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
 
@@ -270,8 +270,9 @@ def plot_corr_and_print_highly_correlated(df):
 # Call the function
 plot_corr_and_print_highly_correlated(df)
 ```
-![9 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/61434dc1-e690-4aee-a0e2-bd0896d082d4)
-![9 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0bfaf7c1-8cd3-4152-9524-dbffb58f62b9)
+
+![9 (1)](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/d39dac92-ecf0-4df2-a5e3-e8cb1b2dadcb)
+![9 (2)](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3e114827-515b-48cc-95e3-e480df0fd309)
 
 Based on the correlation heatmap, it is clear that there is a strong correlation between variables such as 'INCOME' and 'LIMIT', as well as 'B(n)' and 'BALANCE'.
 
@@ -295,7 +296,7 @@ for ax, (variable, title, labels) in zip(axes, plot_data):
 plt.tight_layout()
 plt.show()
 ```
-![10](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/baf1814d-0dda-416e-85c8-d77912ea21d0)
+![10](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/237d246a-405f-4555-8d5d-3dcf66497e82)
 
 Based on the density plots, it is clear that the credit card bank tends to offer higher credit limits to customers who are 1. Male, 2. Married, and 3. Have a postgraduate education.
 
@@ -325,7 +326,7 @@ for i, plot_info in enumerate(plot_data):
 plt.tight_layout()
 plt.show()
 ```
-![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4a4bd9ad-9bed-4db3-becb-53a3d1246f55)
+![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4414a949-9d63-4ab9-920d-9d3956312a23)
 
 Based on the Income box plot, it is clear that individuals with high incomes mainly belong to the Tertiary Education group. However, this group demonstrates lower credit balances in comparison to the Postgraduate and High School groups.
 
@@ -358,7 +359,7 @@ for ax in axes[len(variables):]:
 plt.tight_layout()
 plt.show()
 ```
-![12](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/b4335cd8-984c-45ae-96ca-123c737b08b8)
+![12](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/d15f03a0-cd00-4180-bef6-a52bea8a3d64)
 
 Spell check: The bill amount owned by customers kept increasing as the month increasses. And most of the high sizeabbe bill amoout is concerntrated on the Postgraduates and Tertiary education group as they mosntly obtained a higer credit limit
 
@@ -408,9 +409,10 @@ for hue in ['GENDER', 'EDUCATION', 'MARITAL']:
 
 
 ```
-![13 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/e2dcf531-99a6-4ef9-a17d-4abc34f5a948)
-![13 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/618be632-4091-4c49-b7c4-bfe210ab4e05)
-![13 3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/63490a5c-de34-4503-a457-70381a6e17fe)
+
+![13 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/ac878d31-38cf-4d0e-a0ed-8f1f5320c500)
+![13 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/dba771d7-2382-48fc-81be-17b5e7f47d94)
+![13 3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0f36a92f-02f1-4a24-847c-f557c97b13cc)
 
 ```
 # Define variables 
@@ -430,8 +432,7 @@ for i, var in enumerate(variables):
 plt.tight_layout()
 plt.show()
 ```
-![14](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3d56b2c5-a95e-4940-8352-b259c6c5b896)
-
+![14](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/f72ce5e9-ecf3-4422-b3c2-12337e724e70)
 
 #### Barplot
 ```
@@ -442,8 +443,7 @@ rating_counts = df['RATING'].value_counts()
 print(f"Number of GOOD ratings: {rating_counts['Good']}")
 print(f"Number of BAD ratings: {rating_counts['Bad']}")
 ```
-<img width="315" alt="15" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/fbedfff7-e497-47ef-8769-16a1f470cec0">
-
+<img width="257" alt="15" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/68a9a1d3-43c1-4a5c-aedd-39fed3899659">
 
 ```
 # Create figure with subplots
@@ -464,7 +464,7 @@ for ax, category in zip(axes, ['GENDER', 'MARITAL', 'EDUCATION']):
 plt.tight_layout()
 plt.show()
 ```
-![16](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/ae756b3b-b921-4c81-8b68-0e740a715b0f)
+![16](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/fcf95cd9-9a60-457b-8f28-943c88d2ce8d)
 
 Based on the barplots, it is clear that the credit card bank tends to provide Good ratings to customers who are 1. Female, 2. Married, and 3. Have a Tertiary education.
 
@@ -478,7 +478,7 @@ Build a linear regression model to predict the variable B1, explaining the appro
 df[numeric_columns] = scaler.inverse_transform(df[numeric_columns])
 df
 ```
-![17](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/fc1ab4c8-4ae0-49e4-a677-ae5932807504)
+![17](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/98dccfd2-3362-4911-b0c2-84cd10ba7d03)
 
 
 #### Dummy Variables
@@ -490,7 +490,8 @@ df = pd.get_dummies(df, columns=['RATING','GENDER','EDUCATION','MARITAL','S1','S
 df[df.select_dtypes(include=bool).columns] = df.select_dtypes(include=bool).astype(int)
 df
 ```
-<img width="492" alt="18" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/e60f9263-472d-466f-9fb7-a14b6f221099">
+<img width="492" alt="18" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/82588fa7-c399-4d80-b91d-d2bcfa4db616">
+
 
 #### Remove Outliers
 ```
@@ -522,7 +523,7 @@ removed_outliers = df_with_outliers[outliers.any(axis=1)]
 # Print the number of rows of outliers that have been removed
 print(f"Number of rows of outliers removed: {len(removed_outliers)}")
 ```
-<img width="351" alt="19" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/bea70915-381d-40a0-bfa5-022c6d4684cf">
+<img width="362" alt="19" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0a238edd-dadb-408d-bd0a-06f3af3140cf">
 
 ```
 # Get list of numerical predictor variables
@@ -558,7 +559,7 @@ while vif['VIF'].max() > 5:
 # Print VIF values
 vif
 ```
-![20](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0de6b1a4-40df-46f8-ad28-0f0048606340)
+![20](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/e59f6607-4ebe-4d5a-b089-78cb8ac689d2)
 
 ### Modelling
 ```
@@ -600,10 +601,9 @@ print("Test RMSE:", round(rmse_train, 2))
 # Print model summary
 model.summary()
 ```
-![21 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4a93c81f-4443-4464-a531-a9fd7b34c073)
-![21 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/cfb5fad1-b314-48cd-b27b-a4d0e701c502)
+![21 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/574fd02c-dc30-425a-8232-9459ce095e2d)
 
-Given the [descriptive statistics of B1](#descriptive-statistics), the mean is around 49985.76 and the standard deviation is approximately 71927.41. The Test RMSE is 7638.74 which is much smaller than both the mean and the standard deviation, which suggests that the model’s predictions are relatively close to the actual values. You can visualize the data distribution in the histogram below:
+Given the [descriptive statistics of B1](#descriptive-statistics), the mean is around 49985.76 and the standard deviation is approximately 71927.41. The Test RMSE is 7638.74 which is much smaller than both the mean and the standard deviation, which suggests that the model’s predictions are relatively close to the actual values. 
 
 
 ## Evaluate Model Performance
