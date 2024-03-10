@@ -762,6 +762,6 @@ df_compare
 ![22](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/af9e451d-f470-403b-9dd6-2c03d7a330f9)
 
 
-
+Using the test dataset allows for further evaluation of the model's performance on unseen data. Based on the model's performance, the predictions are relatively close to the actual values, indicating that the model generalises well to new data.
 
 
