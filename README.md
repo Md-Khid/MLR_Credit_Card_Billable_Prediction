@@ -282,7 +282,7 @@ df
 ```
 <img width="500" alt="8" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/532ad846-952a-437c-aeaa-313499149aeb">
 
-Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
+Scaling numerical variables in a dataset helps in understanding the relationships between variables, particularly when creating scatterplots and conducting correlation analysis. It ensures that variables are comparable on a similar scale, facilitating more accurate interpretation of their relationships.
 
 #### Heatmap
 ```
@@ -318,7 +318,19 @@ plot_corr_and_print_highly_correlated(df)
 ![9 (1)](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/d39dac92-ecf0-4df2-a5e3-e8cb1b2dadcb)
 ![9 (2)](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3e114827-515b-48cc-95e3-e480df0fd309)
 
-Based on the correlation heatmap, it is clear that there is a strong correlation between variables such as 'INCOME' and 'LIMIT', as well as 'B(n)' and 'BALANCE'.
+Based on the heatmap, the correlations between the variables suggest the following insights:
+
+- **('B1', 'B2'), ('B1', 'B3'), ('B1', 'B4'), ('B1', 'B5'), ('B1', 'BALANCE')**: These correlations may indicate how the billable amounts in the first month relate to each other and to the customer's balance, potentially reflecting consistent spending patterns or repayment behaviours.
+
+- **('B2', 'B3'), ('B2', 'B4'), ('B2', 'B5'), ('B2', 'BALANCE')**: Similarly, these correlations may reveal relationships between billable amounts in the second month and the customer's balance.
+
+- **('B3', 'B4'), ('B3', 'B5'), ('B3', 'BALANCE')**: These correlations may provide insights into how billable amounts in the third month correlate with each other and with the customer's balance.
+
+- **('B4', 'B5'), ('B4', 'BALANCE')**: These correlations may indicate the relationship between billable amounts in the fourth month and the customer's balance.
+
+- **('B5', 'BALANCE')**: This correlation may illustrate how the billable amount in the fifth month relates to the customer's balance.
+
+- **('INCOME', 'LIMIT')**: This correlation may offer insights into the relationship between a customer's income and their credit limit. A strong positive correlation could imply that customers with higher incomes tend to have higher credit limits, while a weak or negative correlation may suggest otherwise.
 
 
 #### Density Plot
