@@ -631,7 +631,7 @@ y_test_pred = model.predict(X_test).round(0)
 df_compare = pd.DataFrame({'Actual B1': y_test, 'Predicted B1': y_test_pred})
 df_compare
 ```
-![22](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c479e0d5-0cba-4d72-ba62-352f92e4679d)
+![22](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/af9e451d-f470-403b-9dd6-2c03d7a330f9)
 
 
 
