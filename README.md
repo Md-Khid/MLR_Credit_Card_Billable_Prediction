@@ -186,17 +186,15 @@ Based on the output, it seems that the R3 column contains special characters. To
 #### Encoding of Variables
 ```
 # Identify categorical variables
-categorical_variables = df.select_dtypes(include=['object', 'category'])
+categorical_variables = df.select_dtypes(include=['object', 'category']).columns
 
 # Check for categorical variables that need encoding
-if not categorical_variables.empty:
-    print("The following categorical variables need encoding:")
-    for column in categorical_variables.columns:
-        print(column)
-else:
+if categorical_variables.empty:
     print("No categorical variables need encoding.")
+else:
+    print("The following categorical variables need encoding:\n" + "\n".join(categorical_variables))
 ```
-<img width="237" alt="6" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/22070eb7-cdce-40b0-b5b7-666ad7d8206f">
+<img width="414" alt="6" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/ab7f71fa-72a8-4ee9-95e5-e8ddbcbaf455">
 
 ```
 # Convert 'R3' column to the same data type as 'R1', 'R2', 'R4', and 'R5'
@@ -209,26 +207,23 @@ In this section, we will delve into comprehending the dataset. This encompasses 
 
 #### Descriptive Statisitcs
 ```
-# Create statistical description table 
-statistical_description = df.describe(include='all')
-
-# Round statistical description table to 2 decimal places
-statistical_description = np.round(statistical_description, 2)
+# Create Descriptive Stats table 
+Descriptive_Stats = df.describe(include='all').round(2)
 
 # Separate columns into categorical and numerical groups
-categorical_columns = statistical_description.columns[statistical_description.dtypes == 'object']
-numeric_columns = [col for col in statistical_description.columns if col not in categorical_columns]
+categorical_columns = Descriptive_Stats.select_dtypes(include=['object']).columns
+numeric_columns = Descriptive_Stats.select_dtypes(exclude=['object']).columns
 
-# Concatenate columns in order (categorical followed by numerical)
-statistical_description = pd.concat([statistical_description[categorical_columns], statistical_description[numeric_columns]], axis=1)
+# Order columns (categorical followed by numerical)
+ordered_columns = list(categorical_columns) + list(numeric_columns)
+Descriptive_Stats = Descriptive_Stats.reindex(ordered_columns, axis=1)
 
-# Transpose statistical description table
-statistical_description = statistical_description.T
+# Transpose Descriptive Stats table 
+Descriptive_Stats = Descriptive_Stats.transpose()
 
-# Display statistical table
-statistical_description
+Descriptive_Stats
 ```
-<img width="383" alt="7" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/74809df8-880f-4b92-9265-5d89bed6472d">
+<img width="386" alt="7" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/9a34570d-1727-4844-ae64-f024f8810504">
 
 Based on the statistical table, the credit card bank typically offers a uniform credit limit based on customers' income. However, a significant portion of its customers struggle to meet their credit card bill payments once they have utilised approximately 97% of their credit limit. They can only afford to make a small payment towards their monthly bills, around 10%. This serves as a clear signal for the credit card bank to issue reminder notices and make phone calls or impose late fees and additional interest charges on unpaid balances, leading to an increase in the outstanding amount over time.
 
