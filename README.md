@@ -648,7 +648,11 @@ print(f"Number of rows of outliers removed: {len(removed_outliers)}")
 ```
 <img width="362" alt="19" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0a238edd-dadb-408d-bd0a-06f3af3140cf">
 
+Outliers can significantly influence the parameters and performance of statistical models. Removing outliers can help in achieving more accurate and stable model estimates, leading to better predictive performance.
+
 ```
+# Multicollinearity 
+
 # Get list of numerical predictor variables
 numeric_columns = df.select_dtypes(include=['float64', 'int64']).columns
 predictors = df[numeric_columns].drop(columns='B1')
@@ -683,6 +687,8 @@ while vif['VIF'].max() > 5:
 vif
 ```
 ![20](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/e59f6607-4ebe-4d5a-b089-78cb8ac689d2)
+
+Multicollinearity refers to the phenomenon where two or more independent variables in a regression model are highly correlated with each other. This can inflate the standard errors of the coefficients, making them unstable and difficult to interpret. To address this issue, it is essential to check for multicollinearity using the Variance Inflation Factor (VIF). A VIF value greater than 5 indicates a high degree of multicollinearity, and removing variables with such high VIF values helps alleviate multicollinearity-related issues in the regression model.
 
 ### Modelling
 ```
