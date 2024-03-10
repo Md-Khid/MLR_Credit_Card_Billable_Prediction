@@ -234,25 +234,44 @@ Based on the statistical table, the credit card bank typically offers a uniform 
 # Apply Min-Max scaling to numerical columns
 scaler = MinMaxScaler()
 df[numeric_columns] = scaler.fit_transform(df[numeric_columns])
-
-# Display data table
 df
 ```
-<img width="751" alt="8" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c4ae83ec-81cf-43c5-baa2-490be2674578">
+![8](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/1b10cd65-f4f9-497e-ba94-0595147f0a67)
 
 Scaling numerical variables in a dataset helps interpret relationships between variables, especially in scatterplots and correlation analysis. It helps to ensure they are on a similar scale.
 
 #### Heatmap
 ```
-# Select numerical columns
-numerical_columns = df.select_dtypes(include='number')
+def plot_corr_and_print_highly_correlated(df):
+    # Create a correlation matrix
+    corr_matrix = df.select_dtypes(include='number').corr()
 
-# Plotting heatmap
-plt.figure(figsize=(12, 8))
-sns.heatmap(numerical_columns.corr(), annot=True, cmap='coolwarm', fmt=".2f", linewidths=.5)
-plt.show()
+    # Plot heatmap
+    plt.figure(figsize=(10, 5))
+    sns.heatmap(corr_matrix, annot=True, fmt=".2f", linewidths=.5)
+    plt.show()
+
+    # Create a mask for correlations greater than 0.7
+    high_corr = corr_matrix[corr_matrix > 0.7]
+
+    # Get pairs of highly correlated variables
+    high_corr_pairs = [(i, j) for i in high_corr.columns for j in high_corr.index if (high_corr[i][j] > 0.7) & (i != j)]
+
+    # Sort each pair and remove duplicates
+    high_corr_pairs = list(set([tuple(sorted(pair)) for pair in high_corr_pairs]))
+
+    # Sort the pairs alphabetically
+    high_corr_pairs = sorted(high_corr_pairs)
+
+    print("Pairs of variables with correlation greater than 0.7:")
+    for pair in high_corr_pairs:
+        print(pair)
+        
+# Call the function
+plot_corr_and_print_highly_correlated(df)
 ```
-![9](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/cbc3a167-f442-4c44-9bb2-5770654c0b53)
+![9 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0becee14-e7eb-4309-b3f9-5145d2343b28)
+![9 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0bfaf7c1-8cd3-4152-9524-dbffb58f62b9)
 
 Based on the correlation heatmap, it is clear that there is a strong correlation between variables such as 'INCOME' and 'LIMIT', as well as 'B(n)' and 'BALANCE'.
 
