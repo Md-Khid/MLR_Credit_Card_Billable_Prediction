@@ -224,7 +224,7 @@ df['R3'] = df['R3'].astype(df['R1'].dtype)
 ```
 Based on the output, it appears that the 'R3' column may require encoding. However, according to the [data dictionary](#data-dictionary), 'R3' is expected to be numerical. To address this, we can adjust the data type of the 'R3' column to align with that of the 'R1', 'R2', 'R4', and 'R5' columns. For now, we will refrain from encoding the remaining categorical variables, as we intend to utilise them for generating other frequency tables, bar charts, or graphical methods to comprehend their distribution and relationships with other variables.
 
-## Exploratary Data Analysis 
+## Exploratory Data Analysis 
 In this section, we will delve into comprehending the dataset. This encompasses tasks such as examining data distributions, identifying outliers, visualising correlations between variables, and detecting any irregularities or trends, then transforming the insights obtained into valuable information.
 
 #### Descriptive Statistics
@@ -390,20 +390,20 @@ plt.show()
 ```
 ![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4414a949-9d63-4ab9-920d-9d3956312a23)
 
-From the box plots, we observed that postgraduates, despite having a wider range of income, tend to have the lowest median balance among all education groups. This could indicate a potential relationship between education level and financial behavior.
+From the box plots, we observed that postgraduates, despite having a wider range of income, tend to have the lowest median balance among all education groups. This could indicate a potential relationship between education level and financial behaviour.
 
 - **Financial Management Skills:** Postgraduates could be more adept at managing finances due to their higher level of education. This could lead to greater awareness of the implications of maintaining high credit balances, resulting in more diligent payment of balances.
 
 - **Income Stability:** Postgraduates might benefit from more stable incomes, allowing them to pay off their credit balances regularly, hence leading to lower balances.
 
-- **Credit Behavior:** Postgraduates may exhibit more cautious credit usage habits, preferring to reserve credit card usage for emergencies or specific purchases, which could result in lower balances.
+- **Credit Behaviour:** Postgraduates may exhibit more cautious credit usage habits, preferring to reserve credit card usage for emergencies or specific purchases, which could result in lower balances.
 
 - **Debt Aversion:** Postgraduates might be more averse to accumulating debt.
 
 
 #### Scatterplot
 ```
-# Define education levels and corresponding colors
+# Define education levels and corresponding colours
 unique_education = df['EDUCATION'].unique()
 colors = plt.cm.tab10.colors[:len(unique_education)]
 
@@ -770,8 +770,8 @@ In conclusion, this project has effectively addressed the objective of conductin
 
 Through iterative processes, a linear regression model was developed and refined, achieving a commendable R-squared (R²) value of 0.949 and an F-statistic of 1.155e+04. The Root Mean Square Error (RMSE) for both the training and testing models was determined to be 7638.74, indicating the model's capability to make predictions with reasonable accuracy.
 
-Furthermore, evaluation using the test dataset revealed that the model's predictions closely aligned with the actual values, demonstrating its robustness in generalizing to new data. This underscores the significance of rigorous model evaluation and refinement in ensuring the reliability of predictive analytics in the financial domain.
+Furthermore, evaluation using the test dataset revealed that the model's predictions closely aligned with the actual values, demonstrating its robustness in generalising to new data. This underscores the significance of rigorous model evaluation and refinement in ensuring the reliability of predictive analytics in the financial domain.
 
-Overall, this project contributes valuable insights to financial institutions, empowering them with data-driven tools to enhance decision-making processes and optimize resource allocation in managing credit facilities effectively.
+Overall, this project contributes valuable insights to financial institutions, empowering them with data-driven tools to enhance decision-making processes and optimise resource allocation in managing credit facilities effectively.
 
 
