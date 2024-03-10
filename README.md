@@ -590,7 +590,7 @@ Based on the bar graphs
 
 
 ## Linear Regression Modelling
-Build a linear regression model to predict the variable B1, explaining the approach taken and any necessary data pre-processing.
+In this phase, we will construct a linear regression model to forecast the variable B1
 
 #### Reverting
 ```
@@ -599,6 +599,8 @@ df[numeric_columns] = scaler.inverse_transform(df[numeric_columns])
 df
 ```
 ![17](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/98dccfd2-3362-4911-b0c2-84cd10ba7d03)
+
+Reverting the scaled predictions back to their original scale is essential for accurate evaluation. This process enables us to compare the model's predictions directly with the original target variable values. Without reverting the predictions, the evaluation metrics would be calculated on a different scale, leading to inaccurate assessments of the model's performance.
 
 
 #### Dummy Variables
