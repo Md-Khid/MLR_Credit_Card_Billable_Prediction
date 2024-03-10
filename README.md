@@ -601,7 +601,7 @@ print("Test RMSE:", round(rmse_train, 2))
 # Print model summary
 model.summary()
 ```
-![21 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/574fd02c-dc30-425a-8232-9459ce095e2d)
+![21](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/6fdf40e3-a4bd-4d89-9282-e443639a21ae)
 
 Given the [descriptive statistics of B1](#descriptive-statistics), the mean is around 49985.76 and the standard deviation is approximately 71927.41. The Test RMSE is 7638.74 which is much smaller than both the mean and the standard deviation, which suggests that the model’s predictions are relatively close to the actual values. 
 
