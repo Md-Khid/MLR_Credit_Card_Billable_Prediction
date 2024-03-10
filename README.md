@@ -296,7 +296,7 @@ for idx, (variable, title, labels) in enumerate(plot_data):
 plt.tight_layout()
 plt.show()
 ```
-<img width="493" alt="8" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3b10bb4e-7f10-4e04-ad84-9533fbe20ceb">
+![10](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/baf1814d-0dda-416e-85c8-d77912ea21d0)
 
 Based on the density plots, it is clear that the credit card bank tends to offer higher credit limits to customers who are 1. Male, 2. Married, and 3. Have a postgraduate education.
 
