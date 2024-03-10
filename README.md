@@ -2,7 +2,7 @@
 # Project Overview
 
 ## Introduction
-This project aims to analyse a credit facility dataset containing records of customers' demographics, outstanding amounts, repayment history/status, and other relevant variables. The goal is to extract meaningful insights from the data through exploratory data analysis and predictive modelling based on a mock-up credit facility dataset.
+This project aims to analyse a credit facility dataset containing records of customers' demographics, outstanding amounts, repayment history/status, and other relevant variables. The goal is to extract meaningful insights from the data through exploratory data analysis and predictive modelling so that the bank can to predict the billable amount (B1) for each of its credit card customers. Having such foresight can help the bank to build a predictive model that can accurately forecast the billable amount for each customer in the next month.
 
 ## Dataset Information
 
