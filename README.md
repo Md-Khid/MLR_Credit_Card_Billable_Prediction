@@ -8,7 +8,7 @@ The objective of this project is to conduct an in-depth analysis of a credit fac
 
 ### Data Variables
 The dataset comprises various attributes pertaining to customers' credit facilities, including demographic details, outstanding balances, repayment histories, and socio-economic indicators. These variables serve as the foundation for our analysis and predictive modelling process.
-[Data.csv](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Data.csv)
+[Dataset](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Data.csv)
 
 ### Data Dictionary
 
