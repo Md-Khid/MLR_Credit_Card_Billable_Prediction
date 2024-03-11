@@ -702,7 +702,7 @@ print(results.summary())
 
 The model underwent training and testing on datasets divided into 70% for training and 30% for testing. During this process, variables with p-values greater than 0.05 were iteratively removed using forward variable selection. Despite this refinement, the model maintained its predictive capability, as evidenced by an R-squared (R²) value that remained high, shifting marginally from 0.949 to 0.948. Additionally, while the F-statistic increased substantially from 1.614e+04 to 5.319e+04, both iterations of the model continued to provide statistically significant predictions of the dependent variable based on the independent variables.
 
-The Root Mean Square Error (RMSE) difference for the training and testing models is significantly small for both the 10 and 3 selection features. Considering the descriptive statistics of [B1](#Descriptive-Statistics), with a mean of approximately 49985.76 and a standard deviation of around 71927.41, the Test RMSE for both the 10 and 3 selection features (i.e., 7478.54 and 7492.75) is notably smaller than both the mean and the standard deviation. This suggests that the model's predictions are relatively close to the actual values.
+The Root Mean Square Error (RMSE) difference for the training and testing models is significantly small for both the 10 and 3 selection features. Considering the descriptive statistics of [B1](#Descriptive-Statistics), with a mean of approximately 49961.41 and a standard deviation of around 71888.94, the Test RMSE for both the 10 and 3 selection features (i.e., 7478.54 and 7492.75) is notably smaller than both the mean and the standard deviation. This suggests that the model's predictions are relatively close to the actual values.
 
 ##### 10 Predictor Variables
 ![20 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/12139f33-8538-4abd-a204-c2f1daece375)
@@ -744,7 +744,7 @@ Using the [test](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/mai
 
 In conclusion, this project has effectively addressed the objective of conducting a comprehensive analysis of the credit facility dataset, with a specific focus on predicting the billable amount (B1) for credit card customers. By employing data analytics techniques such as exploratory data analysis (EDA) and predictive modelling, valuable insights have been derived to assist financial institutions in accurately forecasting future billable amounts.
 
-Through iterative processes, a linear regression model was developed and refined, achieving a commendable R-squared (R²) value of 0.949 and an F-statistic of 1.155e+04. The Root Mean Square Error (RMSE) for both the training and testing models was determined to be 7638.74, indicating the model's capability to make predictions with reasonable accuracy.
+Through iterative processes, a linear regression model was developed and refined, achieving a commendable R-squared (R²) value of 0.948 and an F-statistic of 5.319e+04 with the Root Mean Square Error (RMSE) of 7492.75, indicating the model's capability to make predictions with reasonable accuracy.
 
 Furthermore, evaluation using the test dataset revealed that the model's predictions closely aligned with the actual values, demonstrating its robustness in generalising to new data. This underscores the significance of rigorous model evaluation and refinement in ensuring the reliability of predictive analytics in the financial domain.
 
