@@ -659,89 +659,57 @@ print(f"Number of rows of outliers removed: {len(removed_outliers)}")
 
 Outliers can significantly influence the parameters and performance of statistical models. Removing outliers can help in achieving more accurate and stable model estimates, leading to better predictive performance.
 
+### Modelling
+```
+# Define predictors and target variable 
+X = df.drop(columns=['B1'])  # Features (exclude the target variable)
+y = df['B1']  # Target variable
+
+# Split data into training set and testing set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+clf = LinearRegression()
+
+# Build step forward feature selection
+sfs1 = sfs(clf, k_features=, forward=True, floating=False, scoring='r2', cv=5)
+
+# Perform SFFS
+sfs1 = sfs1.fit(X_train, y_train)
+
+# Get selected features
+selected_features = list(sfs1.k_feature_names_)
+
+# Fit the model using selected features
+X_train_selected = sm.add_constant(X_train[selected_features])
+model = sm.OLS(y_train, X_train_selected)
+results = model.fit()
+
+# Predict target variable for the training and testing set
+y_train_pred = results.predict(X_train_selected)
+X_test_selected = sm.add_constant(X_test[selected_features])
+y_test_pred = results.predict(X_test_selected)
+
+# Calculate the RMSE for training and testing set
+rmse_train = sqrt(mean_squared_error(y_train, y_train_pred))
+rmse_test = sqrt(mean_squared_error(y_test, y_test_pred))
+
+print(f'Training RMSE: {round(rmse_train, 2)}')
+print(f'Testing RMSE: {round(rmse_test, 2)}')
+
+# Print the model summary
+print(results.summary())
+```
+
+The model underwent training and testing on sets divided into 70% for training and 30% for testing. Through iterations, variables with p-values greater than 0.05 were removed though forward varaible selection porcess . It achieved an R-squared (R²) value from 0.949 to 0.948, and despite the F-statistic increases from 1.614e+04 to 5.319e+04, both model provides a statistically significant prediction of the dependent variable from the independent variables. This is a good sign for the validity of your model. The Root Mean Square Error (RMSE) for both the training and testing models is 7638.74. Considering the [descriptive statistics of B1](#descriptive-statistics), with a mean of approximately 49985.76 and a standard deviation of around 71927.41, the Test RMSE for the 10 and 3 slection features (i.e 7478.54 and 7492.75) is notably smaller than both the mean and the standard deviation. This suggests that the model's predictions are relatively close to the actual values.
+
+
+<img width="319" alt="20 1" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3eaa5cfd-7684-4d3d-b68e-0195b4691bdb">
+<img width="321" alt="20 2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/111ab94e-3e40-44f4-a8ae-211f5af270d1">
+
 #### Multicollinearity 
-
-```
-# Get list of numerical predictor variables
-numeric_columns = df.select_dtypes(include=['float64', 'int64']).columns
-predictors = df[numeric_columns].drop(columns='B1')
-
-# Add a constant to predictor variables
-predictors = sm.add_constant(predictors)
-
-# Calculate VIF for each predictor variable
-vif = pd.DataFrame()
-vif["Variable"] = predictors.columns
-vif["VIF"] = [variance_inflation_factor(predictors.values, i) for i in range(predictors.shape[1])]
-
-# Remove variable with the highest VIF
-while vif['VIF'].max() > 5:
-    # Identify variable with the highest VIF
-    max_vif_variable = vif.loc[vif['VIF'].idxmax(), 'Variable']
-    
-    # If variable with the highest VIF is 'const', skip it
-    if max_vif_variable == 'const':
-        vif = vif.drop(vif['VIF'].idxmax())
-        continue
-    
-    # Drop variable with the highest VIF
-    predictors = predictors.drop(columns=max_vif_variable)
-    
-    # Recalculate VIF
-    vif = pd.DataFrame()
-    vif["Variable"] = predictors.columns
-    vif["VIF"] = [variance_inflation_factor(predictors.values, i) for i in range(predictors.shape[1])]
-
-# Print VIF values
-vif
-```
-![20](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/e59f6607-4ebe-4d5a-b089-78cb8ac689d2)
 
 Multicollinearity refers to the phenomenon where two or more independent variables in a regression model are highly correlated with each other. This can inflate the standard errors of the coefficients, making them unstable and difficult to interpret. To address this issue, it is essential to check for multicollinearity using the Variance Inflation Factor (VIF). A VIF value greater than 5 indicates a high degree of multicollinearity, and removing variables with high VIF values helps alleviate multicollinearity-related issues in the regression model.
 
-### Modelling
-```
-
-# Define independent variables (X)
-X = sm.add_constant(df.drop(columns=['B1']))
-
-# Define dependent variable (Y)
-y = df['B1']
-
-# Split the data into training and testing sets (70% training, 30% testing)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-# Fit the OLS (Ordinary Least Squares) model on training data
-model = sm.OLS(y_train, X_train).fit()
-
-# Iterate through the p-values and remove variables with p-value > 0.05, excluding the constant term
-while model.pvalues.drop('const').max() > 0.05:
-    # Find the variable with the highest p-value (excluding the constant term)
-    max_pvalue_index = model.pvalues.drop('const').idxmax()
-    # Remove the variable from X_train and X_test
-    X_train = X_train.drop(columns=[max_pvalue_index])
-    X_test = X_test.drop(columns=[max_pvalue_index])
-    # Fit the model again with the updated X_train
-    model = sm.OLS(y_train, X_train).fit()
-
-# Make predictions on training and testing data
-y_train_pred = model.predict(X_train)
-y_test_pred = model.predict(X_test)
-
-# Calculate Root Mean Squared Error (RMSE) for training and testing sets
-rmse_train = np.sqrt(np.mean((y_train - y_train_pred)**2))
-rmse_test = np.sqrt(np.mean((y_test - y_test_pred)**2))
-
-# Print the RMSE 
-print("Train RMSE:", round(rmse_train, 2))
-print("Test RMSE:", round(rmse_train, 2))
-
-# Print model summary
-model.summary()
-```
-![21](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/6fdf40e3-a4bd-4d89-9282-e443639a21ae)
-
-The model underwent training and testing on sets divided into 70% for training and 30% for testing. Through iterations, variables with p-values greater than 0.05 were removed. It achieved an R-squared (R²) value of 0.949 and an F-statistic of 1.155e+04. The Root Mean Square Error (RMSE) for both the training and testing models is 7638.74. Considering the [descriptive statistics of B1](#descriptive-statistics), with a mean of approximately 49985.76 and a standard deviation of around 71927.41, the Test RMSE of 7638.74 is notably smaller than both the mean and the standard deviation. This suggests that the model's predictions are relatively close to the actual values.
 
 ## Evaluate Model Performance
 
