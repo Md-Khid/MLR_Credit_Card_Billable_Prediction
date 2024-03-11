@@ -131,7 +131,7 @@ plt.show()
 ```
 ![3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/07663d5d-b3d7-4f77-8d55-d495c6d82b05)
 
-Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Age" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, we notice an anomalous age value present between -1 and 0, as well as in the range of 200. To address this anomaly, we will remove such values from the Age column.
+Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Education" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, we notice an anomalous age value present between -1 and 0, as well as in the range of 200. To address this anomaly, we will remove such values from the Age column.
 
 As for the overall data distribution plot
 
