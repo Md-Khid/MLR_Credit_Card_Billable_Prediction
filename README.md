@@ -739,8 +739,7 @@ y_test_pred = results.predict(X_test_selected).round(0)
 df_compare = pd.DataFrame({'Actual B1': y_test, 'Predicted B1': y_test_pred})
 df_compare
 ```
-
-![21](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/9a6d0952-830f-4694-9765-7eb11b454650)
+![21](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c14b8008-f98f-4047-9c49-a99588e7633f)
 
 Using the [test dataset](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Test.Data.csv) allows for further evaluation of the model's performance on unseen data. Based on the model's performance, the predictions are relatively close to the actual values, indicating that the model generalises well to new data.
 
