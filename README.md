@@ -360,8 +360,7 @@ Based on the density plots, they offer insights into how credit limits are distr
 
 - **Gender:** While both males and females exhibit similar credit limit distribution patterns, females tend to have slightly lower credit limits.
 
-- **Marital Status:** The density plot for marital status reveals that singles have a higher peak density at lower credit limits compared to married individuals. This suggests that single individuals tend to have lower credit limits.
-
+- **Marital Status:** The density plot for marital status indicates that married individuals have a higher peak density at lower credit limits compared to singles. This suggests that married individuals tend to have lower credit limits.
 
 #### Boxplot
 ```
