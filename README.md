@@ -364,32 +364,42 @@ Based on the density plots, they offer insights into how credit limits are distr
 
 #### Boxplot
 ```
-# Define variables for iteration
+# Define plot data
 plot_data = [
-    {'column_x': 'INCOME', 'column_y': 'EDUCATION', 'data': 'INCOME', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title':'.'},
-    {'column_x': 'BALANCE', 'column_y': 'EDUCATION', 'data': 'BALANCE', 'order': ['Others', 'Postgraduate', 'Tertiary', 'High School'], 'title':'.'}
+    {'column_x': 'INCOME', 'column_y': 'EDUCATION', 'data': 'INCOME', 'title': '.'},
+    {'column_x': 'BALANCE', 'column_y': 'EDUCATION', 'data': 'BALANCE', 'title': '.'}
 ]
 
-# Create figure with subplots
+# Custom color palette for education levels 
+custom_palette = {
+    'Others': '#1f78b4',        
+    'Postgraduate': '#33a02c',  
+    'Tertiary': '#fdbf6f',     
+    'High School': '#ff7f00'   
+}
+
+# Create subplots
 fig, axes = plt.subplots(1, len(plot_data), figsize=(15, 6))
 
-# Iterate plot_data and create subplots
 for i, plot_info in enumerate(plot_data):
-    # Calculate the mean for the current group and sort the order accordingly
+    # Calculate mean values and sort by order
     mean_values = df.groupby(plot_info['column_y'])[plot_info['column_x']].mean().sort_values(ascending=False).index
-    sns.boxplot(ax=axes[i], x=plot_info['column_x'], y=plot_info['column_y'], data=df, order=mean_values)
+
+    sns.boxplot(ax=axes[i], x=plot_info['column_x'], y=plot_info['column_y'],
+                data=df, order=mean_values, palette=custom_palette)
+
     axes[i].set_xlabel(plot_info['data'].capitalize())
     axes[i].set_ylabel('.')
     axes[i].set_title(plot_info['title'])
-    axes[i].set_xticklabels(axes[i].get_xticklabels(), rotation=45)  # Rotate x-axis labels
+    axes[i].set_xticklabels(axes[i].get_xticklabels(), rotation=45)
     axes[i].grid(False)
 
 plt.tight_layout()
 plt.show()
 ```
-![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4414a949-9d63-4ab9-920d-9d3956312a23)
+![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c2ec2fd9-3f03-4826-b20a-c1f5d9cce414)
 
-From the box plots, we observed that postgraduates, despite having a wider range of income, tend to have the lowest median balance among all education groups. This could indicate a potential relationship between education level and financial behaviour.
+From the box plots, we observed that Postgraduates, despite having a wider range of income, tend to exhibit the lowest median balance among the Others and Tertiary education groups. This observation suggests a potential relationship between education level and financial behavior.”
 
 - **Financial Management Skills:** Postgraduates could be more adept at managing finances due to their higher level of education. This could lead to greater awareness of the implications of maintaining high credit balances, resulting in more diligent payment of balances.
 
