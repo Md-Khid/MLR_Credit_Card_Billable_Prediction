@@ -671,7 +671,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 clf = LinearRegression()
 
 # Build step forward feature selection
-sfs1 = sfs(clf, k_features=, forward=True, floating=False, scoring='r2', cv=5)
+sfs1 = sfs(clf, k_features=3, forward=True, floating=False, scoring='r2', cv=5)
 
 # Perform SFFS
 sfs1 = sfs1.fit(X_train, y_train)
