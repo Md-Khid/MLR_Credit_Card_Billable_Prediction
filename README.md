@@ -659,9 +659,9 @@ print(f"Number of rows of outliers removed: {len(removed_outliers)}")
 
 Outliers can significantly influence the parameters and performance of statistical models. Removing outliers can help in achieving more accurate and stable model estimates, leading to better predictive performance.
 
-```
-# Multicollinearity 
+#### Multicollinearity 
 
+```
 # Get list of numerical predictor variables
 numeric_columns = df.select_dtypes(include=['float64', 'int64']).columns
 predictors = df[numeric_columns].drop(columns='B1')
