@@ -728,16 +728,18 @@ df_test = (pd.read_csv('Test.Data.csv')
 
 # Align the test data with training data
 X_test, y_test = df_test
-X_test = X_test.reindex(columns = X_train.columns, fill_value = 0)
+
+# Ensure X_test only includes the selected features
+X_test_selected = sm.add_constant(X_test[selected_features])
 
 # Make predictions 
-y_test_pred = model.predict(X_test).round(0)
+y_test_pred = results.predict(X_test_selected).round(0)
 
 # Compare actual and predicted B1 values
 df_compare = pd.DataFrame({'Actual B1': y_test, 'Predicted B1': y_test_pred})
 df_compare
 ```
-![22](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/af9e451d-f470-403b-9dd6-2c03d7a330f9)
+![21](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/abe00c91-84a3-4a64-91f1-8aa6e529e0f7)
 
 
 Using the [test dataset](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Test.Data.csv) allows for further evaluation of the model's performance on unseen data. Based on the model's performance, the predictions are relatively close to the actual values, indicating that the model generalises well to new data.
