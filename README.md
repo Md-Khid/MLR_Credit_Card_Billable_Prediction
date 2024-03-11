@@ -702,9 +702,10 @@ print(results.summary())
 
 The model underwent training and testing on sets divided into 70% for training and 30% for testing. Through iterations, variables with p-values greater than 0.05 were removed though forward varaible selection porcess . It achieved an R-squared (R²) value from 0.949 to 0.948, and despite the F-statistic increases from 1.614e+04 to 5.319e+04, both model provides a statistically significant prediction of the dependent variable from the independent variables. This is a good sign for the validity of your model. The Root Mean Square Error (RMSE) for both the training and testing models is 7638.74. Considering the [descriptive statistics of B1](#descriptive-statistics), with a mean of approximately 49985.76 and a standard deviation of around 71927.41, the Test RMSE for the 10 and 3 slection features (i.e 7478.54 and 7492.75) is notably smaller than both the mean and the standard deviation. This suggests that the model's predictions are relatively close to the actual values.
 
+<img width="369" alt="20 1" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/cd1eabc2-2999-4be3-8747-903197f1b6a7">
 
-<img width="319" alt="20 1" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3eaa5cfd-7684-4d3d-b68e-0195b4691bdb">
-<img width="321" alt="20 2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/111ab94e-3e40-44f4-a8ae-211f5af270d1">
+<img width="369" alt="20 2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/79533ef5-d85d-43d3-a5ed-c52da60c39cf">
+
 
 #### Multicollinearity 
 
