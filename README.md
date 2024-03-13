@@ -370,7 +370,7 @@ plot_data = [
     {'column_x': 'BALANCE', 'column_y': 'EDUCATION', 'data': 'BALANCE', 'title': '.'}
 ]
 
-# Custom color palette for education levels 
+# Custom colour palette for education levels 
 custom_palette = {
     'Others': '#1f78b4',        
     'Postgraduate': '#33a02c',  
@@ -467,7 +467,7 @@ variable_order = {
 
 # Iterate through each hue
 for hue in ['GENDER', 'EDUCATION', 'MARITAL']:
-    # Get the colorblind palette
+    # Get the colourblind palette
     hue_colors = sns.color_palette("colorblind", len(df[hue].unique()))
 
     # Create subplots for the current hue
