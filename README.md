@@ -40,9 +40,11 @@ In this phase of data processing, we will refine the dataset for analysis by add
 
 #### Import Data / Libraries/ Modules
 ```
+# Install mlxtend if needed
+#!pip install mlxtend
+
 # Import Libraries and Modules
 import pandas as pd
-import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
@@ -51,7 +53,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from sklearn.preprocessing import MinMaxScaler
-from sklearn.preprocessing import StandardScaler
 from mlxtend.feature_selection import SequentialFeatureSelector as sfs
 
 # Set a standard seaborn colour palette
