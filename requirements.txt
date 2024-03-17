@@ -1,0 +1,6 @@
+ipykernel==6.5.4
+jupyter==6.5.4
+spyder==5.4.3
+python==3.11.5
+pyqt5==5.15.7
+mlxtend==0.23.1
