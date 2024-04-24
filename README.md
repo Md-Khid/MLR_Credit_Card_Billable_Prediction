@@ -739,16 +739,16 @@ df_compare
 ```
 ![21](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/97673859-8ad3-4ce7-b943-e3b9baa791b1)
 
-Using the [test](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Test.Data.csv) dataset allows for further evaluation of the model's performance on unseen data. Based on the model's performance, the predictions are relatively close to the actual values, indicating that the model generalises well to new data.
+Using the [test](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Test.Data.csv) dataset allows for further evaluation of the model's performance on unseen data. Based on the model's performance, the predictions are relatively close to the actual values indicating that the model generalises well to new data.
 
 ### Conclusion
 
-In conclusion, this project has effectively addressed the objective of conducting a comprehensive analysis of the credit facility dataset, with a specific focus on predicting the billable amount (B1) for credit card customers. By employing data analytics techniques such as exploratory data analysis (EDA) and predictive modelling, valuable insights have been derived to assist financial institutions in accurately forecasting future billable amounts.
+In conclusion, this project has effectively addressed the objective of conducting a comprehensive analysis of the credit facility dataset, with a specific focus on predicting the billable amount (B1) for credit card customers. By employing data analytics techniques such as exploratory data analysis (EDA) and predictive modelling, valuable insights can be derived to assist financial institutions in accurately forecasting future billable amounts.
 
-Through iterative processes, a linear regression model was developed and refined, achieving a commendable R-squared (R²) value of 0.948 and an F-statistic of 5.319e+04 with the Root Mean Square Error (RMSE) of 7492.75, indicating the model's capability to make predictions with reasonable accuracy.
+Through iterative processes, a linear regression model was developed and refined, achieving a commendable R-squared (R²) value of 0.948 and an F-statistic of 5.319e+04 with the Root Mean Square Error (RMSE) of 7492.75 indicating the model's capability to make predictions with reasonable accuracy.
 
 Furthermore, evaluation using the test dataset revealed that the model's predictions closely aligned with the actual values, demonstrating its robustness in generalising to new data. This underscores the significance of rigorous model evaluation and refinement in ensuring the reliability of predictive analytics in the financial domain.
 
-Overall, this project contributes valuable insights to financial institutions, empowering them with data-driven tools to enhance decision-making processes and optimise resource allocation in managing credit facilities effectively.
+Overall, this project contributes valuable insights towards the use of data-driven tools to enhance decision-making processes and optimise resource allocation in managing credit facilities effectively.
 
 
