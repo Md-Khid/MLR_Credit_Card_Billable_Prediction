@@ -44,98 +44,20 @@ Based on the output, it seems that the R3 column contains special characters. To
 #### Encoding of Variables
 ![6](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c2304d19-e302-472e-9d7d-5a803abce688)
 
-Based on the output, it appears that the 'R3' column may require encoding. However, according to the data [dictionary](#data-dictionary), 'R3' is expected to be numerical. To address this, we can adjust the data type of the 'R3' column to align with that of the 'R1', 'R2', 'R4', and 'R5' columns. For now, we will refrain from encoding the remaining categorical variables, as we intend to utilise them for generating other frequency tables, bar charts, or graphical methods to comprehend their distribution and relationships with other variables.
+Based on the output, it appears that the 'R3' column may require encoding. However, based on the data structure, the  'R3' column is expected to be numerical. To address this, we can adjust the data type of the 'R3' column to align with that of the 'R1', 'R2', 'R4', and 'R5' columns. For now, we will refrain from encoding the remaining categorical variables, as we intend to utilise them for generating other frequency tables, bar charts, or graphical methods to comprehend their distribution and relationships with other variables.
 
 ## Exploratory Data Analysis 
 In this section, we will delve into comprehending the dataset. This encompasses tasks such as examining data distributions, identifying outliers, visualising correlations between variables, and detecting any irregularities or trends, then transforming the insights obtained into valuable information.
 
 #### Descriptive Statistics
-```
-# Create Descriptive Stats table 
-Descriptive_Stats = df.describe(include='all').round(2)
 
-# Separate columns into categorical and numerical groups
-categorical_columns = Descriptive_Stats.select_dtypes(include=['object']).columns
-numeric_columns = Descriptive_Stats.select_dtypes(exclude=['object']).columns
-
-# Order columns (categorical followed by numerical)
-ordered_columns = list(categorical_columns) + list(numeric_columns)
-Descriptive_Stats = Descriptive_Stats.reindex(ordered_columns, axis=1)
-
-# Transpose Descriptive Stats table 
-Descriptive_Stats = Descriptive_Stats.transpose()
-
-Descriptive_Stats
-```
 ![7](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/566c5a7f-fc1a-453d-bc91-67146d0f241a)
 
-Insights from Descriptive Statistics
-- **Gender and Marital Status:**
-  - The majority of customers are female (62%) and married.
-  - This might indicate that married individuals, particularly females, are more likely to have credit cards or engage in banking activities.
-
-- **Education Level:**
-  - The most common education level among customers is tertiary education.
-  - This suggests that individuals with higher education levels are more prevalent in the dataset.
-
-- **Age Distribution:**
-  - The average age of customers is approximately 35.55 years, with a standard deviation of 9.16.
-  - This indicates that the customer base is relatively young, with a considerable spread in ages.
-
-- **Credit Limits and Balances:**
-  - The mean credit limit is $168,359.54, while the mean balance is $9,110.24.
-  - On average, customers have significant credit limits compared to their current balances.
-
-- **Income:**
-  - The mean income of customers is $177,858.19, with a wide standard deviation of $143,137.41.
-  - This indicates a diverse range of income levels among customers.
-
-- **Repayment Amounts:**
-  - The mean repayment amounts (R1, R2, R3, R4, R5) are relatively low compared to the credit limits and balances.
-  - This could indicate that customers are not fully utilising their credit or are making minimum payments.
-
-
 #### Scaling Numerical Features
-```
-# Apply Min-Max scaling to numerical columns
-scaler = MinMaxScaler()
-df[numeric_columns] = scaler.fit_transform(df[numeric_columns])
-df
-```
+
 <img width="500" alt="8" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/532ad846-952a-437c-aeaa-313499149aeb">
 
-Scaling numerical variables in a dataset helps in understanding the relationships between variables, particularly when creating scatterplots and conducting correlation analysis. It ensures that variables are comparable on a similar scale, facilitating more accurate interpretation of their relationships.
-
 #### Heatmap
-```
-def plot_corr_and_print_highly_correlated(df):
-    # Create a correlation matrix
-    corr_matrix = df.select_dtypes(include='number').corr()
-
-    # Plot heatmap
-    plt.figure(figsize=(10, 5))
-    sns.heatmap(corr_matrix, annot=True, fmt=".2f", linewidths=.5)
-    plt.show()
-
-    # Create a mask for correlations greater than 0.7
-    high_corr = corr_matrix[corr_matrix > 0.7]
-
-    # Get pairs of highly correlated variables
-    high_corr_pairs = [(i, j) for i in high_corr.columns for j in high_corr.index if (high_corr[i][j] > 0.7) & (i != j)]
-
-    # Sort each pair and remove duplicates
-    high_corr_pairs = list(set([tuple(sorted(pair)) for pair in high_corr_pairs]))
-
-    # Sort the pairs alphabetically
-    high_corr_pairs = sorted(high_corr_pairs)
-
-    print("Pairs of variables with correlation greater than 0.7:")
-    for pair in high_corr_pairs:
-        print(pair)
-        
-# Call the function
-plot_corr_and_print_highly_correlated(df)
-```
 
 ![9 (1)](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/d39dac92-ecf0-4df2-a5e3-e8cb1b2dadcb)
 ![9 (2)](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/3e114827-515b-48cc-95e3-e480df0fd309)
@@ -154,29 +76,11 @@ Based on the heatmap, the correlations between the variables suggest
 
 - **('INCOME', 'LIMIT')**: This correlation may offer insights into the relationship between a customer's income and their credit limit. A strong positive correlation could imply that customers with higher incomes tend to have higher credit limits, while a weak or negative correlation may suggest otherwise.
 
-
 #### Density Plot
-```
-# Create figure with three subplots
-fig, axes = plt.subplots(1, 3, figsize=(18, 6))
 
-# Define variables
-plot_data = [('EDUCATION', 'Education Level', ['Others', 'Postgraduate', 'Tertiary', 'High School']),
-             ('GENDER', 'Gender', ['Male', 'Female']),
-             ('MARITAL', 'Marital Status', ['Others', 'Single', 'Married'])]
-
-# Plot each density plot in a subplot
-for ax, (variable, title, labels) in zip(axes, plot_data):
-    sns.kdeplot(data=df, x='LIMIT', hue=variable, fill=True, ax=ax)
-    ax.set(xlabel='LIMIT', ylabel='Density')
-    ax.legend(title=variable, labels=labels)
-
-plt.tight_layout()
-plt.show()
-```
 ![10](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/237d246a-405f-4555-8d5d-3dcf66497e82)
 
-Based on the density plots, they offer insights into how credit limits are distributed among different groups of customers, which can inform the bank's customer preferences.
+Based on the density plots:
 
 - **Education:** Customers with tertiary education tend to have similar credit limits, suggesting that the bank may prefer to offer similar credit options to individuals with higher education levels.
 
@@ -185,40 +89,7 @@ Based on the density plots, they offer insights into how credit limits are distr
 - **Marital Status:** The density plot for marital status indicates that married individuals have a higher peak density at lower credit limits compared to singles. This suggests that married individuals tend to have lower credit limits.
 
 #### Boxplot
-```
-# Define plot data
-plot_data = [
-    {'column_x': 'INCOME', 'column_y': 'EDUCATION', 'data': 'INCOME', 'title': '.'},
-    {'column_x': 'BALANCE', 'column_y': 'EDUCATION', 'data': 'BALANCE', 'title': '.'}
-]
 
-# Custom colour palette for education levels 
-custom_palette = {
-    'Others': '#1f78b4',        
-    'Postgraduate': '#33a02c',  
-    'Tertiary': '#fdbf6f',     
-    'High School': '#ff7f00'   
-}
-
-# Create subplots
-fig, axes = plt.subplots(1, len(plot_data), figsize=(15, 6))
-
-for i, plot_info in enumerate(plot_data):
-    # Calculate mean values and sort by order
-    mean_values = df.groupby(plot_info['column_y'])[plot_info['column_x']].mean().sort_values(ascending=False).index
-
-    sns.boxplot(ax=axes[i], x=plot_info['column_x'], y=plot_info['column_y'],
-                data=df, order=mean_values, palette=custom_palette)
-
-    axes[i].set_xlabel(plot_info['data'].capitalize())
-    axes[i].set_ylabel('.')
-    axes[i].set_title(plot_info['title'])
-    axes[i].set_xticklabels(axes[i].get_xticklabels(), rotation=45)
-    axes[i].grid(False)
-
-plt.tight_layout()
-plt.show()
-```
 ![11](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c2ec2fd9-3f03-4826-b20a-c1f5d9cce414)
 
 From the box plots, we observed that Postgraduates, despite having a wider range of income, tend to exhibit the lowest median balance among the Others and Tertiary education groups. This observation suggests a potential relationship between education level and financial behavior.”
@@ -231,36 +102,8 @@ From the box plots, we observed that Postgraduates, despite having a wider range
 
 - **Debt Aversion:** Postgraduates might be more averse to accumulating debt.
 
-
 #### Scatterplot
-```
-# Define education levels and corresponding colours
-unique_education = df['EDUCATION'].unique()
-colors = plt.cm.tab10.colors[:len(unique_education)]
 
-# Define variables to plot
-variables = ['B1', 'B2', 'B3', 'B4', 'B5']
-
-# Create subplots
-fig, axes = plt.subplots(2, 3, figsize=(18, 12))
-axes = axes.flatten()
-
-# Plotting
-for ax, variable in zip(axes, variables):
-    for color, education in zip(colors, unique_education):
-        data = df[df['EDUCATION'] == education]
-        ax.scatter(data[variable], data['LIMIT'], color=color, label=education, alpha=0.6)
-    ax.set_xlabel(variable)
-    ax.set_ylabel('LIMIT')
-    ax.legend()
-
-# Hide empty subplots
-for ax in axes[len(variables):]:
-    fig.delaxes(ax)
-
-plt.tight_layout()
-plt.show()
-```
 ![12](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/d15f03a0-cd00-4180-bef6-a52bea8a3d64)
 
 Based on the scatter plots
@@ -273,54 +116,6 @@ Based on the scatter plots
 
 - **Similar Distribution Across All Plots:** The distribution and concentration of data points are similar across all five scatter plots (B1 to B5). This could imply that the billable amount in each month (B1 to B5) has a similar relationship with the total limit.
 
-
-```
-# Define variables to plot
-variables = ['S1', 'S2', 'S3', 'S4', 'S5']
-
-# Define the order of categories for each variable
-variable_order = {
-    'S1': ['Prompt', 'Min Sum', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'],
-    'S2': ['Prompt', 'Min Sum', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'],
-    'S3': ['Prompt', 'Min Sum', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'],
-    'S4': ['Prompt', 'Min Sum', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'],
-    'S5': ['Prompt', 'Min Sum', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight']
-}
-
-# Iterate through each hue
-for hue in ['GENDER', 'EDUCATION', 'MARITAL']:
-    # Get the colourblind palette
-    hue_colors = sns.color_palette("colorblind", len(df[hue].unique()))
-
-    # Create subplots for the current hue
-    fig, axes = plt.subplots(2, 3, figsize=(18, 12))
-    axes = axes.flatten()
-
-    # Plotting
-    for ax, variable in zip(axes, variables):
-        # Ensure df contains the current hue column
-        if hue in df.columns:
-            sns.stripplot(x=df[variable], y=df['B1'], hue=df[hue], ax=ax, palette=hue_colors, order=variable_order[variable], jitter=True, dodge=True)
-            ax.set_xlabel(variable if variable not in variables[3:] else '')
-            ax.set_ylabel('B1')
-            ax.grid(True)
-
-            # Create a legend for the current hue
-            handles = [plt.Line2D([0], [0], marker='o', color='w', markerfacecolor=color, markersize=10) for color in hue_colors]
-            ax.legend(handles, df[hue].unique(), loc='upper right')
-        else:
-            print(f"Warning: DataFrame does not contain column '{hue.upper()}'")
-
-    # Hide empty subplots
-    for ax in axes[len(variables):]:
-        fig.delaxes(ax)
-
-    plt.tight_layout()
-    plt.show()
-
-
-```
-
 ![13 1](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/ac878d31-38cf-4d0e-a0ed-8f1f5320c500)
 
 Based on the GENDER groups
@@ -330,7 +125,6 @@ Based on the GENDER groups
 - **Delayed Payments:** There are fewer data points in the delayed payment categories (“One” to “Eight”), indicating that most customers avoid delayed payments. This could be due to various reasons such as financial discipline, avoidance of penalties, or maintaining a good credit score.
 
 - **Gender Distribution:** The distribution of male and female customers is fairly similar across all categories of repayment status. This suggests that gender does not significantly influence the repayment status.
-
 
 
 ![13 2](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/dba771d7-2382-48fc-81be-17b5e7f47d94)
@@ -346,7 +140,6 @@ Based on the EDUCATION groups
 
 ![13 3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0f36a92f-02f1-4a24-847c-f557c97b13cc)
 
-
 Based on the MARITAL groups
 
 - **Prompt and Minimum Sum Payments:** Across all five scatter plots (B1 vs. each of the five repayment statuses), there is a concentration of data points at the “Prompt Sum” and “Min Sum” categories for all marital statuses. This suggests that most customers, regardless of their marital status, tend to make at least minimum payments promptly.
@@ -356,24 +149,6 @@ Based on the MARITAL groups
 - **Marital Status Distribution:** The distribution of customers across different marital statuses is fairly similar across all categories of repayment status. This suggests that the customer’s marital status does not significantly influence the repayment status.
 
 
-```
-# Define variables 
-variables = ['BALANCE', 'AGE']
-
-# Create figure with subplots
-fig, axes = plt.subplots(1, 2, figsize=(15, 5))
-
-# Plotting
-for i, var in enumerate(variables):
-    ax = axes[i]
-    sns.scatterplot(data=df, x=var, y='INCOME', hue='RATING', palette={'Good': sns.color_palette()[0], 'Bad': sns.color_palette()[3]}, alpha=0.6, ax=ax)
-    ax.set_xlabel(var)
-    ax.set_ylabel('INCOME')
-    ax.legend(title='RATING')
-
-plt.tight_layout()
-plt.show()
-```
 ![14](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/f72ce5e9-ecf3-4422-b3c2-12337e724e70)
 
 
@@ -388,27 +163,7 @@ Based on the INCOME scatterplots
 
 #### Barplot
 
-```
-# Create figure with subplots
-fig, axes = plt.subplots(1, 3, figsize=(20, 5))
-
-# Calculate frequencies for each rating category for GENDER, MARITAL, and EDUCATION
-for ax, category in zip(axes, ['GENDER', 'MARITAL', 'EDUCATION']):
-    # Count the occurrences of each category in the RATING column
-    education_counts = df[df['RATING'].isin(['Good', 'Bad'])].groupby([category, 'RATING']).size().unstack(fill_value=0)
-
-    # Plotting with sorted frequencies
-    education_counts.sort_values(by='Good', ascending=False).plot(kind='bar', stacked=True, ax=ax, color={'Good': sns.color_palette()[0], 'Bad': sns.color_palette()[3]}, alpha=0.6)
-    ax.set_xlabel(category)
-    ax.set_ylabel('Frequency')
-    ax.legend(title='RATING')
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=45)  # Rotate x-axis labels
-
-plt.tight_layout()
-plt.show()
-```
 ![16](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/fcf95cd9-9a60-457b-8f28-943c88d2ce8d)
-
 
 Based on the bar graphs
 
@@ -419,108 +174,29 @@ Based on the bar graphs
 **Education:** The graph shows that the majority of customers have a tertiary education, followed by postgraduate, high school, and others. Across all education levels, the majority of customers have good ratings, with slightly higher proportions observed among tertiary and postgraduate customers.
 
 
-
 ## Linear Regression Modelling
 In this phase, we will construct a linear regression model to forecast the variable B1
 
 #### Reverting
-```
-# Revert to original scale
-df[numeric_columns] = scaler.inverse_transform(df[numeric_columns])
-df
-```
+
 ![17](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/98dccfd2-3362-4911-b0c2-84cd10ba7d03)
 
-Reverting the scaled predictions back to their original scale is essential for accurate evaluation. This process enables us to compare the model's predictions directly with the original target variable values. Without reverting the predictions, the evaluation metrics would be calculated on a different scale, leading to inaccurate assessments of the model's performance.
+Reverting the scaled predictions back to their original scale is essential for accurate evaluation. 
 
 
 #### Dummy Variables
-```
-# Dummy columns
-df = pd.get_dummies(df, columns=['RATING','GENDER','EDUCATION','MARITAL','S1','S2','S3','S4','S5'])
 
-# Convert boolean columns to integers (1 and 0)
-df[df.select_dtypes(include=bool).columns] = df.select_dtypes(include=bool).astype(int)
-df
-```
 <img width="492" alt="18" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/82588fa7-c399-4d80-b91d-d2bcfa4db616">
 
-Dummy variables are utilised to represent categorical data in a numerical format, primarily to meet the requirements of various machine learning algorithms and statistical models. These models typically necessitate numerical input for processing. By encoding categorical variables as dummy variables, we can effectively convert them into a format that can be directly inputted into these models. This ensures compatibility and seamless integration of categorical data into the modelling process, facilitating the analysis and prediction tasks performed by the algorithms.
+Dummy variables are utilised to represent categorical data in a numerical format, primarily to meet the requirements of various machine learning algorithms and statistical models. These models typically necessitate numerical input for processing. 
 
 #### Remove Outliers
-```
-# Identify numerical columns
-numeric_columns = df.select_dtypes(include=['float64', 'int64']).columns
 
-# IQR function to identify outliers
-def identify_outliers_iqr(series):
-    Q1 = series.quantile(0.25)
-    Q3 = series.quantile(0.75)
-    IQR = Q3 - Q1
-    lower_bound = Q1 - 1.5 * IQR
-    upper_bound = Q3 + 1.5 * IQR
-    outliers = (series < lower_bound) | (series > upper_bound)
-    return outliers
-
-# Apply the function
-outliers = df[numeric_columns].apply(identify_outliers_iqr)
-
-# Keep a copy of original DataFrame
-df_with_outliers = df.copy()
-
-# Remove outliers
-df = df[~outliers.any(axis=1)]
-
-# Get the rows of outliers that have been removed
-removed_outliers = df_with_outliers[outliers.any(axis=1)]
-
-# Print the number of rows of outliers that have been removed
-print(f"Number of rows of outliers removed: {len(removed_outliers)}")
-```
 <img width="362" alt="19" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/0a238edd-dadb-408d-bd0a-06f3af3140cf">
 
 Outliers can significantly influence the parameters and performance of statistical models. Removing outliers can help in achieving more accurate and stable model estimates, leading to better predictive performance.
 
 ### Modelling
-```
-# Define predictors and target variable 
-X = df.drop(columns=['B1'])  # Features (exclude the target variable)
-y = df['B1']  # Target variable
-
-# Split data into training set and testing set
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-clf = LinearRegression()
-
-# Build step forward feature selection
-sfs1 = sfs(clf, k_features=3, forward=True, floating=False, scoring='r2', cv=5)
-
-# Perform SFFS
-sfs1 = sfs1.fit(X_train, y_train)
-
-# Get selected features
-selected_features = list(sfs1.k_feature_names_)
-
-# Fit the model using selected features
-X_train_selected = sm.add_constant(X_train[selected_features])
-model = sm.OLS(y_train, X_train_selected)
-results = model.fit()
-
-# Predict target variable for the training and testing set
-y_train_pred = results.predict(X_train_selected)
-X_test_selected = sm.add_constant(X_test[selected_features])
-y_test_pred = results.predict(X_test_selected)
-
-# Calculate the RMSE for training and testing set
-rmse_train = sqrt(mean_squared_error(y_train, y_train_pred))
-rmse_test = sqrt(mean_squared_error(y_test, y_test_pred))
-
-print(f'Training RMSE: {round(rmse_train, 2)}')
-print(f'Testing RMSE: {round(rmse_test, 2)}')
-
-# Print the model summary
-print(results.summary())
-```
 
 The model underwent training and testing on datasets divided into 70% for training and 30% for testing. During this process, variables with p-values greater than 0.05 were iteratively removed using forward variable selection. Despite this refinement, the model maintained its predictive capability, as evidenced by an R-squared (R²) value that remained high, shifting marginally from 0.949 to 0.948. Additionally, while the F-statistic increased substantially from 1.614e+04 to 5.319e+04, both iterations of the model continued to provide statistically significant predictions of the dependent variable based on the independent variables.
 
@@ -533,31 +209,6 @@ The Root Mean Square Error (RMSE) difference for the training and testing models
 
 ## Evaluate Model Performance
 
-```
-# Define columns for dummy encoding
-dummy_cols = ['RATING','GENDER','EDUCATION','MARITAL','S1','S2','S3','S4','S5']
-
-# Load and preprocess test data
-df_test = (pd.read_csv('Test.Data.csv')
-             .iloc[:, 1:]
-             .pipe(pd.get_dummies, columns=dummy_cols)
-             .assign(**{col: lambda df: df[col].astype(int) for col in df.select_dtypes(include=bool).columns})
-             .pipe(lambda df: (sm.add_constant(df.drop(columns=['B1'])), df['B1']))
-          )
-
-# Align the test data with training data
-X_test, y_test = df_test
-
-# Ensure X_test only includes the selected features
-X_test_selected = sm.add_constant(X_test[selected_features])
-
-# Make predictions 
-y_test_pred = results.predict(X_test_selected).round(0)
-
-# Compare actual and predicted B1 values
-df_compare = pd.DataFrame({'Actual B1': y_test, 'Predicted B1': y_test_pred})
-df_compare
-```
 ![21](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/97673859-8ad3-4ce7-b943-e3b9baa791b1)
 
 Using the [test](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Test.Data.csv) dataset allows for further evaluation of the model's performance on unseen data. Based on the model's performance, the predictions are relatively close to the actual values indicating that the model generalises well to new data.
