@@ -17,7 +17,6 @@ In this phase of data processing, we will refine the dataset for analysis by add
 
 ### Data Pre-processing:
 
-```
 <img width="498" alt="1" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/f11a32b9-4a8f-4951-ab65-eb580a723ae2">
 
 #### Check Missing Values
