@@ -10,27 +10,6 @@ The objective of this project is to conduct an in-depth analysis of a credit fac
 The dataset comprises various attributes pertaining to customers' credit facilities, including demographic details, outstanding balances, repayment histories, and socio-economic indicators. These variables serve as the foundation for our analysis and predictive modelling process.
 [Dataset](https://github.com/Md-Khid/Linear-Regression-Modelling/blob/main/Data.csv)
 
-### Data Dictionary
-
-| Variable  | Description                                       |
-|-----------|---------------------------------------------------|
-| ID        | Customer unique identifier                         |
-| LIMIT     | Customer total limit                              |
-| BALANCE   | Customer current credit balance (snapshot in time)|
-| INCOME    | Customer current income                           |
-| GENDER    | Customer gender (0: Male, 1: Female)             |
-| EDUCATION | Customer highest education attained (0: Others, 1: Postgraduate, 2: Tertiary, 3: High School)|
-| MARITAL   | Customer marital status(0: Others, 1: Single, 2: Married)|
-| AGE       | Customer age in years                             |
-| S(n)      | Customer repayment reflected status in nth month (-1; Prompt payment, 0: Minimum sum payment, x = Delayed payment for x month(s))|
-| B(n)      | Customer billable amount in nth month             |
-| R(n)      | Customer previous repayment amount, paid in nth month|
-| RATING    | Customer rating (0: Good, 1: Bad)                |
-
-##### **Note**:
-##### n=1 signifies the most recent month, while n=5 signifies the previous 4th month. 
-##### If n=1 is the month of May, then n=5 is the month of January.
-
 
 ## Data Preparation
 
@@ -38,50 +17,6 @@ In this phase of data processing, we will refine the dataset for analysis by add
 
 ### Data Pre-processing:
 
-#### Import Data / Libraries/ Modules
-```
-# Install mlxtend if needed
-#!pip install mlxtend
-
-# Import Libraries and Modules
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import statsmodels.api as sm
-from math import sqrt
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
-from sklearn.preprocessing import MinMaxScaler
-from mlxtend.feature_selection import SequentialFeatureSelector as sfs
-
-# Set a standard seaborn colour palette
-sns.set_palette("colorblind")
-
-# Load data
-df = pd.read_csv('Data.csv')
-
-# Drop first column 
-df = df.iloc[:, 1:]
-
-# Define mapping dictionaries for categorical columns
-mappings = {
-    'GENDER': {0: 'Male', 1: 'Female'},
-    'EDUCATION': {0: 'Others', 1: 'Postgraduate', 2: 'Tertiary', 3: 'High School'},
-    'MARITAL': {0: 'Others', 1: 'Single', 2: 'Married'},
-    'RATING': {0: 'Good', 1: 'Bad'},
-    'S': {-1: 'Prompt', 0: 'Min Sum', 1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six', 7: 'Seven', 8: 'Eight', 9: 'Nine'}
-}
-
-# Convert columns to categorical and apply mappings
-for col, mapping in mappings.items():
-    if col in df.columns:
-        df[col] = df[col].map(mapping)
-    else:
-        for s_col in df.columns[df.columns.str.startswith(col)]:
-            df[s_col] = df[s_col].map(mapping)
-            
-df
 ```
 <img width="498" alt="1" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/f11a32b9-4a8f-4951-ab65-eb580a723ae2">
 
