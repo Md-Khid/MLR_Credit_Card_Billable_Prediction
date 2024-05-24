@@ -21,49 +21,12 @@ In this phase of data processing, we will refine the dataset for analysis by add
 
 #### Check Missing Values
 
-```
-# Calculate number of missing values 
-missing_values = df.isnull().sum()
-
-# Filter the missing_values
-columns_with_missing_values = missing_values[missing_values > 0]
-
-# Display columns with missing values
-columns_with_missing_values
-```
 <img width="204" alt="2" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/50421406-5b9c-4957-8a2d-31fd37c091e2">
 
 Based on the output, it seems that the columns "Limit," "Balance," "Education," "Marital," and "Age" contain some missing values. To address this issue, we need to analyse the distribution of each column to decide on the most appropriate method for replacing the missing values. Possible approaches include using the mean, median, or mode depending on the data distribution.
 
 #### View Data Distribution
-```
-# Create subplots
-fig, axes = plt.subplots(2, 3, figsize=(18, 10))
 
-# Define columns to plot
-columns = ['LIMIT', 'BALANCE', 'AGE', 'MARITAL', 'EDUCATION']
-
-# Iterate over columns and plot them
-for i, column in enumerate(columns):
-    row = i // 3
-    col = i % 3
-    sns.histplot(df[column], kde=False, ax=axes[row, col])
-    axes[row, col].set_title(f'Distribution of {column}')
-    if column in ['LIMIT', 'BALANCE', 'AGE']:
-        axes[row, col].axvline(df[column].median(), color='red', linestyle='--', label='Median')
-        axes[row, col].legend()
-
-# Remove gridlines from subplots
-for ax in axes.flatten():
-    ax.grid(False)
-    
-# Hide empty subplots
-for i in range(len(columns), axes.size):
-    fig.delaxes(axes.flatten()[i])
-
-plt.tight_layout()
-plt.show()
-```
 ![3](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/07663d5d-b3d7-4f77-8d55-d495c6d82b05)
 
 Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Education" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, we notice an anomalous age value present between -1 and 0, as well as in the range of 200. To address this anomaly, we will remove such values from the Age column.
