@@ -42,22 +42,8 @@ Given the positively skewed distribution of data in the "Limit," "Balance," and 
 Based on the output, it seems that the R3 column contains special characters. To address this, we replace these characters with an empty string.
 
 #### Encoding of Variables
-```
-# Identify categorical variables
-categorical_variables = df.select_dtypes(include=['object', 'category']).columns
-
-# Check for categorical variables that need encoding
-if categorical_variables.empty:
-    print("No categorical variables need encoding.")
-else:
-    print("The following categorical variables need encoding:\n" + "\n".join(categorical_variables))
-```
 ![6](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c2304d19-e302-472e-9d7d-5a803abce688)
 
-```
-# Convert 'R3' column to the same data type as 'R1', 'R2', 'R4', and 'R5'
-df['R3'] = df['R3'].astype(df['R1'].dtype)
-```
 Based on the output, it appears that the 'R3' column may require encoding. However, according to the data [dictionary](#data-dictionary), 'R3' is expected to be numerical. To address this, we can adjust the data type of the 'R3' column to align with that of the 'R1', 'R2', 'R4', and 'R5' columns. For now, we will refrain from encoding the remaining categorical variables, as we intend to utilise them for generating other frequency tables, bar charts, or graphical methods to comprehend their distribution and relationships with other variables.
 
 ## Exploratory Data Analysis 
