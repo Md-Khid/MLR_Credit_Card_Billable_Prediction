@@ -31,77 +31,15 @@ Based on the output, it seems that the columns "Limit," "Balance," "Education," 
 
 Given the positively skewed distribution of data in the "Limit," "Balance," and "Age" columns, we can replace the missing values with the median values. For the "Marital" and "Education" columns, we can replace the missing values with the mode. Additionally, upon inspecting the Age distribution, we notice an anomalous age value present between -1 and 0, as well as in the range of 200. To address this anomaly, we will remove such values from the Age column.
 
-As for the overall data distribution plot
-
-- **Credit Limits:**
-  - Most customers have a credit limit below 200,000, with a significant number having limits around 50,000.
-  - This suggests that the bank is cautious in extending high credit limits.
-
-- **Balance:**
-  - A large number of customers have low balances, indicating they are not utilising their full credit limit.
-  - This could suggest that most customers are financially responsible and avoid maxing out their credit.
-
-- **Age Distribution:**
-  - The majority of customers are between 25 and 40 years old.
-  - This could be the bank’s target demographic for credit card products.
-
-- **Marital Status:**
-  - There are more married customers than single or others.
-  - This could suggest that married couples are more likely to apply for credit cards, reflecting the demographic profile of the bank’s customer base.
-
-- **Education:**
-  - Most customers have attained tertiary education followed by high school.
-  - This could indicate that individuals with higher education levels are more likely to have credit cards.
-
 #### Replace Missing Values and Remove Data Errors 
 
-```
-# Remove rows where 'Age' column has a value of 0, -1, or 100 and above
-df = df[(df['AGE'] > 0) & (df['AGE'] < 100)].copy()
-
-# Specify columns and corresponding fill methods
-columns_to_fill = {
-    'LIMIT': 'median',
-    'BALANCE': 'median',
-    'AGE': 'median',
-    'MARITAL': 'mode',
-    'EDUCATION': 'mode'
-}
-
-# Fill missing values in columns
-for column, method in columns_to_fill.items():
-    if method == 'median':
-        df[column].fillna(df[column].median(), inplace=True)
-    elif method == 'mode':
-        df[column].fillna(df[column].mode()[0], inplace=True)
-
-# Display number of columns with missing values
-count_missing_values = df.isnull().sum().sum()
-count_missing_values
-```
 <img width="60" alt="4" src="https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/c5a78a38-3298-46d3-8e58-eafc9bf212b0">
 
 #### Removing Special Characters
-```
-# Define special characters
-special_chars = "!@#$%^&"
 
-# Iterate over each column 
-for column in df.columns:
-    # Iterate over each row in current column
-    for index, value in df[column].items():
-        # Check if value contains any special characters
-        if any(char in special_chars for char in str(value)):
-            print(f"Special characters found in column '{column}', row {index}: {value}")
-```
 ![5](https://github.com/Md-Khid/Multiple-Linear-Regression/assets/160820522/4d33be7e-10a6-45f9-a8ca-c3815c337f72)
 
-```
-# Remove special characters ('$' and ',') and spaces from column 'R3'
-df['R3'] = df['R3'].str.replace("$", "").str.replace(",", "").str.replace(" ", "")
-```
 Based on the output, it seems that the R3 column contains special characters. To address this, we replace these characters with an empty string.
-
 
 #### Encoding of Variables
 ```
